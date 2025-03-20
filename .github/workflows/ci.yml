@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取完整提交历史（为某些 pnpm 场景优化）
+
+      - name: Enable Corepack (激活 pnpm)
+        run: corepack enable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "pnpm" # 自动配置 pnpm 缓存路径
+
+      - name: Cache pnpm store (精准缓存)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pnpm-store
+            node_modules/.pnpm  # 补充精准路径
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies (优化参数)
+        run: pnpm install --frozen-lockfile --prefer-offline
+
+      - name: Run prettier
+        run: pnpm run lint:format # 统一使用 pnpm 执行命令
+
+      - name: Run eslint
+        run: pnpm run lint:fix
+
+      # - name: Run tests & Generate Coverage
+      #   run: pnpm test
+
+      # - name: Build project
+      #   run: pnpm build
