@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0 # 获取完整提交历史（为某些 pnpm 场景优化）
 
-      - name: Enable Corepack (激活 pnpm)
+      - name: Enable Corepack
         run: corepack enable
 
       - name: Set up Node.js
@@ -23,7 +23,7 @@ jobs:
           node-version: "20.x"
           cache: "pnpm" # 自动配置 pnpm 缓存路径
 
-      - name: Cache pnpm store (精准缓存)
+      - name: Cache pnpm store
         uses: actions/cache@v4
         with:
           path: |
@@ -33,7 +33,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      - name: Install dependencies (优化参数)
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Run prettier
