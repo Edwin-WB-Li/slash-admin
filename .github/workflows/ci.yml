@@ -1,12 +1,8 @@
 name: CI
 
 on:
-  # push:
-  #   branches:
-  #     - dev
   pull_request:
-    branches:
-      - master
+    branches: [master]
 
 jobs:
   build:
@@ -16,49 +12,38 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 获取完整提交历史
+          fetch-depth: 0 # 获取完整提交历史（为某些 pnpm 场景优化）
+
+      - name: Enable Corepack (激活 pnpm)
+        run: corepack enable
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          # 启用 Corepack 并安装指定版本 pnpm
-          cache: "pnpm"
+          cache: "pnpm" # 自动配置 pnpm 缓存路径
 
-      - name: Cache pnpm modules
+      - name: Cache pnpm store (精准缓存)
         uses: actions/cache@v4
         with:
           path: |
             ~/.pnpm-store
-            .pnpm/*
+            node_modules/.pnpm  # 补充精准路径
           key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      - name: Install dependencies
-        run: pnpm install -frozen-lockfile --prefer-offline
+      - name: Install dependencies (优化参数)
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Run prettier
-        run: npm run lint:format
+        run: pnpm run lint:format # 统一使用 pnpm 执行命令
 
       - name: Run eslint
-        run: npm run lint:fix
+        run: pnpm run lint:fix
 
       # - name: Run tests & Generate Coverage
-      #   run: npm run test
+      #   run: pnpm test
 
       # - name: Build project
-      #   run: npm run build
-
-      # - name: SonarCloud Scan
-      #   uses: SonarSource/sonarqube-scan-action@v4.1.0
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # 用于 PR 注释
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #   with:
-      #     args: >
-      #       -Dsonar.projectKey=Edwin-WB-Li_nest-api
-      #       -Dsonar.organization=edwin-wb-li
-      #       -Dsonar.sources=src
-      #       -Dsonar.tests=src/test
-      #       -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      #   run: pnpm build
