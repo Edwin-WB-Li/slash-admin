@@ -21,18 +21,22 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: "20.x"
+          # 启用 Corepack 并安装指定版本 pnpm
+          cache: "pnpm"
 
-      - name: Cache Node.js modules
+      - name: Cache pnpm modules
         uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: |
+            ~/.pnpm-store
+            ​**/node_modules
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-pnpm-
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install -frozen-lockfile --prefer-offline
 
       - name: Run prettier
         run: npm run lint:format
