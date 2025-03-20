@@ -1,7 +1,7 @@
-import { cn } from "@/utils";
-import { forwardRef } from "react";
-import SimpleBar, { type Props as SimplebarProps } from "simplebar-react";
-import styled from "styled-components";
+import { cn } from '@/utils';
+import { forwardRef } from 'react';
+import SimpleBar, { type Props as SimplebarProps } from 'simplebar-react';
+import styled from 'styled-components';
 
 export type ScrollbarProps = SimplebarProps & {
 	fillContainer?: boolean;
@@ -18,7 +18,7 @@ const Scrollbar = forwardRef<HTMLElement, ScrollbarProps>(
 				scrollableNodeProps={{ ref }}
 				clickOnTrack={false}
 				{...other}
-				className={cn("", className)}
+				className={cn('', className)}
 			>
 				{children}
 			</ScrollbarRoot>
@@ -29,9 +29,9 @@ const Scrollbar = forwardRef<HTMLElement, ScrollbarProps>(
 export default Scrollbar;
 
 const ScrollbarRoot = styled(SimpleBar).withConfig({
-	shouldForwardProp: (prop: string) => !["fillContainer"].includes(prop),
-	displayName: "ScrollbarRoot",
-})<Pick<ScrollbarProps, "fillContainer">>`
+	shouldForwardProp: (prop: string) => !['fillContainer'].includes(prop),
+	displayName: 'ScrollbarRoot',
+})<Pick<ScrollbarProps, 'fillContainer'>>`
   min-width: 0;
   min-height: 0;
   max-height: 100%;

@@ -1,5 +1,5 @@
-import { ReloadOutlined } from "@ant-design/icons";
-import { Switch } from "antd";
+import { ReloadOutlined } from '@ant-design/icons';
+import { Switch } from 'antd';
 
 type Props = {
 	isText: boolean;
@@ -8,13 +8,7 @@ type Props = {
 	onChangeMulti: (isMulti: boolean) => void;
 	onRefresh: VoidFunction;
 };
-export default function Toolbar({
-	isText,
-	isMulti,
-	onChnageText,
-	onChangeMulti,
-	onRefresh,
-}: Props) {
+export default function Toolbar({ isText, isMulti, onChnageText, onChangeMulti, onRefresh }: Props) {
 	return (
 		<div className="mb-4 flex items-center justify-between">
 			<div>
@@ -28,10 +22,7 @@ export default function Toolbar({
 						<span className="ml-2">Multi Item</span>
 					</div>
 				)}
-				<ReloadOutlined
-					className="cursor-pointer text-lg"
-					onClick={onRefresh}
-				/>
+				<ReloadOutlined className="cursor-pointer text-lg" onClick={onRefresh} />
 			</div>
 		</div>
 	);

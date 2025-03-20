@@ -1,4 +1,4 @@
-import { ReloadOutlined } from "@ant-design/icons";
+import { ReloadOutlined } from '@ant-design/icons';
 
 type Props = {
 	onRefresh: VoidFunction;

@@ -1,9 +1,9 @@
-import { type HTMLMotionProps, type MotionValue, m, useSpring } from "framer-motion";
-import type { CSSProperties } from "react";
+import { type HTMLMotionProps, type MotionValue, m, useSpring } from 'framer-motion';
+import type { CSSProperties } from 'react';
 
-import { useTheme } from "@/theme/hooks";
+import { useTheme } from '@/theme/hooks';
 
-interface Props extends HTMLMotionProps<"div"> {
+interface Props extends HTMLMotionProps<'div'> {
 	color?: string;
 	scrollYProgress: MotionValue<number>;
 	height?: number;
@@ -23,7 +23,7 @@ export default function ScrollProgress({ scrollYProgress, height = 4, color, ...
 	const backgroundColor = color || themeTokens.color.palette.primary.default;
 
 	const style: CSSProperties = {
-		transformOrigin: "0%",
+		transformOrigin: '0%',
 		height,
 		backgroundColor,
 	};

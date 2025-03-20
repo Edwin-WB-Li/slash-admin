@@ -1,4 +1,4 @@
-import type { ThemeMode } from "#/enum";
+import type { ThemeMode } from '#/enum';
 
 export const themeTokens = {
 	colors: {
@@ -46,15 +46,15 @@ export const themeTokens = {
 				darker: null,
 			},
 			gray: {
-				"100": null,
-				"200": null,
-				"300": null,
-				"400": null,
-				"500": null,
-				"600": null,
-				"700": null,
-				"800": null,
-				"900": null,
+				'100': null,
+				'200': null,
+				'300': null,
+				'400': null,
+				'500': null,
+				'600': null,
+				'700': null,
+				'800': null,
+				'900': null,
 			},
 		},
 		common: {
@@ -132,8 +132,8 @@ export const themeTokens = {
 		md: null,
 		lg: null,
 		xl: null,
-		"2xl": null,
-		"3xl": null,
+		'2xl': null,
+		'3xl': null,
 		inner: null,
 		dialog: null,
 		card: null,
@@ -151,7 +151,7 @@ export const themeTokens = {
 		md: null,
 		lg: null,
 		xl: null,
-		"2xl": null,
+		'2xl': null,
 	},
 	opacity: {
 		0: null,

@@ -1,10 +1,10 @@
-import { useSettings } from "@/store/settingStore";
-import { hexToRgbChannel, rgbAlpha } from "@/utils/theme";
-import { useEffect } from "react";
-import { ThemeMode } from "#/enum";
-import { layoutClass } from "./layout.css";
-import { presetsColors } from "./tokens/color";
-import type { UILibraryAdapter } from "./type";
+import { useSettings } from '@/store/settingStore';
+import { hexToRgbChannel, rgbAlpha } from '@/utils/theme';
+import { useEffect } from 'react';
+import { ThemeMode } from '#/enum';
+import { layoutClass } from './layout.css';
+import { presetsColors } from './tokens/color';
+import type { UILibraryAdapter } from './type';
 interface ThemeProviderProps {
 	children: React.ReactNode;
 	adapters?: UILibraryAdapter[];
@@ -28,7 +28,7 @@ export function ThemeProvider({ children, adapters = [] }: ThemeProviderProps) {
 			root.style.setProperty(`--colors-palette-primary-${key}`, value);
 			root.style.setProperty(`--colors-palette-primary-${key}Channel`, hexToRgbChannel(value));
 		}
-		root.style.setProperty("--shadows-primary", `box-shadow: 0 8px 16px 0 ${rgbAlpha(primaryColors.default, 0.24)}`);
+		root.style.setProperty('--shadows-primary', `box-shadow: 0 8px 16px 0 ${rgbAlpha(primaryColors.default, 0.24)}`);
 	}, [themeColorPresets]);
 
 	// Update font size and font family

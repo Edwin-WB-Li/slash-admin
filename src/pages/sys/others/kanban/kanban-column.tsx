@@ -1,15 +1,15 @@
-import { SortableContext, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { faker } from "@faker-js/faker";
-import { Button, Dropdown, Input, type InputRef, type MenuProps } from "antd";
-import { type CSSProperties, useRef, useState } from "react";
-import { useEvent } from "react-use";
+import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { faker } from '@faker-js/faker';
+import { Button, Dropdown, Input, type InputRef, type MenuProps } from 'antd';
+import { type CSSProperties, useRef, useState } from 'react';
+import { useEvent } from 'react-use';
 
-import { Iconify } from "@/components/icon";
-import { useSettings } from "@/store/settingStore";
-import { ThemeMode } from "#/enum";
-import KanbanTask from "./kanban-task";
-import { type Column, type Task, TaskPriority } from "./types";
+import { Iconify } from '@/components/icon';
+import { useSettings } from '@/store/settingStore';
+import { ThemeMode } from '#/enum';
+import KanbanTask from './kanban-task';
+import { type Column, type Task, TaskPriority } from './types';
 
 type Props = {
 	id: string;
@@ -39,16 +39,16 @@ export default function KanbanColumn({
 	const style: CSSProperties = {
 		transform: CSS.Transform.toString(transform),
 		transition,
-		height: "100%",
-		padding: "16px",
-		borderRadius: "16px",
-		backgroundColor: themeMode === ThemeMode.Light ? "rgb(244, 246, 248)" : "rgba(145, 158, 171, 0.12)",
+		height: '100%',
+		padding: '16px',
+		borderRadius: '16px',
+		backgroundColor: themeMode === ThemeMode.Light ? 'rgb(244, 246, 248)' : 'rgba(145, 158, 171, 0.12)',
 		opacity: isDragging ? 0.5 : 1,
 	};
 
-	const items: MenuProps["items"] = [
+	const items: MenuProps['items'] = [
 		{
-			key: "1",
+			key: '1',
 			label: (
 				<div
 					className="flex items-center text-gray"
@@ -56,7 +56,7 @@ export default function KanbanColumn({
 						setRenamingTask(true);
 					}}
 					onKeyDown={(e) => {
-						if (e.key === "Enter") {
+						if (e.key === 'Enter') {
 							setRenamingTask(true);
 						}
 					}}
@@ -67,13 +67,13 @@ export default function KanbanColumn({
 			),
 		},
 		{
-			key: "2",
+			key: '2',
 			label: (
 				<div
 					className="flex items-center text-gray"
 					onClick={() => clearColumn(column.id)}
 					onKeyDown={(e) => {
-						if (e.key === "Enter") {
+						if (e.key === 'Enter') {
 							clearColumn(column.id);
 						}
 					}}
@@ -84,13 +84,13 @@ export default function KanbanColumn({
 			),
 		},
 		{
-			key: "3",
+			key: '3',
 			label: (
 				<div
 					className="flex items-center text-warning"
 					onClick={() => deleteColumn(column.id)}
 					onKeyDown={(e) => {
-						if (e.key === "Enter") {
+						if (e.key === 'Enter') {
 							deleteColumn(column.id);
 						}
 					}}
@@ -129,7 +129,7 @@ export default function KanbanColumn({
 			setRenamingTask(false);
 		}
 	};
-	useEvent("click", handleClickOutside);
+	useEvent('click', handleClickOutside);
 
 	const [renamingTask, setRenamingTask] = useState(false);
 	const renameTaskInputRef = useRef<InputRef>(null);
@@ -151,7 +151,7 @@ export default function KanbanColumn({
 					onOpenChange={(flag) => setDropdownOpen(flag)}
 					menu={{ items, onClick: handleMenuItemClick }}
 					placement="bottomRight"
-					trigger={["click"]}
+					trigger={['click']}
 				>
 					<Button shape="circle" type="text" className="!text-gray">
 						<Iconify icon="dashicons:ellipsis" />

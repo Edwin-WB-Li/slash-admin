@@ -1,5 +1,5 @@
-import { themeVars } from "@/theme/theme.css";
-import styled from "styled-components";
+import { themeVars } from '@/theme/theme.css';
+import styled from 'styled-components';
 
 const StyledEditor = styled.div`
   h1 {

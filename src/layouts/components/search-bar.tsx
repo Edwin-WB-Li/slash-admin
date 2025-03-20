@@ -1,16 +1,16 @@
-import { Empty, Input, type InputRef, Modal, Tag } from "antd";
-import match from "autosuggest-highlight/match";
-import parse from "autosuggest-highlight/parse";
-import { type CSSProperties, useEffect, useMemo, useRef, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { useBoolean, useEvent, useKeyPressEvent } from "react-use";
-import styled from "styled-components";
+import { Empty, Input, type InputRef, Modal, Tag } from 'antd';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
+import { type CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useBoolean, useEvent, useKeyPressEvent } from 'react-use';
+import styled from 'styled-components';
 
-import { IconButton, SvgIcon } from "@/components/icon";
-import Scrollbar from "@/components/scrollbar";
-import { useFlattenedRoutes, useRouter } from "@/router/hooks";
-import { themeVars } from "@/theme/theme.css";
-import { rgbAlpha } from "@/utils/theme";
+import { IconButton, SvgIcon } from '@/components/icon';
+import Scrollbar from '@/components/scrollbar';
+import { useFlattenedRoutes, useRouter } from '@/router/hooks';
+import { themeVars } from '@/theme/theme.css';
+import { rgbAlpha } from '@/utils/theme';
 
 export default function SearchBar() {
 	const { t } = useTranslation();
@@ -27,7 +27,7 @@ export default function SearchBar() {
 		backgroundColor: rgbAlpha(themeVars.colors.palette.primary.defaultChannel, 0.1),
 	};
 
-	const [searchQuery, setSearchQuery] = useState("");
+	const [searchQuery, setSearchQuery] = useState('');
 	const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
 	const searchResult = useMemo(() => {
@@ -44,14 +44,14 @@ export default function SearchBar() {
 	}, [searchResult.length]);
 
 	const handleMetaK = (event: KeyboardEvent) => {
-		if (event.metaKey && event.key === "k") {
+		if (event.metaKey && event.key === 'k') {
 			// https://developer.mozilla.org/zh-CN/docs/Web/API/KeyboardEvent/metaKey
 			handleOpen();
 		}
 	};
-	useEvent("keydown", handleMetaK);
+	useEvent('keydown', handleMetaK);
 
-	useKeyPressEvent("ArrowUp", (event) => {
+	useKeyPressEvent('ArrowUp', (event) => {
 		if (!search) return;
 		event.preventDefault();
 		let nextIndex = selectedItemIndex - 1;
@@ -62,7 +62,7 @@ export default function SearchBar() {
 		scrollSelectedItemIntoView(nextIndex);
 	});
 
-	useKeyPressEvent("ArrowDown", (event) => {
+	useKeyPressEvent('ArrowDown', (event) => {
 		if (!search) return;
 		event.preventDefault();
 		let nextIndex = selectedItemIndex + 1;
@@ -73,7 +73,7 @@ export default function SearchBar() {
 		scrollSelectedItemIntoView(nextIndex);
 	});
 
-	useKeyPressEvent("Enter", (event) => {
+	useKeyPressEvent('Enter', (event) => {
 		if (!search || searchResult.length === 0) return;
 		event.preventDefault();
 		const selectItem = searchResult[selectedItemIndex].key;
@@ -83,13 +83,13 @@ export default function SearchBar() {
 		}
 	});
 
-	useKeyPressEvent("Escape", () => {
+	useKeyPressEvent('Escape', () => {
 		handleCancel();
 	});
 
 	const handleOpen = () => {
 		toggle(true);
-		setSearchQuery("");
+		setSearchQuery('');
 		setSelectedItemIndex(0);
 	};
 	const handleCancel = () => {
@@ -106,8 +106,8 @@ export default function SearchBar() {
 		if (listRef.current) {
 			const selectedItem = listRef.current.children[index];
 			selectedItem.scrollIntoView({
-				behavior: "smooth",
-				block: "center",
+				behavior: 'smooth',
+				block: 'center',
 			});
 		}
 	};
@@ -129,8 +129,8 @@ export default function SearchBar() {
 					<div className="flex items-center justify-center gap-2">
 						<SvgIcon icon="ic-search" size="20" />
 						<span className="flex h-6 items-center justify-center rounded-md bg-common-white px-1.5 font-bold text-gray-800">
-							{" "}
-							⌘K{" "}
+							{' '}
+							⌘K{' '}
 						</span>
 					</div>
 				</IconButton>
@@ -144,10 +144,10 @@ export default function SearchBar() {
 				afterOpenChange={handleAfterOpenChange}
 				styles={{
 					body: {
-						height: "400px",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
+						height: '400px',
+						display: 'flex',
+						flexDirection: 'column',
+						justifyContent: 'center',
 					},
 				}}
 				title={

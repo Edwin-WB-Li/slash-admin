@@ -1,10 +1,10 @@
-import { useSettings } from "@/store/settingStore";
-import { themeVars } from "@/theme/theme.css";
-import { rgbAlpha } from "@/utils/theme";
-import { Toaster } from "sonner";
-import styled from "styled-components";
+import { useSettings } from '@/store/settingStore';
+import { themeVars } from '@/theme/theme.css';
+import { rgbAlpha } from '@/utils/theme';
+import { Toaster } from 'sonner';
+import styled from 'styled-components';
 
-import { Iconify } from "../icon";
+import { Iconify } from '../icon';
 
 /**
  * https://sonner.emilkowal.ski/getting-started
@@ -23,14 +23,14 @@ export default function Toast() {
 						backgroundColor: themeVars.colors.background.paper,
 					},
 					classNames: {
-						toast: "rounded-lg border-0",
-						description: "text-xs text-current/45",
-						content: "flex-1 ml-2",
-						icon: "flex items-center justify-center px-4 rounded-lg",
-						success: "bg-success/10",
-						error: "bg-error/10",
-						warning: "bg-warning/10",
-						info: "bg-info/10",
+						toast: 'rounded-lg border-0',
+						description: 'text-xs text-current/45',
+						content: 'flex-1 ml-2',
+						icon: 'flex items-center justify-center px-4 rounded-lg',
+						success: 'bg-success/10',
+						error: 'bg-error/10',
+						warning: 'bg-warning/10',
+						info: 'bg-info/10',
 					},
 				}}
 				icons={{

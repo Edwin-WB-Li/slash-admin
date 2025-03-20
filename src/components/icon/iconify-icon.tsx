@@ -1,12 +1,12 @@
-import { Icon, disableCache } from "@iconify/react";
-import styled from "styled-components";
+import { Icon, disableCache } from '@iconify/react';
+import styled from 'styled-components';
 
-import type { IconProps } from "@iconify/react";
+import type { IconProps } from '@iconify/react';
 
 interface Props extends IconProps {
-	size?: IconProps["width"];
+	size?: IconProps['width'];
 }
-export default function Iconify({ icon, size = "1em", className = "", ...other }: Props) {
+export default function Iconify({ icon, size = '1em', className = '', ...other }: Props) {
 	return (
 		<StyledIconify className="anticon">
 			<Icon icon={icon} width={size} height={size} className={`m-auto ${className}`} {...other} />
@@ -14,7 +14,7 @@ export default function Iconify({ icon, size = "1em", className = "", ...other }
 	);
 }
 
-disableCache("local");
+disableCache('local');
 const StyledIconify = styled.div`
   display: inline-flex;
   vertical-align: middle;

@@ -1,17 +1,14 @@
-import { faker } from "@faker-js/faker";
-import type { EventInput } from "@fullcalendar/core";
-import { ColorPicker, DatePicker, Form, Input, Modal, Switch } from "antd";
-import type { Dayjs } from "dayjs";
-import { useEffect } from "react";
+import { faker } from '@faker-js/faker';
+import type { EventInput } from '@fullcalendar/core';
+import { ColorPicker, DatePicker, Form, Input, Modal, Switch } from 'antd';
+import type { Dayjs } from 'dayjs';
+import { useEffect } from 'react';
 
-import { IconButton, Iconify } from "@/components/icon";
+import { IconButton, Iconify } from '@/components/icon';
 
-import type { ModalProps } from "antd/es/modal/interface";
+import type { ModalProps } from 'antd/es/modal/interface';
 
-export type CalendarEventFormFieldType = Pick<
-	EventInput,
-	"title" | "allDay" | "color"
-> & {
+export type CalendarEventFormFieldType = Pick<EventInput, 'title' | 'allDay' | 'color'> & {
 	id: string;
 	description?: string;
 	start?: Dayjs;
@@ -19,7 +16,7 @@ export type CalendarEventFormFieldType = Pick<
 };
 
 type Props = {
-	type: "edit" | "add";
+	type: 'edit' | 'add';
 	open: boolean;
 	onCancel: VoidFunction;
 	onEdit: (event: CalendarEventFormFieldType) => void;
@@ -28,16 +25,7 @@ type Props = {
 	initValues: CalendarEventFormFieldType;
 };
 
-const COLORS = [
-	"#00a76f",
-	"#8e33ff",
-	"#00b8d9",
-	"#003768",
-	"#22c55e",
-	"#ffab00",
-	"#ff5630",
-	"#7a0916",
-];
+const COLORS = ['#00a76f', '#8e33ff', '#00b8d9', '#003768', '#22c55e', '#ffab00', '#ff5630', '#7a0916'];
 
 export default function CalendarEventForm({
 	type,
@@ -48,7 +36,7 @@ export default function CalendarEventForm({
 	onCreate,
 	onDelete,
 }: Props) {
-	const title = type === "add" ? "Add Event" : "Edit Event";
+	const title = type === 'add' ? 'Add Event' : 'Edit Event';
 	const [form] = Form.useForm();
 
 	useEffect(() => {
@@ -58,10 +46,10 @@ export default function CalendarEventForm({
 	}, [initValues, form]);
 
 	// eslint-disable-next-line react/no-unstable-nested-components, react/function-component-definition
-	const ModalFooter: ModalProps["footer"] = (_, { OkBtn, CancelBtn }) => {
+	const ModalFooter: ModalProps['footer'] = (_, { OkBtn, CancelBtn }) => {
 		return (
 			<div>
-				{type === "edit" ? (
+				{type === 'edit' ? (
 					<div className="flex justify-between">
 						<IconButton
 							onClick={() => {
@@ -101,26 +89,20 @@ export default function CalendarEventForm({
 
 						const { id } = initValues;
 						const event = { ...values, id };
-						if (type === "add") onCreate(event);
-						if (type === "edit") onEdit(event);
+						if (type === 'add') onCreate(event);
+						if (type === 'edit') onEdit(event);
 						onCancel();
 					})
 					.catch((info) => {
-						console.log("Validate Failed:", info);
+						console.log('Validate Failed:', info);
 					});
 			}}
 		>
-			<Form
-				form={form}
-				size="small"
-				labelCol={{ span: 4 }}
-				wrapperCol={{ span: 18 }}
-				initialValues={initValues}
-			>
+			<Form form={form} size="small" labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} initialValues={initValues}>
 				<Form.Item<CalendarEventFormFieldType>
 					label="Titile"
 					name="title"
-					rules={[{ required: true, message: "Please input title!" }]}
+					rules={[{ required: true, message: 'Please input title!' }]}
 				>
 					<Input />
 				</Form.Item>
@@ -129,47 +111,31 @@ export default function CalendarEventForm({
 					<Input.TextArea />
 				</Form.Item>
 
-				<Form.Item<CalendarEventFormFieldType>
-					label="All day"
-					name="allDay"
-					valuePropName="checked"
-				>
+				<Form.Item<CalendarEventFormFieldType> label="All day" name="allDay" valuePropName="checked">
 					<Switch />
 				</Form.Item>
 
 				<Form.Item<CalendarEventFormFieldType>
 					label="Start date"
 					name="start"
-					rules={[{ required: true, message: "Please input start date!" }]}
+					rules={[{ required: true, message: 'Please input start date!' }]}
 				>
-					<DatePicker
-						showTime
-						className="w-full"
-						format="YYYY-MM-DD HH:mm:ss"
-					/>
+					<DatePicker showTime className="w-full" format="YYYY-MM-DD HH:mm:ss" />
 				</Form.Item>
 
 				<Form.Item<CalendarEventFormFieldType>
 					label="End date"
 					name="end"
-					rules={[{ required: true, message: "Please input end date!" }]}
+					rules={[{ required: true, message: 'Please input end date!' }]}
 				>
-					<DatePicker
-						showTime
-						className="w-full"
-						format="YYYY-MM-DD HH:mm:ss"
-					/>
+					<DatePicker showTime className="w-full" format="YYYY-MM-DD HH:mm:ss" />
 				</Form.Item>
 
-				<Form.Item<CalendarEventFormFieldType>
-					label="Color"
-					name="color"
-					getValueFromEvent={(e) => e.toHexString()}
-				>
+				<Form.Item<CalendarEventFormFieldType> label="Color" name="color" getValueFromEvent={(e) => e.toHexString()}>
 					<ColorPicker
 						presets={[
 							{
-								label: "Recommended",
+								label: 'Recommended',
 								colors: COLORS,
 							},
 						]}

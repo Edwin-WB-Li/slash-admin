@@ -1,8 +1,8 @@
-import Character3 from "@/assets/images/characters/character_3.png";
-import { Iconify } from "@/components/icon";
-import { useUserInfo } from "@/store/userStore";
-import { themeVars } from "@/theme/theme.css";
-import { Col, Row } from "antd";
+import Character3 from '@/assets/images/characters/character_3.png';
+import { Iconify } from '@/components/icon';
+import { useUserInfo } from '@/store/userStore';
+import { themeVars } from '@/theme/theme.css';
+import { Col, Row } from 'antd';
 
 export default function BannerCard() {
 	const { username } = useUserInfo();
@@ -37,7 +37,7 @@ export default function BannerCard() {
 					type="button"
 					className="font-mediumtext-black m-auto flex items-center justify-center rounded-lg px-2 py-1 shadow-none md:m-0"
 					style={{ backgroundColor: themeVars.colors.palette.primary.default, color: themeVars.colors.common.white }}
-					onClick={() => window.open("https://discord.gg/fXemAXVNDa")}
+					onClick={() => window.open('https://discord.gg/fXemAXVNDa')}
 				>
 					<Iconify icon="carbon:logo-discord" size={24} />
 					<span className="ml-2 font-black">Join Discord</span>

@@ -1,8 +1,8 @@
-import { Card, Typography } from "antd";
-import { useState } from "react";
+import { Card, Typography } from 'antd';
+import { useState } from 'react';
 
-import Markdown from "@/components/markdown";
-import { themeVars } from "@/theme/theme.css";
+import Markdown from '@/components/markdown';
+import { themeVars } from '@/theme/theme.css';
 
 const TEXT = `
 # h1

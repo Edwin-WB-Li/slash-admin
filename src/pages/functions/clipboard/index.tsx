@@ -1,14 +1,14 @@
-import { faker } from "@faker-js/faker";
-import { Card, Col, Input, Row, Tooltip, Typography } from "antd";
-import { type ChangeEvent, useState } from "react";
+import { faker } from '@faker-js/faker';
+import { Card, Col, Input, Row, Tooltip, Typography } from 'antd';
+import { type ChangeEvent, useState } from 'react';
 
-import { IconButton, Iconify } from "@/components/icon";
-import { useCopyToClipboard } from "@/hooks";
+import { IconButton, Iconify } from '@/components/icon';
+import { useCopyToClipboard } from '@/hooks';
 
 export default function ClipboardPage() {
 	const { copyFn } = useCopyToClipboard();
 
-	const [value, setValue] = useState("https://www.npmjs.com/package/");
+	const [value, setValue] = useState('https://www.npmjs.com/package/');
 
 	const textOnClick = faker.lorem.paragraphs({ min: 3, max: 5 });
 

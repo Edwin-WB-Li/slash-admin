@@ -1,12 +1,12 @@
-import { Typography } from "antd";
-import { m } from "framer-motion";
-import { Helmet } from "react-helmet-async";
-import { NavLink } from "react-router";
+import { Typography } from 'antd';
+import { m } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
+import { NavLink } from 'react-router';
 
-import Character4 from "@/assets/images/characters/character_4.png";
-import MotionContainer from "@/components/animate/motion-container";
-import { varBounce } from "@/components/animate/variants/bounce";
-import { themeVars } from "@/theme/theme.css";
+import Character4 from '@/assets/images/characters/character_4.png';
+import MotionContainer from '@/components/animate/motion-container';
+import { varBounce } from '@/components/animate/variants/bounce';
+import { themeVars } from '@/theme/theme.css';
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 

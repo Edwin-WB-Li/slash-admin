@@ -1,7 +1,7 @@
-import { faker } from "@faker-js/faker";
-import { Checkbox, List } from "antd";
+import { faker } from '@faker-js/faker';
+import { Checkbox, List } from 'antd';
 
-import { IconButton, Iconify } from "@/components/icon";
+import { IconButton, Iconify } from '@/components/icon';
 
 export default function AnalysisTasks() {
 	const data = [

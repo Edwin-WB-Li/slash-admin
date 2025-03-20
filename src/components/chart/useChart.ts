@@ -1,19 +1,19 @@
-import type { ApexOptions } from "apexcharts";
+import type { ApexOptions } from 'apexcharts';
 
-import { themeVars } from "@/theme/theme.css";
-import { removePx } from "@/utils/theme";
-import { mergeDeepRight } from "ramda";
+import { themeVars } from '@/theme/theme.css';
+import { removePx } from '@/utils/theme';
+import { mergeDeepRight } from 'ramda';
 
-import { useSettings } from "@/store/settingStore";
-import { breakpointsTokens } from "@/theme/tokens/breakpoints";
-import { paletteColors, presetsColors } from "@/theme/tokens/color";
+import { useSettings } from '@/store/settingStore';
+import { breakpointsTokens } from '@/theme/tokens/breakpoints';
+import { paletteColors, presetsColors } from '@/theme/tokens/color';
 
 export default function useChart(options: ApexOptions) {
 	const { themeColorPresets } = useSettings();
 
 	const LABEL_TOTAL = {
 		show: true,
-		label: "Total",
+		label: 'Total',
 		color: themeVars.colors.text.secondary,
 		fontSize: themeVars.typography.fontSize.sm,
 		lineHeight: themeVars.typography.lineHeight.tight,
@@ -54,13 +54,13 @@ export default function useChart(options: ApexOptions) {
 		states: {
 			hover: {
 				filter: {
-					type: "lighten",
+					type: 'lighten',
 					value: 0.04,
 				},
 			},
 			active: {
 				filter: {
-					type: "darken",
+					type: 'darken',
 					value: 0.88,
 				},
 			},
@@ -70,7 +70,7 @@ export default function useChart(options: ApexOptions) {
 		fill: {
 			opacity: 1,
 			gradient: {
-				type: "vertical",
+				type: 'vertical',
 				shadeIntensity: 0,
 				opacityFrom: 0.4,
 				opacityTo: 0,
@@ -86,8 +86,8 @@ export default function useChart(options: ApexOptions) {
 		// Stroke
 		stroke: {
 			width: 3,
-			curve: "smooth",
-			lineCap: "round",
+			curve: 'smooth',
+			lineCap: 'round',
 		},
 
 		// Grid
@@ -124,8 +124,8 @@ export default function useChart(options: ApexOptions) {
 		legend: {
 			show: true,
 			fontSize: themeVars.typography.fontSize.sm,
-			position: "top",
-			horizontalAlign: "right",
+			position: 'top',
+			horizontalAlign: 'right',
 			markers: {
 				strokeWidth: 0,
 			},
@@ -143,9 +143,9 @@ export default function useChart(options: ApexOptions) {
 			// Bar
 			bar: {
 				borderRadius: 4,
-				columnWidth: "28%",
-				borderRadiusApplication: "end",
-				borderRadiusWhenStacked: "last",
+				columnWidth: '28%',
+				borderRadiusApplication: 'end',
+				borderRadiusWhenStacked: 'last',
 			},
 
 			// Pie + Donut
@@ -162,7 +162,7 @@ export default function useChart(options: ApexOptions) {
 			// Radialbar
 			radialBar: {
 				track: {
-					strokeWidth: "100%",
+					strokeWidth: '100%',
 				},
 				dataLabels: {
 					value: LABEL_VALUE,
@@ -173,7 +173,7 @@ export default function useChart(options: ApexOptions) {
 			// Radar
 			radar: {
 				polygons: {
-					fill: { colors: ["transparent"] },
+					fill: { colors: ['transparent'] },
 					strokeColors: themeVars.colors.background.neutral,
 					connectorColors: themeVars.colors.background.neutral,
 				},
@@ -196,14 +196,14 @@ export default function useChart(options: ApexOptions) {
 				// sm
 				breakpoint: removePx(breakpointsTokens.sm),
 				options: {
-					plotOptions: { bar: { columnWidth: "40%" } },
+					plotOptions: { bar: { columnWidth: '40%' } },
 				},
 			},
 			{
 				// md
 				breakpoint: removePx(breakpointsTokens.md),
 				options: {
-					plotOptions: { bar: { columnWidth: "32%" } },
+					plotOptions: { bar: { columnWidth: '32%' } },
 				},
 			},
 		],

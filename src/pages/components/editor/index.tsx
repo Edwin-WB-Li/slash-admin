@@ -1,11 +1,11 @@
-import Editor from "@/components/editor";
-import { themeVars } from "@/theme/theme.css";
-import { Card, Typography } from "antd";
-import { useState } from "react";
+import Editor from '@/components/editor';
+import { themeVars } from '@/theme/theme.css';
+import { Card, Typography } from 'antd';
+import { useState } from 'react';
 
 export default function EditorPage() {
-	const [quillSimple, setQuillSimple] = useState("");
-	const [quillFull, setQuillFull] = useState("");
+	const [quillSimple, setQuillSimple] = useState('');
+	const [quillFull, setQuillFull] = useState('');
 
 	return (
 		<>

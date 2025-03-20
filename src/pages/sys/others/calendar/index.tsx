@@ -1,44 +1,44 @@
-import Card from "@/components/card";
-import { down, useMediaQuery } from "@/hooks";
-import { useSettings } from "@/store/settingStore";
-import { faker } from "@faker-js/faker";
-import type { DateSelectArg, EventClickArg, EventInput } from "@fullcalendar/core";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import listPlugin from "@fullcalendar/list";
-import FullCalendar from "@fullcalendar/react";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import dayjs from "dayjs";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import CalendarEvent from "./calendar-event";
-import CalendarEventForm, { type CalendarEventFormFieldType } from "./calendar-event-form";
-import CalendarHeader, { type HandleMoveArg, type ViewType } from "./calendar-header";
-import { INITIAL_EVENTS } from "./event-utils";
-import { StyledCalendar } from "./styles";
+import Card from '@/components/card';
+import { down, useMediaQuery } from '@/hooks';
+import { useSettings } from '@/store/settingStore';
+import { faker } from '@faker-js/faker';
+import type { DateSelectArg, EventClickArg, EventInput } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
+import FullCalendar from '@fullcalendar/react';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import dayjs from 'dayjs';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import CalendarEvent from './calendar-event';
+import CalendarEventForm, { type CalendarEventFormFieldType } from './calendar-event-form';
+import CalendarHeader, { type HandleMoveArg, type ViewType } from './calendar-header';
+import { INITIAL_EVENTS } from './event-utils';
+import { StyledCalendar } from './styles';
 
 const DefaultEventInitValue = {
 	id: faker.string.uuid(),
-	title: "",
-	description: "",
+	title: '',
+	description: '',
 	allDay: false,
 	start: dayjs(),
 	end: dayjs(),
-	color: "",
+	color: '',
 };
 export default function Calendar() {
 	const fullCalendarRef = useRef<FullCalendar>(null);
-	const [view, setView] = useState<ViewType>("dayGridMonth");
+	const [view, setView] = useState<ViewType>('dayGridMonth');
 	const [date, setDate] = useState(new Date());
 	const [open, setOpen] = useState(false);
 	const [eventInitValue, setEventInitValue] = useState<CalendarEventFormFieldType>(DefaultEventInitValue);
-	const [eventFormType, setEventFormType] = useState<"add" | "edit">("add");
+	const [eventFormType, setEventFormType] = useState<'add' | 'edit'>('add');
 
 	const { themeMode } = useSettings();
-	const xsBreakPoint = useMediaQuery(down("xs"));
+	const xsBreakPoint = useMediaQuery(down('xs'));
 
 	useEffect(() => {
 		if (xsBreakPoint) {
-			setView("listWeek");
+			setView('listWeek');
 		}
 	}, [xsBreakPoint]);
 	/**
@@ -48,13 +48,13 @@ export default function Calendar() {
 		const calendarApi = fullCalendarRef.current?.getApi();
 		if (!calendarApi) return;
 		switch (action) {
-			case "prev":
+			case 'prev':
 				calendarApi.prev();
 				break;
-			case "next":
+			case 'next':
 				calendarApi.next();
 				break;
-			case "today":
+			case 'today':
 				calendarApi.today();
 				break;
 			default:
@@ -82,11 +82,11 @@ export default function Calendar() {
 		const calendarApi = selectInfo.view.calendar;
 		calendarApi.unselect(); // clear date selection
 		setOpen(true);
-		setEventFormType("add");
+		setEventFormType('add');
 		setEventInitValue({
 			id: faker.string.uuid(),
-			title: "",
-			description: "",
+			title: '',
+			description: '',
 			start: dayjs(selectInfo.startStr),
 			end: dayjs(selectInfo.endStr),
 			allDay: selectInfo.allDay,
@@ -100,7 +100,7 @@ export default function Calendar() {
 	const handleEventClick = (arg: EventClickArg) => {
 		const { title, extendedProps, allDay, start, end, backgroundColor, id } = arg.event;
 		setOpen(true);
-		setEventFormType("edit");
+		setEventFormType('edit');
 		const newEventValue: CalendarEventFormFieldType = {
 			id,
 			title,
@@ -123,7 +123,7 @@ export default function Calendar() {
 	};
 	// edit event
 	const handleEdit = (values: CalendarEventFormFieldType) => {
-		const { id, title = "", description, start, end, allDay = false, color } = values;
+		const { id, title = '', description, start, end, allDay = false, color } = values;
 		const calendarApi = fullCalendarRef.current?.getApi();
 		if (!calendarApi) return;
 		const oldEvent = calendarApi.getEventById(id);
@@ -148,7 +148,7 @@ export default function Calendar() {
 	const handleCreate = (values: CalendarEventFormFieldType) => {
 		const calendarApi = fullCalendarRef.current?.getApi();
 		if (!calendarApi) return;
-		const { title = "", description, start, end, allDay = false, color } = values;
+		const { title = '', description, start, end, allDay = false, color } = values;
 
 		const newEvent: EventInput = {
 			id: faker.string.uuid(),
@@ -188,7 +188,7 @@ export default function Calendar() {
 						ref={fullCalendarRef}
 						plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
 						initialDate={date}
-						initialView={xsBreakPoint ? "listWeek" : view}
+						initialView={xsBreakPoint ? 'listWeek' : view}
 						events={INITIAL_EVENTS}
 						eventContent={CalendarEvent}
 						editable

@@ -1,9 +1,9 @@
-import { cn } from "@/utils";
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { useMultiTabsContext } from "../providers/multi-tabs-provider";
-import type { KeepAliveTab } from "../types";
-import { TabItem } from "./tab-item";
+import { cn } from '@/utils';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { useMultiTabsContext } from '../providers/multi-tabs-provider';
+import type { KeepAliveTab } from '../types';
+import { TabItem } from './tab-item';
 
 type Props = {
 	tab: KeepAliveTab;
@@ -16,7 +16,7 @@ export const SortableItem = ({ tab, onClick }: Props) => {
 	const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
 		id: tab.key,
 		data: {
-			type: "tab",
+			type: 'tab',
 			tab,
 		},
 	});
@@ -32,9 +32,9 @@ export const SortableItem = ({ tab, onClick }: Props) => {
 			style={style}
 			{...attributes}
 			{...listeners}
-			id={`tab${tab.key.split("/").join("-")}`}
+			id={`tab${tab.key.split('/').join('-')}`}
 			onClick={onClick}
-			className={cn("flex-shrink-0 rounded-t-lg border border-border", isActive && "text-primary")}
+			className={cn('flex-shrink-0 rounded-t-lg border border-border', isActive && 'text-primary')}
 		>
 			<TabItem tab={tab} onClose={() => closeTab(tab.key)} />
 		</li>
