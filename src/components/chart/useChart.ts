@@ -1,6 +1,7 @@
+import type { ApexOptions } from "apexcharts";
+
 import { themeVars } from "@/theme/theme.css";
 import { removePx } from "@/utils/theme";
-import type { ApexOptions } from "apexcharts";
 import { mergeDeepRight } from "ramda";
 
 import { useSettings } from "@/store/settingStore";

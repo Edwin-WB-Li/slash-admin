@@ -1,23 +1,25 @@
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import type { LoginParams, MenuOptions, UserInfoType } from '@/api/types';
 
-import userService, { type SignInReq } from "@/api/services/userService";
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { toast } from "sonner";
-import type { UserInfo, UserToken } from "#/entity";
-import { StorageEnum } from "#/enum";
-
+import userService from '@/api/services/userService';
+import { t } from '@/locales/i18n';
+import { toast } from 'sonner';
+import { StorageEnum } from '#/enum';
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 type UserStore = {
-	userInfo: Partial<UserInfo>;
-	userToken: UserToken;
+	userInfo: Partial<UserInfoType>;
+	userToken: string;
+	userMenus: MenuOptions[];
 	// 使用 actions 命名空间来存放所有的 action
 	actions: {
-		setUserInfo: (userInfo: UserInfo) => void;
-		setUserToken: (token: UserToken) => void;
+		setUserInfo: (userInfo: UserInfoType) => void;
+		setUserToken: (token: string) => void;
+		setMenus: (menus: MenuOptions[]) => void;
 		clearUserInfoAndToken: () => void;
 	};
 };
@@ -26,7 +28,8 @@ const useUserStore = create<UserStore>()(
 	persist(
 		(set) => ({
 			userInfo: {},
-			userToken: {},
+			userToken: '',
+			userMenus: [],
 			actions: {
 				setUserInfo: (userInfo) => {
 					set({ userInfo });
@@ -34,17 +37,21 @@ const useUserStore = create<UserStore>()(
 				setUserToken: (userToken) => {
 					set({ userToken });
 				},
+				setMenus: (userMenus) => {
+					set({ userMenus });
+				},
 				clearUserInfoAndToken() {
-					set({ userInfo: {}, userToken: {} });
+					set({ userInfo: {}, userToken: '', userMenus: [] });
 				},
 			},
 		}),
 		{
-			name: "userStore", // name of the item in the storage (must be unique)
+			name: 'userStore', // name of the item in the storage (must be unique)
 			storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
 			partialize: (state) => ({
 				[StorageEnum.UserInfo]: state.userInfo,
 				[StorageEnum.UserToken]: state.userToken,
+				[StorageEnum.UserMenus]: state.userMenus,
 			}),
 		},
 	),
@@ -52,34 +59,54 @@ const useUserStore = create<UserStore>()(
 
 export const useUserInfo = () => useUserStore((state) => state.userInfo);
 export const useUserToken = () => useUserStore((state) => state.userToken);
-export const useUserPermission = () =>
-	useUserStore((state) => state.userInfo.permissions);
+export const useUserPermission = () => useUserStore((state) => state.userMenus);
 export const useUserActions = () => useUserStore((state) => state.actions);
 
-export const useSignIn = () => {
+/**
+ * @description 登录
+ */
+export const useLogin = () => {
 	const navigatge = useNavigate();
 	const { setUserToken, setUserInfo } = useUserActions();
-
-	const signInMutation = useMutation({
-		mutationFn: userService.signin,
+	const loginMutation = useMutation({
+		mutationFn: userService.login,
 	});
-
-	const signIn = async (data: SignInReq) => {
+	const login = async (data: LoginParams) => {
 		try {
-			const res = await signInMutation.mutateAsync(data);
-			const { user, accessToken, refreshToken } = res;
-			setUserToken({ accessToken, refreshToken });
-			setUserInfo(user);
-			navigatge(HOMEPAGE, { replace: true });
-			toast.success("Sign in success!");
-		} catch (err) {
-			toast.error(err.message, {
-				position: "top-center",
+			const res = await loginMutation.mutateAsync(data);
+			const { token, userInfo } = res;
+			setUserToken(token);
+			setUserInfo(userInfo);
+			toast.success(t('sys.login.loginSuccess') || 'login success!', {
+				position: 'top-center',
 			});
+			navigatge(HOMEPAGE, { replace: true });
+		} catch (err) {
+			throw new Error(err || t('sys.api.apiRequestFailed'));
 		}
 	};
+	return login;
+};
 
-	return signIn;
+/**
+ * @description 获取菜单列表
+ */
+export const useMenus = () => {
+	const { setMenus } = useUserActions();
+	const getMenusMutation = useMutation({
+		mutationFn: userService.getMenus,
+	});
+	const getMenus = async () => {
+		try {
+			const res = await getMenusMutation.mutateAsync();
+			if (res) {
+				setMenus(res);
+			}
+		} catch (err) {
+			throw new Error(err || t('sys.api.apiRequestFailed'));
+		}
+	};
+	return getMenus;
 };
 
 export default useUserStore;

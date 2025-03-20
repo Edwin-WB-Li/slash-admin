@@ -1,11 +1,6 @@
-import { faker } from "@faker-js/faker";
+import { faker } from '@faker-js/faker';
 
-import {
-	type DndDataType,
-	type TaskComment,
-	TaskPriority,
-	TaskTag,
-} from "./types";
+import { type DndDataType, type TaskComment, TaskPriority, TaskTag } from './types';
 
 const fakeComment = (count: number): TaskComment[] => {
 	const result = [];
@@ -53,8 +48,8 @@ const fakeTag = (count: number) => {
 
 export const initialData: DndDataType = {
 	tasks: {
-		"task-1": {
-			id: "task-1",
+		'task-1': {
+			id: 'task-1',
 			title: faker.lorem.words(3),
 			reporter: faker.image.avatarGitHub(),
 			priority: TaskPriority.LOW,
@@ -62,8 +57,8 @@ export const initialData: DndDataType = {
 			comments: [],
 			attachments: [],
 		},
-		"task-2": {
-			id: "task-2",
+		'task-2': {
+			id: 'task-2',
 			title: faker.lorem.words(3),
 			reporter: faker.image.avatarGitHub(),
 			assignee: fakeAssignee(1),
@@ -73,8 +68,8 @@ export const initialData: DndDataType = {
 			comments: fakeComment(1),
 			attachments: fakeAttachment(4),
 		},
-		"task-3": {
-			id: "task-3",
+		'task-3': {
+			id: 'task-3',
 			title: faker.lorem.words(4),
 			reporter: faker.image.avatarGitHub(),
 			assignee: fakeAssignee(2),
@@ -84,8 +79,8 @@ export const initialData: DndDataType = {
 			comments: fakeComment(2),
 			attachments: [],
 		},
-		"task-4": {
-			id: "task-4",
+		'task-4': {
+			id: 'task-4',
 			title: faker.lorem.words(5),
 			reporter: faker.image.avatarGitHub(),
 			assignee: fakeAssignee(3),
@@ -96,8 +91,8 @@ export const initialData: DndDataType = {
 			attachments: [],
 			comments: fakeComment(3),
 		},
-		"task-5": {
-			id: "task-5",
+		'task-5': {
+			id: 'task-5',
 			title: faker.lorem.words(4),
 			reporter: faker.image.avatarGitHub(),
 			priority: TaskPriority.HIGH,
@@ -108,8 +103,8 @@ export const initialData: DndDataType = {
 			attachments: [],
 			comments: fakeComment(4),
 		},
-		"task-6": {
-			id: "task-6",
+		'task-6': {
+			id: 'task-6',
 			title: faker.lorem.words(5),
 			reporter: faker.image.avatarGitHub(),
 			priority: TaskPriority.LOW,
@@ -123,21 +118,21 @@ export const initialData: DndDataType = {
 		},
 	},
 	columns: {
-		"column-1": {
-			id: "column-1",
-			title: "To do",
-			taskIds: ["task-1", "task-2", "task-3"],
+		'column-1': {
+			id: 'column-1',
+			title: 'To do',
+			taskIds: ['task-1', 'task-2', 'task-3'],
 		},
-		"column-2": {
-			id: "column-2",
-			title: "In progress",
-			taskIds: ["task-4", "task-5"],
+		'column-2': {
+			id: 'column-2',
+			title: 'In progress',
+			taskIds: ['task-4', 'task-5'],
 		},
-		"column-3": {
-			id: "column-3",
-			title: "Done",
-			taskIds: ["task-6"],
+		'column-3': {
+			id: 'column-3',
+			title: 'Done',
+			taskIds: ['task-6'],
 		},
 	},
-	columnOrder: ["column-1", "column-2", "column-3"],
+	columnOrder: ['column-1', 'column-2', 'column-3'],
 };

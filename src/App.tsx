@@ -9,19 +9,18 @@ import { AntdAdapter } from "./theme/adapter/antd.adapter";
 import { ThemeProvider } from "./theme/theme-provider";
 
 function App() {
-	return (
-		<ThemeProvider adapters={[AntdAdapter]}>
-			<MotionLazy>
-				<Helmet>
-					<title>Slash Admin</title>
-					<link rel="icon" href={Logo} />
-				</Helmet>
-				<Toast />
-
-				<Router />
-			</MotionLazy>
-		</ThemeProvider>
-	);
+  return (
+    <ThemeProvider adapters={[AntdAdapter]}>
+      <MotionLazy>
+        <Helmet>
+          <title>Slash Admin</title>
+          <link rel="icon" href={Logo} />
+        </Helmet>
+        <Toast />
+        <Router />
+      </MotionLazy>
+    </ThemeProvider>
+  );
 }
 
 export default App;

@@ -1,34 +1,34 @@
-import { faker } from "@faker-js/faker";
-import { http, HttpResponse, delay } from "msw";
+import { faker } from '@faker-js/faker';
+import { http, HttpResponse, delay } from 'msw';
 
-import { UserApi } from "@/api/services/userService";
+import { UserApi } from '@/api/services/userService';
 
-import { USER_LIST } from "../assets";
+import { USER_LIST } from '../assets';
 
-const signIn = http.post(`/api${UserApi.SignIn}`, async ({ request }) => {
-	const { username, password } = await request.json();
+// const signIn = http.post(`/api${UserApi.SignIn}`, async ({ request }) => {
+// 	const { username, password } = await request.json();
 
-	const user = USER_LIST.find((item) => item.username === username);
+// 	const user = USER_LIST.find((item) => item.username === username);
 
-	if (!user || user.password !== password) {
-		return HttpResponse.json({
-			status: 10001,
-			message: "Incorrect username or password.",
-		});
-	}
+// 	if (!user || user.password !== password) {
+// 		return HttpResponse.json({
+// 			status: 10001,
+// 			message: "Incorrect username or password.",
+// 		});
+// 	}
 
-	return HttpResponse.json({
-		status: 0,
-		message: "",
-		data: {
-			user,
-			accessToken: faker.string.uuid(),
-			refreshToken: faker.string.uuid(),
-		},
-	});
-});
+// 	return HttpResponse.json({
+// 		status: 0,
+// 		message: "",
+// 		data: {
+// 			user,
+// 			accessToken: faker.string.uuid(),
+// 			refreshToken: faker.string.uuid(),
+// 		},
+// 	});
+// });
 
-const userList = http.get("/api/user", async () => {
+const userList = http.get('/api/user', async () => {
 	await delay(1000);
 	return HttpResponse.json(
 		Array.from({ length: 10 }).map(() => ({
@@ -43,4 +43,5 @@ const userList = http.get("/api/user", async () => {
 	);
 });
 
-export default [signIn, userList];
+// export default [signIn, userList];
+export default [userList];

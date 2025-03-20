@@ -1,8 +1,8 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { FontFamilyPreset, typographyTokens } from "@/theme/tokens/typography";
-import { StorageEnum, ThemeColorPresets, ThemeLayout, ThemeMode } from "#/enum";
+import { FontFamilyPreset, typographyTokens } from '@/theme/tokens/typography';
+import { StorageEnum, ThemeColorPresets, ThemeLayout, ThemeMode } from '#/enum';
 
 type SettingsType = {
 	themeColorPresets: ThemeColorPresets;
@@ -14,8 +14,9 @@ type SettingsType = {
 	darkSidebar: boolean;
 	fontFamily: string;
 	fontSize: number;
-	direction: "ltr" | "rtl";
+	direction: 'ltr' | 'rtl';
 };
+
 type SettingStore = {
 	settings: SettingsType;
 	// 使用 actions 命名空间来存放所有的 action
@@ -38,7 +39,7 @@ const useSettingStore = create<SettingStore>()(
 				darkSidebar: false,
 				fontFamily: FontFamilyPreset.openSans,
 				fontSize: Number(typographyTokens.fontSize.sm),
-				direction: "ltr",
+				direction: 'ltr',
 			},
 			actions: {
 				setSettings: (settings) => {

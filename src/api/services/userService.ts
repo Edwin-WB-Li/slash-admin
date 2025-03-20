@@ -1,6 +1,7 @@
-import apiClient from "../apiClient";
+import type { LoginParams, LoginResponse, MenuOptions } from '@/api/types';
+import type { UserInfo, UserToken } from '#/entity';
 
-import type { UserInfo, UserToken } from "#/entity";
+import http from '../apiClient';
 
 export interface SignInReq {
 	username: string;
@@ -13,24 +14,24 @@ export interface SignUpReq extends SignInReq {
 export type SignInRes = UserToken & { user: UserInfo };
 
 export enum UserApi {
-	SignIn = "/auth/signin",
-	SignUp = "/auth/signup",
-	Logout = "/auth/logout",
-	Refresh = "/auth/refresh",
-	User = "/user",
+	Login = '/user/login',
+	SignUp = '/auth/signup',
+	Logout = '/auth/logout',
+	Refresh = '/auth/refresh',
+	User = '/user',
+	Menus = '/menus/getMenuList',
 }
 
-const signin = (data: SignInReq) =>
-	apiClient.post<SignInRes>({ url: UserApi.SignIn, data });
-const signup = (data: SignUpReq) =>
-	apiClient.post<SignInRes>({ url: UserApi.SignUp, data });
-const logout = () => apiClient.get({ url: UserApi.Logout });
-const findById = (id: string) =>
-	apiClient.get<UserInfo[]>({ url: `${UserApi.User}/${id}` });
+const login = (data: LoginParams) => http.post<LoginResponse>({ url: UserApi.Login, data });
+const signup = (data: SignUpReq) => http.post<SignInRes>({ url: UserApi.SignUp, data });
+const getMenus = () => http.get<MenuOptions[]>({ url: UserApi.Menus });
+const logout = () => http.get({ url: UserApi.Logout });
+const findById = (id: string) => http.get<UserInfo[]>({ url: `${UserApi.User}/${id}` });
 
 export default {
-	signin,
+	login,
 	signup,
 	findById,
 	logout,
+	getMenus,
 };
