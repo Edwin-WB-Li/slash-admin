@@ -1,19 +1,19 @@
 export enum TaskPriority {
-	LOW = "Low",
-	MEDIUM = "Medium",
-	HIGH = "High",
+	LOW = 'Low',
+	MEDIUM = 'Medium',
+	HIGH = 'High',
 }
 
 export enum TaskTag {
-	frontend = "FrontEnd",
-	backend = "BackEnd",
-	fullstack = "FullStack",
-	DevOps = "DevOps",
-	AI = "AI",
-	DBA = "DBA",
-	UI = "UI",
-	UE = "UE",
-	QA = "QA",
+	frontend = 'FrontEnd',
+	backend = 'BackEnd',
+	fullstack = 'FullStack',
+	DevOps = 'DevOps',
+	AI = 'AI',
+	DBA = 'DBA',
+	UI = 'UI',
+	UE = 'UE',
+	QA = 'QA',
 }
 
 export type TaskComment = {

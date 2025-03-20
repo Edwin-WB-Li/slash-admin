@@ -1,26 +1,26 @@
-import { varBgColor, varBgKenburns, varBgPan } from "./background";
-import { varBounce } from "./bounce";
-import { varFade } from "./fade";
-import { varFlip } from "./flip";
-import { varRotate } from "./rotate";
-import { varScale } from "./scale";
-import { varSlide } from "./slide";
-import { varZoom } from "./zoom";
+import { varBgColor, varBgKenburns, varBgPan } from './background';
+import { varBounce } from './bounce';
+import { varFade } from './fade';
+import { varFlip } from './flip';
+import { varRotate } from './rotate';
+import { varScale } from './scale';
+import { varSlide } from './slide';
+import { varZoom } from './zoom';
 
-export * from "./action";
-export * from "./background";
-export * from "./bounce";
-export * from "./container";
-export * from "./fade";
-export * from "./flip";
-export * from "./path";
-export * from "./rotate";
-export * from "./scale";
-export * from "./slide";
-export * from "./transition";
-export * from "./zoom";
+export * from './action';
+export * from './background';
+export * from './bounce';
+export * from './container';
+export * from './fade';
+export * from './flip';
+export * from './path';
+export * from './rotate';
+export * from './scale';
+export * from './slide';
+export * from './transition';
+export * from './zoom';
 
-export function getVariant(variant = "slideInUp") {
+export function getVariant(variant = 'slideInUp') {
 	return {
 		// Slide
 		slideInUp: varSlide().inUp,
@@ -87,12 +87,12 @@ export function getVariant(variant = "slideInUp") {
 		panLeft: varBgPan().left,
 		panRight: varBgPan().right,
 		color2x: varBgColor(),
-		color3x: varBgColor({ colors: ["#19dcea", "#b22cff", "#ea2222"] }),
+		color3x: varBgColor({ colors: ['#19dcea', '#b22cff', '#ea2222'] }),
 		color4x: varBgColor({
-			colors: ["#19dcea", "#b22cff", "#ea2222", "#f5be10"],
+			colors: ['#19dcea', '#b22cff', '#ea2222', '#f5be10'],
 		}),
 		color5x: varBgColor({
-			colors: ["#19dcea", "#b22cff", "#ea2222", "#f5be10", "#3bd80d"],
+			colors: ['#19dcea', '#b22cff', '#ea2222', '#f5be10', '#3bd80d'],
 		}),
 	}[variant];
 }

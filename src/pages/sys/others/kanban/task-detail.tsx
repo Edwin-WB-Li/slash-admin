@@ -1,11 +1,11 @@
-import { Avatar, DatePicker, Image, Input, Radio, Space, Tag, Typography } from "antd";
-import dayjs from "dayjs";
-import styled from "styled-components";
+import { Avatar, DatePicker, Image, Input, Radio, Space, Tag, Typography } from 'antd';
+import dayjs from 'dayjs';
+import styled from 'styled-components';
 
-import { SvgIcon } from "@/components/icon";
+import { SvgIcon } from '@/components/icon';
 
-import { themeVars } from "@/theme/theme.css";
-import type { Task } from "./types";
+import { themeVars } from '@/theme/theme.css';
+import type { Task } from './types';
 
 type Props = {
 	task: Task;
@@ -99,7 +99,7 @@ export default function TaskDetail({ task }: Props) {
 			<div
 				className="flex flex-col gap-4"
 				style={{
-					padding: "24px 20px 40px",
+					padding: '24px 20px 40px',
 				}}
 			>
 				{comments?.map(({ avatar, username, content, time }) => (
@@ -108,7 +108,7 @@ export default function TaskDetail({ task }: Props) {
 						<div className="flex flex-grow flex-col flex-wrap gap-1 text-gray">
 							<div className="flex justify-between">
 								<Typography.Text>{username}</Typography.Text>
-								<Typography.Text>{dayjs(time).format("DD/MM/YYYY HH:mm")}</Typography.Text>
+								<Typography.Text>{dayjs(time).format('DD/MM/YYYY HH:mm')}</Typography.Text>
 							</div>
 							<p>{content}</p>
 						</div>

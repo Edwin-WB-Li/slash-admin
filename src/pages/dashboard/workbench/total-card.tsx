@@ -1,7 +1,7 @@
-import Card from "@/components/card";
-import Chart from "@/components/chart/chart";
-import useChart from "@/components/chart/useChart";
-import { SvgIcon } from "@/components/icon";
+import Card from '@/components/card';
+import Chart from '@/components/chart/chart';
+import useChart from '@/components/chart/useChart';
+import { SvgIcon } from '@/components/icon';
 
 type Props = {
 	title: string;
@@ -10,13 +10,7 @@ type Props = {
 	count: string;
 	chartData: number[];
 };
-export default function TotalCard({
-	title,
-	increase,
-	count,
-	percent,
-	chartData,
-}: Props) {
+export default function TotalCard({ title, increase, count, percent, chartData }: Props) {
 	return (
 		<Card>
 			<div className="flex-grow">
@@ -28,7 +22,7 @@ export default function TotalCard({
 						<SvgIcon icon="ic_decline" size={24} color="rgb(255, 86, 48)" />
 					)}
 					<div className="ml-2">
-						<span>{increase ? "+" : "-"}</span>
+						<span>{increase ? '+' : '-'}</span>
 						<span>{percent}</span>
 					</div>
 				</div>
@@ -43,7 +37,7 @@ export default function TotalCard({
 function ChartLine({ data }: { data: number[] }) {
 	const series = [
 		{
-			name: "",
+			name: '',
 			data,
 		},
 	];
@@ -81,7 +75,5 @@ function ChartLine({ data }: { data: number[] }) {
 		},
 	});
 
-	return (
-		<Chart type="line" series={series} options={chartOptions} width={120} />
-	);
+	return <Chart type="line" series={series} options={chartOptions} width={120} />;
 }

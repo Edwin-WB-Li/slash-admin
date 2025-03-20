@@ -1,7 +1,7 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input } from 'antd';
 
-import Card from "@/components/card";
-import { toast } from "sonner";
+import Card from '@/components/card';
+import { toast } from 'sonner';
 
 type FieldType = {
 	oldPassword?: string;
@@ -10,22 +10,17 @@ type FieldType = {
 };
 export default function SecurityTab() {
 	const initFormValues = {
-		oldPassword: "",
-		newPassword: "",
-		confirmPassword: "",
+		oldPassword: '',
+		newPassword: '',
+		confirmPassword: '',
 	};
 	const handleClick = () => {
-		toast.success("Update success!");
+		toast.success('Update success!');
 	};
 
 	return (
 		<Card className="!h-auto flex-col">
-			<Form
-				layout="vertical"
-				initialValues={initFormValues}
-				labelCol={{ span: 8 }}
-				className="w-full"
-			>
+			<Form layout="vertical" initialValues={initFormValues} labelCol={{ span: 8 }} className="w-full">
 				<Form.Item<FieldType> label="Old Password" name="oldPassword">
 					<Input.Password />
 				</Form.Item>
@@ -34,10 +29,7 @@ export default function SecurityTab() {
 					<Input.Password />
 				</Form.Item>
 
-				<Form.Item<FieldType>
-					label="Confirm New Password"
-					name="confirmPassword"
-				>
+				<Form.Item<FieldType> label="Confirm New Password" name="confirmPassword">
 					<Input.Password />
 				</Form.Item>
 			</Form>

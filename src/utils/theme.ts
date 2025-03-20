@@ -1,5 +1,5 @@
-import color from "color";
-import { themeTokens } from "../theme/type";
+import color from 'color';
+import { themeTokens } from '../theme/type';
 
 /**
  * @example
@@ -20,30 +20,30 @@ export function rgbAlpha(color: string | string[] | number[], alpha: number): st
 	const safeAlpha = Math.max(0, Math.min(1, alpha));
 
 	// if color is CSS variable
-	if (typeof color === "string") {
-		if (color.startsWith("#")) {
+	if (typeof color === 'string') {
+		if (color.startsWith('#')) {
 			return `rgba(${hexToRgbChannel(color)}, ${safeAlpha})`;
 		}
-		if (color.includes("var(")) {
+		if (color.includes('var(')) {
 			return `rgba(${color}, ${safeAlpha})`;
 		}
-		if (color.startsWith("--")) {
+		if (color.startsWith('--')) {
 			return `rgba(var(${color}), ${safeAlpha})`;
 		}
 
 		// handle "200, 250, 214" or "200 250 214" format
-		if (color.includes(",") || color.includes(" ")) {
+		if (color.includes(',') || color.includes(' ')) {
 			const rgb = color.split(/[,\s]+/).map((n) => n.trim());
-			return `rgba(${rgb.join(", ")}, ${safeAlpha})`;
+			return `rgba(${rgb.join(', ')}, ${safeAlpha})`;
 		}
 	}
 
 	// handle array format [200, 250, 214]
 	if (Array.isArray(color)) {
-		return `rgba(${color.join(", ")}, ${safeAlpha})`;
+		return `rgba(${color.join(', ')}, ${safeAlpha})`;
 	}
 
-	throw new Error("Invalid color format");
+	throw new Error('Invalid color format');
 }
 
 /**
@@ -53,7 +53,7 @@ export function rgbAlpha(color: string | string[] | number[], alpha: number): st
  */
 export const hexToRgbChannel = (hex: string) => {
 	const rgb = color(hex).rgb().array();
-	return rgb.join(",");
+	return rgb.join(',');
 };
 
 /**
@@ -62,7 +62,7 @@ export const hexToRgbChannel = (hex: string) => {
  * @returns example: `--colors-palette-primary`
  */
 export const toCssVar = (propertyPath: string) => {
-	return `--${propertyPath.split(".").join("-")}`;
+	return `--${propertyPath.split('.').join('-')}`;
 };
 
 /**
@@ -83,7 +83,7 @@ export const toCssVars = (propertyPath: string) => {
 	const variants = getThemeTokenVariants(propertyPath);
 	const result = variants.reduce(
 		(acc, variant) => {
-			const variantKey = variant === "default" ? "DEFAULT" : variant;
+			const variantKey = variant === 'default' ? 'DEFAULT' : variant;
 			acc[variantKey] = `var(${toCssVar(`${propertyPath}-${variant}`)})`;
 			return acc;
 		},
@@ -98,9 +98,9 @@ export const toCssVars = (propertyPath: string) => {
  * @returns example: `["lighter", "light", "main", "dark", "darker"]`
  */
 export const getThemeTokenVariants = (propertyPath: string) => {
-	const keys = propertyPath.split(".");
+	const keys = propertyPath.split('.');
 	const val = keys.reduce((obj: any, key) => {
-		if (obj && typeof obj === "object") {
+		if (obj && typeof obj === 'object') {
 			return obj[key];
 		}
 		return;
@@ -122,11 +122,11 @@ export const getThemeTokenVariants = (propertyPath: string) => {
  */
 export const removePx = (value: string | number): number => {
 	// 如果已经是数字，直接返回
-	if (typeof value === "number") return value;
+	if (typeof value === 'number') return value;
 
 	// 如果是空字符串，抛出错误
 	if (!value) {
-		throw new Error("Invalid value: empty string");
+		throw new Error('Invalid value: empty string');
 	}
 
 	// 移除所有空格

@@ -1,5 +1,5 @@
-import { themeVars } from "@/theme/theme.css";
-import { Timeline, Typography } from "antd";
+import { themeVars } from '@/theme/theme.css';
+import { Timeline, Typography } from 'antd';
 
 export default function AnalysisOrderTimeline() {
 	return (

@@ -1,8 +1,8 @@
-import { faker } from "@faker-js/faker";
-import { Card, Col, Row, Typography } from "antd";
+import { faker } from '@faker-js/faker';
+import { Card, Col, Row, Typography } from 'antd';
 
-import Scrollbar from "@/components/scrollbar";
-import { themeVars } from "@/theme/theme.css";
+import Scrollbar from '@/components/scrollbar';
+import { themeVars } from '@/theme/theme.css';
 
 const TEXT = faker.lorem.paragraphs({ min: 20, max: 30 });
 export default function ScrollbarView() {
@@ -18,7 +18,7 @@ export default function ScrollbarView() {
 			<Row gutter={[16, 16]} justify="center">
 				<Col span={23} lg={12}>
 					<Card title="Vertical">
-						<div style={{ height: "420px" }}>
+						<div style={{ height: '420px' }}>
 							<Scrollbar>{TEXT}</Scrollbar>
 						</div>
 					</Card>
@@ -26,7 +26,7 @@ export default function ScrollbarView() {
 				<Col span={23} lg={12}>
 					<Card title="Horizontal">
 						<Scrollbar>
-							<div style={{ width: "200%" }}>{TEXT}</div>
+							<div style={{ width: '200%' }}>{TEXT}</div>
 						</Scrollbar>
 					</Card>
 				</Col>

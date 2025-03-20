@@ -1,12 +1,12 @@
-import { Menu, type MenuProps } from "antd";
-import { useMemo } from "react";
-import { useNavigate } from "react-router";
+import { Menu, type MenuProps } from 'antd';
+import { useMemo } from 'react';
+import { useNavigate } from 'react-router';
 
-import { useFlattenedRoutes, usePathname, usePermissionRoutes, useRouteToMenuFn } from "@/router/hooks";
-import { menuFilter } from "@/router/utils";
+import { useFlattenedRoutes, usePathname, usePermissionRoutes, useRouteToMenuFn } from '@/router/hooks';
+import { menuFilter } from '@/router/utils';
 
-import { themeVars } from "@/theme/theme.css";
-import { NAV_HORIZONTAL_HEIGHT } from "../config";
+import { themeVars } from '@/theme/theme.css';
+import { NAV_HORIZONTAL_HEIGHT } from '../config';
 
 export default function NavHorizontal() {
 	const navigate = useNavigate();
@@ -23,13 +23,13 @@ export default function NavHorizontal() {
 
 	const selectedKeys = useMemo(() => [pathname], [pathname]);
 
-	const onClick: MenuProps["onClick"] = ({ key }) => {
+	const onClick: MenuProps['onClick'] = ({ key }) => {
 		const nextLink = flattenedRoutes?.find((el) => el.key === key);
 		// Handle special case for external links in menu items
 		// For external links: skip internal routing, avoid adding new tab in current project,
 		// prevent selecting current route, and open link in new browser tab
 		if (nextLink?.hideTab && nextLink?.frameSrc) {
-			window.open(nextLink?.frameSrc, "_blank");
+			window.open(nextLink?.frameSrc, '_blank');
 			return;
 		}
 		navigate(key);

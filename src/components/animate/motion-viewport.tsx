@@ -1,6 +1,6 @@
-import { type MotionProps, m } from "framer-motion";
+import { type MotionProps, m } from 'framer-motion';
 
-import { varContainer } from "./variants";
+import { varContainer } from './variants';
 
 interface Props extends MotionProps {
 	className?: string;
@@ -12,11 +12,7 @@ interface Props extends MotionProps {
  *
  *    + once: 仅触发一次
  */
-export default function MotionViewport({
-	children,
-	className,
-	...other
-}: Props) {
+export default function MotionViewport({ children, className, ...other }: Props) {
 	return (
 		<m.div
 			initial="initial"

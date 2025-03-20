@@ -1,17 +1,17 @@
-import { themeVars } from "@/theme/theme.css";
-import { fBytes } from "@/utils/format-number";
-import { Typography, Upload } from "antd";
-import type { UploadChangeParam, UploadFile, UploadProps } from "antd/es/upload";
-import { useState } from "react";
-import { Iconify } from "../icon";
-import { StyledUploadAvatar } from "./styles";
-import { beforeAvatarUpload, getBlobUrl } from "./utils";
+import { themeVars } from '@/theme/theme.css';
+import { fBytes } from '@/utils/format-number';
+import { Typography, Upload } from 'antd';
+import type { UploadChangeParam, UploadFile, UploadProps } from 'antd/es/upload';
+import { useState } from 'react';
+import { Iconify } from '../icon';
+import { StyledUploadAvatar } from './styles';
+import { beforeAvatarUpload, getBlobUrl } from './utils';
 
 interface Props extends UploadProps {
 	defaultAvatar?: string;
 	helperText?: React.ReactElement | string;
 }
-export function UploadAvatar({ helperText, defaultAvatar = "", ...other }: Props) {
+export function UploadAvatar({ helperText, defaultAvatar = '', ...other }: Props) {
 	const [imageUrl, setImageUrl] = useState<string>(defaultAvatar);
 
 	const [isHover, setIsHover] = useState(false);
@@ -19,11 +19,11 @@ export function UploadAvatar({ helperText, defaultAvatar = "", ...other }: Props
 		setIsHover(hover);
 	};
 
-	const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
-		if (info.file.status === "uploading") {
+	const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
+		if (info.file.status === 'uploading') {
 			return;
 		}
-		if (info.file.status === "done" || info.file.status === "error") {
+		if (info.file.status === 'done' || info.file.status === 'error') {
 			// TODO: Get this url from response in real world.
 			if (info.file.originFileObj) {
 				setImageUrl(getBlobUrl(info.file.originFileObj));
@@ -36,7 +36,7 @@ export function UploadAvatar({ helperText, defaultAvatar = "", ...other }: Props
 	const renderPlaceholder = (
 		<div
 			style={{
-				backgroundColor: !imageUrl || isHover ? themeVars.colors.background.neutral : "transparent",
+				backgroundColor: !imageUrl || isHover ? themeVars.colors.background.neutral : 'transparent',
 			}}
 			className="absolute z-10 flex h-full w-full flex-col items-center justify-center"
 		>

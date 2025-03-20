@@ -1,17 +1,8 @@
-import {
-	Card,
-	Col,
-	Row,
-	Space,
-	Switch,
-	Tabs,
-	type TabsProps,
-	Typography,
-} from "antd";
-import { useState } from "react";
+import { Card, Col, Row, Space, Switch, Tabs, type TabsProps, Typography } from 'antd';
+import { useState } from 'react';
 
-import { Iconify } from "@/components/icon";
-import { Upload, UploadAvatar, UploadBox } from "@/components/upload";
+import { Iconify } from '@/components/icon';
+import { Upload, UploadAvatar, UploadBox } from '@/components/upload';
 
 export default function UploadPage() {
 	const [thumbnail, setThumbnail] = useState<boolean>(false);
@@ -20,9 +11,7 @@ export default function UploadPage() {
 		setThumbnail(checked);
 	};
 
-	const ThumbnailSwitch = (
-		<Switch size="small" checked={thumbnail} onChange={onChange} />
-	);
+	const ThumbnailSwitch = <Switch size="small" checked={thumbnail} onChange={onChange} />;
 
 	const boxPlaceHolder = (
 		<div className="flex flex-col">
@@ -33,12 +22,8 @@ export default function UploadPage() {
 		</div>
 	);
 	const UploadFileTab = (
-		<Space direction="vertical" size="middle" style={{ display: "flex" }}>
-			<Card
-				title="Upload Multi File"
-				className="w-full"
-				extra={ThumbnailSwitch}
-			>
+		<Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+			<Card title="Upload Multi File" className="w-full" extra={ThumbnailSwitch}>
 				<Upload thumbnail={thumbnail} name="multi" />
 			</Card>
 			<Card title="Upload Single File" extra={ThumbnailSwitch}>
@@ -51,10 +36,10 @@ export default function UploadPage() {
 			title="Upload Avatar"
 			styles={{
 				body: {
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "center",
-					alignItems: "center",
+					display: 'flex',
+					flexDirection: 'column',
+					justifyContent: 'center',
+					alignItems: 'center',
 				},
 			}}
 		>
@@ -72,14 +57,14 @@ export default function UploadPage() {
 		</Row>
 	);
 
-	const TABS: TabsProps["items"] = [
+	const TABS: TabsProps['items'] = [
 		{
-			key: "upload--file",
-			label: "Upload Single File",
+			key: 'upload--file',
+			label: 'Upload Single File',
 			children: UploadFileTab,
 		},
-		{ key: "upload-avatar", label: "Upload Avatar", children: UploadAvatarTab },
-		{ key: "upload-box", label: "Upload Box", children: UploadBoxTab },
+		{ key: 'upload-avatar', label: 'Upload Avatar', children: UploadAvatarTab },
+		{ key: 'upload-box', label: 'Upload Box', children: UploadBoxTab },
 	];
 
 	return <Tabs items={TABS} />;

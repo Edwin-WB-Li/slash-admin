@@ -1,16 +1,16 @@
-import useLocale from "@/locales/use-locale";
-import { StyleProvider } from "@ant-design/cssinjs";
-import type { ThemeConfig } from "antd";
-import { App, ConfigProvider, theme } from "antd";
-import { ThemeMode } from "#/enum";
-import { baseThemeTokens } from "../tokens/base";
-import { darkColorTokens, lightColorTokens, presetsColors } from "../tokens/color";
-import type { UILibraryAdapter } from "../type";
+import useLocale from '@/locales/use-locale';
+import { StyleProvider } from '@ant-design/cssinjs';
+import type { ThemeConfig } from 'antd';
+import { App, ConfigProvider, theme } from 'antd';
+import { ThemeMode } from '#/enum';
+import { baseThemeTokens } from '../tokens/base';
+import { darkColorTokens, lightColorTokens, presetsColors } from '../tokens/color';
+import type { UILibraryAdapter } from '../type';
 
-import { useSettings } from "@/store/settingStore";
-import { removePx } from "@/utils/theme";
-import { lightShadowTokens } from "../tokens/shadow";
-import { darkShadowTokens } from "../tokens/shadow";
+import { useSettings } from '@/store/settingStore';
+import { removePx } from '@/utils/theme';
+import { lightShadowTokens } from '../tokens/shadow';
+import { darkShadowTokens } from '../tokens/shadow';
 
 export const AntdAdapter: UILibraryAdapter = ({ mode, children }) => {
 	const { language } = useLocale();
@@ -22,7 +22,7 @@ export const AntdAdapter: UILibraryAdapter = ({ mode, children }) => {
 
 	const primaryColorToken = presetsColors[themeColorPresets];
 
-	const token: ThemeConfig["token"] = {
+	const token: ThemeConfig['token'] = {
 		colorPrimary: primaryColorToken.default,
 		colorSuccess: colorTokens.palette.success.default,
 		colorWarning: colorTokens.palette.warning.default,
@@ -42,15 +42,15 @@ export const AntdAdapter: UILibraryAdapter = ({ mode, children }) => {
 		borderRadiusLG: removePx(baseThemeTokens.borderRadius.lg),
 	};
 
-	const components: ThemeConfig["components"] = {
+	const components: ThemeConfig['components'] = {
 		Breadcrumb: {
 			separatorMargin: removePx(baseThemeTokens.spacing[1]),
 		},
 		Menu: {
-			colorFillAlter: "transparent",
+			colorFillAlter: 'transparent',
 			itemColor: colorTokens.text.secondary,
-			motionDurationMid: "0.125s",
-			motionDurationSlow: "0.125s",
+			motionDurationMid: '0.125s',
+			motionDurationSlow: '0.125s',
 			darkItemBg: darkColorTokens.background.default,
 		},
 		Layout: {

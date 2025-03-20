@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "vite --mode development",
     "build": "tsc && vite build --mode production",
+    "lint:format": "npx biome format --write ./src",
+    "lint:fix": "npx biome lint ./src",
     "preview": "vite preview --mode production",
     "preinstall": "lefthook install"
   },

@@ -1,14 +1,14 @@
-import { useRouter } from "@/router/hooks";
-import { replaceDynamicParams } from "@/router/hooks/use-current-route-meta";
-import { Tabs } from "antd";
-import { useEffect, useRef } from "react";
-import styled from "styled-components";
-import SortableContainer from "./components/sortable-container";
-import { SortableItem } from "./components/sortable-item";
-import { TabItem } from "./components/tab-item";
-import { useMultiTabsStyle } from "./hooks/use-tab-style";
-import { useMultiTabsContext } from "./providers/multi-tabs-provider";
-import type { KeepAliveTab } from "./types";
+import { useRouter } from '@/router/hooks';
+import { replaceDynamicParams } from '@/router/hooks/use-current-route-meta';
+import { Tabs } from 'antd';
+import { useEffect, useRef } from 'react';
+import styled from 'styled-components';
+import SortableContainer from './components/sortable-container';
+import { SortableItem } from './components/sortable-item';
+import { TabItem } from './components/tab-item';
+import { useMultiTabsStyle } from './hooks/use-tab-style';
+import { useMultiTabsContext } from './providers/multi-tabs-provider';
+import type { KeepAliveTab } from './types';
 
 export default function MultiTabs() {
 	const scrollContainer = useRef<HTMLUListElement>(null);
@@ -18,7 +18,7 @@ export default function MultiTabs() {
 	const { push } = useRouter();
 
 	const handleTabClick = ({ key, params = {} }: KeepAliveTab) => {
-		console.log("handleTabClick", key, params);
+		console.log('handleTabClick', key, params);
 		const tabKey = replaceDynamicParams(key, params);
 		push(tabKey);
 	};
@@ -26,11 +26,11 @@ export default function MultiTabs() {
 	useEffect(() => {
 		if (!scrollContainer.current) return;
 		const tab = tabs.find((item) => item.key === activeTabRoutePath);
-		const currentTabElement = scrollContainer.current.querySelector(`#tab${tab?.key.split("/").join("-")}`);
+		const currentTabElement = scrollContainer.current.querySelector(`#tab${tab?.key.split('/').join('-')}`);
 		if (currentTabElement) {
 			currentTabElement.scrollIntoView({
-				block: "nearest",
-				behavior: "smooth",
+				block: 'nearest',
+				behavior: 'smooth',
 			});
 		}
 	}, [tabs, activeTabRoutePath]);
@@ -44,16 +44,16 @@ export default function MultiTabs() {
 			container.scrollLeft += e.deltaY;
 		};
 
-		container.addEventListener("mouseenter", () => {
-			container.addEventListener("wheel", handleWheel);
+		container.addEventListener('mouseenter', () => {
+			container.addEventListener('wheel', handleWheel);
 		});
 
-		container.addEventListener("mouseleave", () => {
-			container.removeEventListener("wheel", handleWheel);
+		container.addEventListener('mouseleave', () => {
+			container.removeEventListener('wheel', handleWheel);
 		});
 
 		return () => {
-			container.removeEventListener("wheel", handleWheel);
+			container.removeEventListener('wheel', handleWheel);
 		};
 	}, []);
 

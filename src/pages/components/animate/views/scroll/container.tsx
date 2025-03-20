@@ -1,9 +1,9 @@
-import { Card, Typography } from "antd";
-import { useMemo } from "react";
+import { Card, Typography } from 'antd';
+import { useMemo } from 'react';
 
-import MotionViewport from "@/components/animate/motion-viewport";
-import { getVariant } from "@/components/animate/variants";
-import { themeVars } from "@/theme/theme.css";
+import MotionViewport from '@/components/animate/motion-viewport';
+import { getVariant } from '@/components/animate/variants';
+import { themeVars } from '@/theme/theme.css';
 
 type Props = {
 	variant: string;
