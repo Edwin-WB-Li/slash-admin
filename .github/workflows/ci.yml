@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # 获取完整提交历史（为某些 pnpm 场景优化）
@@ -17,13 +17,13 @@ jobs:
       - name: Enable Corepack
         run: corepack enable
 
-      - name: Set up Node.js
+      - name: Set Up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
           cache: "pnpm" # 自动配置 pnpm 缓存路径
 
-      - name: Cache pnpm store
+      - name: Cache Pnpm Store
         uses: actions/cache@v4
         with:
           path: |
@@ -33,17 +33,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
 
-      - name: Run prettier
+      - name: Prettier Check
         run: pnpm run lint:format # 统一使用 pnpm 执行命令
 
-      - name: Run eslint
+      - name: Eslint Check
         run: pnpm run lint:fix
 
       # - name: Run tests & Generate Coverage
       #   run: pnpm test
 
-      # - name: Build project
-      #   run: pnpm build
+      - name: Build project
+        run: pnpm run build
