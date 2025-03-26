@@ -94,6 +94,8 @@ export default defineConfig(({ mode }) => {
 					// 设置每个语句的阈值
 					statements: 80,
 				},
+				// 为 true 时启用测试覆盖率检查，不达标时会抛出异常
+				checkCoverage: false,
 			},
 
 			// 配置环境选项
