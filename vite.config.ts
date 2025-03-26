@@ -49,7 +49,7 @@ export default defineConfig(({ mode }) => {
 			// 设置测试环境为 jsdom | happy-dom
 			environment: 'jsdom',
 			// 指定测试前的设置文件
-			setupFiles: 'src/__tests__/vitest.setup.ts',
+			setupFiles: path.resolve(__dirname, './vitest.setup.ts'),
 			// 包含的测试文件路径
 			include: ['src/__tests__/**/*.test.{ts,tsx}'],
 			// 排除的测试文件路径
