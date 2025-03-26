@@ -39,6 +39,6 @@
 		"noFallthroughCasesInSwitch": true, // 避免 switch 语句掉入陷阱
 		"useUnknownInCatchVariables": false // 为 true 时，在 catch 块中声明的变量类型会被视为 unknown 而非默认的 any。
 	},
-	"include": ["src/**/*", "types", "tailwind.config.ts"],
-	"exclude": ["node_modules", "dist"]
+	"include": ["src/**/*", "types", "tailwind.config.ts", "vitest.setup.ts"],
+	"exclude": ["node_modules", "dist", "stats.html"]
 }
