@@ -71,9 +71,9 @@ export default defineConfig(({ mode }) => {
 				enabled: true,
 				// 覆盖率提供商: v8 | ìstanbul
 				provider: 'v8',
-				reporter: ['text', 'json', 'clover', 'html'],
+				reporter: ['text', 'json', 'clover', 'lcov', 'html'],
 				// 更改默认覆盖文件夹位置
-				// reportsDirectory: './coverage',
+				reportsDirectory: './coverage',
 				// 是否在重新运行时清除覆盖率数据
 				cleanOnRerun: true,
 				// 是否在失败时也生成覆盖率报告
