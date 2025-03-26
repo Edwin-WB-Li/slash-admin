@@ -1,5 +1,13 @@
 {
 	"compilerOptions": {
+		"baseUrl": ".",
+		/* alias */
+		"paths": {
+			"@/*": ["src/*"],
+			"#/*": ["types/*"]
+		},
+		// "types": ["jest", "@testing-library/jest-dom"],
+		"types": ["vitest/globals"],
 		"target": "ESNext", // 编译后代码的目标版本（ECMAScript）。
 		"module": "ESNext", // 使用的模块系统类型。ESNext 支持更多特性，比如动态导入等。
 		"lib": ["ESNext", "DOM", "DOM.Iterable"], // 要包含的库文件。DOM、DOM.Iterable 和 ESNext 库文件是 TypeScript 开发中比较基础的依赖。
@@ -29,14 +37,8 @@
 		"noUnusedLocals": true, // 消除未使用变量产生的警告
 		"noUnusedParameters": true, // 消除未使用参数产生的警告
 		"noFallthroughCasesInSwitch": true, // 避免 switch 语句掉入陷阱
-		"useUnknownInCatchVariables": false, // 为 true 时，在 catch 块中声明的变量类型会被视为 unknown 而非默认的 any。
-		"baseUrl": ".",
-		/* alias */
-		"paths": {
-			"@/*": ["src/*"],
-			"#/*": ["types/*"]
-		}
+		"useUnknownInCatchVariables": false // 为 true 时，在 catch 块中声明的变量类型会被视为 unknown 而非默认的 any。
 	},
-	"include": ["src", "types", "tailwind.config.ts"],
+	"include": ["src/**/*", "types", "tailwind.config.ts"],
 	"exclude": ["node_modules", "dist"]
 }
