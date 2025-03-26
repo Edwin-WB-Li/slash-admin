@@ -7,8 +7,9 @@
 	"scripts": {
 		"dev": "vite --mode development",
 		"build": "tsc && vite build --mode production",
-		"test": "vitest --ui --mode test",
-		"test:coverage": "vitest --ui --coverage --mode test",
+		"test": "vitest --mode test",
+		"test:coverage": "vitest --coverage --mode test",
+		"vitest-ui": "vitest --ui --coverage --mode test",
 		"lint:format": "npx biome format --write ./src",
 		"lint:fix": "npx biome lint --write ./src",
 		"preview": "vite preview --mode production",

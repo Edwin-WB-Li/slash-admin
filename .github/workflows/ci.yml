@@ -42,8 +42,8 @@ jobs:
       - name: Eslint Check
         run: pnpm run lint:fix
 
-      # - name: Run tests & Generate Coverage
-      #   run: pnpm test
-
       - name: Build project
         run: pnpm run build
+
+      - name: Run tests & Generate Coverage
+        run: pnpm run test:coverage
