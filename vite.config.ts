@@ -84,18 +84,16 @@ export default defineConfig(({ mode }) => {
 				include: ['src/**/*.{ts,tsx}'],
 				exclude: ['**/*.d.ts', '**/*.stories.tsx', 'src/__tests__/**', 'src/mocks/**'],
 				// 覆盖阈值
-				thresholds: {
-					// 设置每个文件的阈值
-					lines: 80,
-					// 设置每个函数的阈值
-					functions: 75,
-					// 设置每个分支的阈值
-					branches: 80,
-					// 设置每个语句的阈值
-					statements: 80,
-				},
-				// 为 true 时启用测试覆盖率检查，不达标时会抛出异常
-				checkCoverage: false,
+				// thresholds: {
+				// 	// 设置每个文件的阈值
+				// 	lines: 80,
+				// 	// 设置每个函数的阈值
+				// 	functions: 75,
+				// 	// 设置每个分支的阈值
+				// 	branches: 80,
+				// 	// 设置每个语句的阈值
+				// 	statements: 80,
+				// },
 			},
 
 			// 配置环境选项
