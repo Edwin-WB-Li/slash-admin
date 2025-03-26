@@ -1,28 +1,38 @@
 name: CI
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
-    branches: [master]
+    branches:
+      - master
+    #types: [opened, synchronize, reopened]
 
 jobs:
-  build:
+  build-and-analyze:
+    name: Build, Test, and SonarQube Analysis
     runs-on: ubuntu-latest
 
     steps:
+      # 1. 检出代码
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
           fetch-depth: 0 # 获取完整提交历史（为某些 pnpm 场景优化）
 
+      # 2. 启用 Corepack
       - name: Enable Corepack
         run: corepack enable
 
+      # 3. 设置 Node.js 环境
       - name: Set Up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
           cache: "pnpm" # 自动配置 pnpm 缓存路径
 
+      # 4. 缓存 pnpm 依赖
       - name: Cache Pnpm Store
         uses: actions/cache@v4
         with:
@@ -33,17 +43,32 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
+      # 5. 安装依赖
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
 
+      # 6. 代码格式检查
       - name: Prettier Check
         run: pnpm run lint:format # 统一使用 pnpm 执行命令
 
+      # 7. eslint 检查
       - name: Eslint Check
         run: pnpm run lint:fix
 
+      # 8. 构建项目
       - name: Build project
         run: pnpm run build
 
+      # 9. 运行测试并生成覆盖率报告
       - name: Run tests & Generate Coverage
         run: pnpm run test:coverage
+
+      # 10. 调试覆盖率报告（可选）
+      - name: Debug Coverage Report
+        run: cat ./coverage/lcov.info
+
+      # 11. SonarQube 扫描
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
