@@ -118,9 +118,7 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 								>
 									<AutoComplete
 										options={compOptions}
-										filterOption={(input, option) =>
-											((option?.label || '') as string).toLowerCase().includes(input.toLowerCase())
-										}
+										filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
 									/>
 								</Form.Item>
 							);
