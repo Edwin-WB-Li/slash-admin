@@ -16,7 +16,7 @@ export default function ToastPage() {
 	return (
 		<Flex gap={16} vertical wrap>
 			<Flex gap={16} wrap>
-				<Card title="Simple" bordered={false} className="flex-none text- lg:flex-1 bg-">
+				<Card title="Simple" className="flex-none text- lg:flex-1 bg-">
 					<Flex gap={16} wrap>
 						<Button color="default" variant="solid" onClick={() => toast('Toast Default', {})}>
 							Default
@@ -54,7 +54,7 @@ export default function ToastPage() {
 						</Button>
 					</Flex>
 				</Card>
-				<Card title="With Action" bordered={false} className="flex-none lg:flex-1">
+				<Card title="With Action" className="flex-none lg:flex-1">
 					<Flex gap={16} wrap>
 						<Button
 							color="default"
@@ -155,7 +155,7 @@ export default function ToastPage() {
 			</Flex>
 
 			<Flex gap={16} wrap>
-				<Card title="Position" bordered={false} className="flex-none lg:flex-1">
+				<Card title="Position" className="flex-none lg:flex-1">
 					<Flex gap={16} wrap>
 						<Button onClick={() => toast.info('Toast Info', { position: 'top-left' })}>Top Left</Button>
 						<Button onClick={() => toast.info('Toast Info', { position: 'top-center' })}>Top Center</Button>
@@ -165,7 +165,7 @@ export default function ToastPage() {
 						<Button onClick={() => toast.info('Toast Info', { position: 'bottom-left' })}>Bottom Left</Button>
 					</Flex>
 				</Card>
-				<Card title="With Promise" bordered={false} className="flex-none lg:flex-1">
+				<Card title="With Promise" className="flex-none lg:flex-1">
 					<Flex gap={16} justify="center" align="center" wrap>
 						<Button onClick={handleSubmit}>On Submit</Button>
 					</Flex>

@@ -1,3 +1,5 @@
+import type { FallbackProps } from 'react-error-boundary';
+
 import { Typography } from 'antd';
 import { m } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
@@ -8,11 +10,10 @@ import { varBounce } from '@/components/animate/variants/bounce';
 import { useRouter } from '@/router/hooks';
 
 import { themeVars } from '@/theme/theme.css';
-import type { FallbackProps } from 'react-error-boundary';
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
-export default function PageError({ error, resetErrorBoundary }: FallbackProps) {
+export default function PageError({ error, resetErrorBoundary }: Readonly<FallbackProps>) {
 	const { replace } = useRouter();
 
 	const goHome = () => {
@@ -211,7 +212,10 @@ export default function PageError({ error, resetErrorBoundary }: FallbackProps) 
 					</m.div>
 
 					<button
-						style={{ background: themeVars.colors.palette.primary.default, color: themeVars.colors.text.primary }}
+						style={{
+							background: themeVars.colors.palette.primary.default,
+							color: themeVars.colors.text.primary,
+						}}
 						className="rounded-md p-4"
 						onClick={goHome}
 						type="button"
