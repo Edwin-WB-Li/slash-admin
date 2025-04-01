@@ -1,14 +1,17 @@
+import type { CSSProperties } from 'react';
+import type { Task } from './types';
+
 import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
 import { Avatar, Drawer, Image, Select } from 'antd';
-import { type CSSProperties, memo, useState } from 'react';
+import { memo, useState } from 'react';
 import styled from 'styled-components';
 
 import { IconButton, Iconify, SvgIcon } from '@/components/icon';
 import { themeVars } from '@/theme/theme.css';
 import { rgbAlpha } from '@/utils/theme';
+import { CSS } from '@dnd-kit/utilities';
 import TaskDetail from './task-detail';
-import { type Task, TaskPriority } from './types';
+import { TaskPriority } from './types';
 
 type Props = {
 	id: string;
@@ -134,16 +137,16 @@ function TaskPrioritySvg({ taskPriority }: TaskPrioritySvgProps) {
 	}
 }
 const Container = styled.div<{ $isDragging: boolean }>`
-	width: 248px;
-	border-radius: 12px;
-	padding: 16px;
-	margin-bottom: 16px;
-	font-weight: 400;
-	font-size: 12px;
-	background-color: ${themeVars.colors.background.default};
-	backdrop-filter: ${(props) => (props.$isDragging ? 'blur(6px)' : '')};
+  width: 248px;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  font-weight: 400;
+  font-size: 12px;
+  background-color: ${themeVars.colors.background.default};
+  backdrop-filter: ${(props) => (props.$isDragging ? 'blur(6px)' : '')};
 
-	&:hover {
-		box-shadow: ${themeVars.shadows['3xl']};
-	}
+  &:hover {
+    box-shadow: ${themeVars.shadows['3xl']};
+  }
 `;

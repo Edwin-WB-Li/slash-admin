@@ -1,7 +1,10 @@
-import { Empty, Input, type InputRef, Modal, Tag } from 'antd';
+import type { InputRef } from 'antd';
+import type { CSSProperties } from 'react';
+
+import { Empty, Input, Modal, Tag } from 'antd';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
-import { type CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useBoolean, useEvent, useKeyPressEvent } from 'react-use';
 import styled from 'styled-components';

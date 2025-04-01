@@ -1,6 +1,7 @@
-import { faker } from '@faker-js/faker';
+import type { DndDataType, TaskComment } from './types';
 
-import { type DndDataType, type TaskComment, TaskPriority, TaskTag } from './types';
+import { faker } from '@faker-js/faker';
+import { TaskPriority, TaskTag } from './types';
 
 const fakeComment = (count: number): TaskComment[] => {
 	const result = [];

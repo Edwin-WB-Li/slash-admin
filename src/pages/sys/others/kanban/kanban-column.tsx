@@ -1,15 +1,19 @@
+import type { InputRef, MenuProps } from 'antd';
+import type { CSSProperties } from 'react';
+import type { Column, Task } from './types';
+
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { faker } from '@faker-js/faker';
-import { Button, Dropdown, Input, type InputRef, type MenuProps } from 'antd';
-import { type CSSProperties, useRef, useState } from 'react';
+import { Button, Dropdown, Input } from 'antd';
+import { useRef, useState } from 'react';
 import { useEvent } from 'react-use';
 
 import { Iconify } from '@/components/icon';
 import { useSettings } from '@/store/settingStore';
 import { ThemeMode } from '#/enum';
 import KanbanTask from './kanban-task';
-import { type Column, type Task, TaskPriority } from './types';
+import { TaskPriority } from './types';
 
 type Props = {
 	id: string;

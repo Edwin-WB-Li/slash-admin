@@ -1,10 +1,12 @@
+import type { CSSProperties } from 'react';
+
+import { useMemo } from 'react';
+
 import { up, useMediaQuery } from '@/hooks';
 import { useSettings } from '@/store/settingStore';
 import { themeVars } from '@/theme/theme.css';
 import { rgbAlpha } from '@/utils/theme';
-import { type CSSProperties, useMemo } from 'react';
 import { ThemeLayout } from '#/enum';
-
 import { HEADER_HEIGHT, MULTI_TABS_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_HORIZONTAL_HEIGHT, NAV_WIDTH } from '../../config';
 
 export function useMultiTabsStyle() {

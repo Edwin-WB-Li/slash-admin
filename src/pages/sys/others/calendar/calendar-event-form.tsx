@@ -1,12 +1,12 @@
-import { faker } from '@faker-js/faker';
 import type { EventInput } from '@fullcalendar/core';
-import { ColorPicker, DatePicker, Form, Input, Modal, Switch } from 'antd';
+import type { ModalProps } from 'antd/es/modal/interface';
 import type { Dayjs } from 'dayjs';
+
+import { faker } from '@faker-js/faker';
+import { ColorPicker, DatePicker, Form, Input, Modal, Switch } from 'antd';
 import { useEffect } from 'react';
 
 import { IconButton, Iconify } from '@/components/icon';
-
-import type { ModalProps } from 'antd/es/modal/interface';
 
 export type CalendarEventFormFieldType = Pick<EventInput, 'title' | 'allDay' | 'color'> & {
 	id: string;

@@ -1,4 +1,5 @@
 import type React from 'react';
+
 import HeaderSimple from '../components/header-simple';
 
 type Props = {

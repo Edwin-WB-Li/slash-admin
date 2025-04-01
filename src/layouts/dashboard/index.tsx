@@ -1,18 +1,17 @@
-import { type CSSProperties, Suspense, useMemo } from 'react';
+import type { CSSProperties } from 'react';
 
 import { Layout } from 'antd';
+import { Suspense, useMemo } from 'react';
 
 import { CircleLoading } from '@/components/loading';
+import { down, useMediaQuery } from '@/hooks';
 import { useSettings } from '@/store/settingStore';
 import { cn } from '@/utils';
-
+import { ThemeLayout } from '#/enum';
+import { NAV_COLLAPSED_WIDTH, NAV_WIDTH } from './config';
 import Header from './header';
 import Main from './main';
 import Nav from './nav';
-
-import { down, useMediaQuery } from '@/hooks';
-import { ThemeLayout } from '#/enum';
-import { NAV_COLLAPSED_WIDTH, NAV_WIDTH } from './config';
 
 function DashboardLayout() {
 	const { themeLayout } = useSettings();

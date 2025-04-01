@@ -1,14 +1,16 @@
-import { useRouter } from '@/router/hooks';
-import { replaceDynamicParams } from '@/router/hooks/use-current-route-meta';
+import type { KeepAliveTab } from './types';
+
 import { Tabs } from 'antd';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+
+import { useRouter } from '@/router/hooks';
+import { replaceDynamicParams } from '@/router/hooks/use-current-route-meta';
 import SortableContainer from './components/sortable-container';
 import { SortableItem } from './components/sortable-item';
 import { TabItem } from './components/tab-item';
 import { useMultiTabsStyle } from './hooks/use-tab-style';
 import { useMultiTabsContext } from './providers/multi-tabs-provider';
-import type { KeepAliveTab } from './types';
 
 export default function MultiTabs() {
 	const scrollContainer = useRef<HTMLUListElement>(null);
@@ -103,11 +105,11 @@ export default function MultiTabs() {
 const StyledMultiTabs = styled.div`
   height: 100%;
   margin-top: 2px;
-  
+
   .anticon {
     margin: 0px !important;
   }
-  
+
   .ant-tabs {
     height: 100%;
     .ant-tabs-content {
@@ -126,7 +128,7 @@ const StyledMultiTabs = styled.div`
     scrollbar-width: none;
     -ms-overflow-style: none;
     will-change: transform;
- 
+
     &::-webkit-scrollbar {
       display: none;
     }

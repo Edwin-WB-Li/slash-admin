@@ -1,12 +1,12 @@
-import { type Params, useMatches, useOutlet } from 'react-router';
+import type { Params } from 'react-router';
+import type { RouteMeta } from '#/router';
 
 import { isEmpty } from 'ramda';
 import { useEffect, useState } from 'react';
+import { useMatches, useOutlet } from 'react-router';
 
 import { useFlattenedRoutes } from './use-flattened-routes';
 import { useRouter } from './use-router';
-
-import type { RouteMeta } from '#/router';
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 /**
@@ -18,7 +18,6 @@ export function useCurrentRouteMeta() {
 
 	// 获取路由组件实例
 	const children = useOutlet();
-
 	// 获取所有匹配的路由
 	const matchs = useMatches();
 
@@ -67,7 +66,6 @@ export const replaceDynamicParams = (menuKey: string, params: Params<string>) =>
 			// 去掉冒号，获取参数名称
 			const paramKey = paramName.slice(1);
 			if (!params[paramKey]) continue;
-
 			replacedPathName = replacedPathName.replace(paramName, params[paramKey]);
 		}
 	}

@@ -1,9 +1,10 @@
-import { useRouter } from '@/router/hooks';
-import { type Dispatch, type SetStateAction, useCallback } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
 import type { KeepAliveTab } from '../types';
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+import { useRouter } from '@/router/hooks';
+import { useCallback } from 'react';
 
+const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 export function useTabOperations(
 	tabs: KeepAliveTab[],
 	setTabs: Dispatch<SetStateAction<KeepAliveTab[]>>,

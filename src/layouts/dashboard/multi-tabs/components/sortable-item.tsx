@@ -1,8 +1,10 @@
+import type { KeepAliveTab } from '../types';
+
 import { cn } from '@/utils';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+
 import { useMultiTabsContext } from '../providers/multi-tabs-provider';
-import type { KeepAliveTab } from '../types';
 import { TabItem } from './tab-item';
 
 type Props = {

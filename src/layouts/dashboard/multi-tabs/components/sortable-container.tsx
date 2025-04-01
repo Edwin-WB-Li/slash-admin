@@ -1,8 +1,8 @@
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+
 import {
 	DndContext,
-	type DragEndEvent,
 	DragOverlay,
-	type DragStartEvent,
 	KeyboardSensor,
 	MeasuringStrategy,
 	PointerSensor,
@@ -12,6 +12,7 @@ import {
 	useSensor,
 	useSensors,
 } from '@dnd-kit/core';
+
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import React from 'react';
 

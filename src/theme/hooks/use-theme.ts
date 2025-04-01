@@ -1,5 +1,6 @@
-import { useSettingActions, useSettings } from '@/store/settingStore';
 import type { ThemeMode } from '#/enum';
+
+import { useSettingActions, useSettings } from '@/store/settingStore';
 import { themeVars } from '../theme.css';
 import { baseThemeTokens } from '../tokens/base';
 import { darkColorTokens, lightColorTokens, presetsColors } from '../tokens/color';

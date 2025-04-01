@@ -1,6 +1,6 @@
-import apiClient from '../apiClient';
-
 import type { Organization } from '#/entity';
+
+import apiClient from '../apiClient';
 
 export enum OrgApi {
 	Org = '/org',

@@ -1,9 +1,9 @@
-import { useSettings } from '@/store/settingStore';
-import { themeVars } from '@/theme/theme.css';
-import { rgbAlpha } from '@/utils/theme';
 import { Toaster } from 'sonner';
 import styled from 'styled-components';
 
+import { useSettings } from '@/store/settingStore';
+import { themeVars } from '@/theme/theme.css';
+import { rgbAlpha } from '@/utils/theme';
 import { Iconify } from '../icon';
 
 /**

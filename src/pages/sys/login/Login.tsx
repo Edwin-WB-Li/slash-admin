@@ -33,6 +33,8 @@ function Login() {
 	//   return <Navigate to={HOMEPAGE} replace />;
 	// }
 
+	console.log('login components');
+
 	const gradientBg = rgbAlpha(themeVars.colors.background.defaultChannel, 0.8);
 	const bg = `linear-gradient(${gradientBg}, ${gradientBg}) center center / cover no-repeat,url(${BackguoundImage})`;
 
@@ -59,4 +61,5 @@ function Login() {
 		</Layout>
 	);
 }
+
 export default Login;

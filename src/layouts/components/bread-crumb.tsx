@@ -1,4 +1,6 @@
-import { Breadcrumb, type BreadcrumbProps, type GetProp } from 'antd';
+import type { BreadcrumbProps, GetProp } from 'antd';
+
+import { Breadcrumb } from 'antd';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useMatches } from 'react-router';

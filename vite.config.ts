@@ -1,7 +1,6 @@
 /// <reference types="vitest/config" />
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
-// import type { UserConfig } from 'vite';
 
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -11,14 +10,11 @@ import compression from 'vite-plugin-compression';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import tsconfigPaths from 'vite-tsconfig-paths';
-// import { defineConfig } from 'vitest/config';
-// import { configDefaults } from 'vitest/config.js';
-
 // ... existing imports ...
 
 export default defineConfig(({ mode }) => {
 	// 加载环境变量
-	const { VITE_PORT, VITE_TITLE, VITE_APP_BASE_PATH, VITE_LOCAL_API_URL } = loadEnv(mode, process.cwd(), '');
+	const { VITE_PORT, VITE_TITLE, VITE_APP_BASE_PATH, VITE_API_URL } = loadEnv(mode, process.cwd(), '');
 	const base = VITE_APP_BASE_PATH || '/';
 	const isProduction = mode === 'production';
 
@@ -33,8 +29,8 @@ export default defineConfig(({ mode }) => {
 			port: Number(VITE_PORT) || 3001,
 			proxy: {
 				'/api': {
-					// target: env.VITE_API_URL || 'http://localhost:3000',
-					target: VITE_LOCAL_API_URL || 'http://localhost:3000',
+					target: VITE_API_URL || 'http://localhost:3000',
+					// target: VITE_LOCAL_API_URL || 'http://localhost:3000',
 					changeOrigin: true,
 					// rewrite: (path) => path.replace(/^\/api/, ''),
 					secure: false,
@@ -82,7 +78,7 @@ export default defineConfig(({ mode }) => {
 				excludeNodeModules: true,
 				// 包含和排除的文件
 				include: ['src/**/*.{ts,tsx}'],
-				exclude: ['**/*.d.ts', '**/*.stories.tsx', 'src/__tests__/**', 'src/mocks/**'],
+				exclude: ['**/*.d.ts', '**/*.stories.tsx', 'src/__tests__/**', 'src/_mocks/**'],
 				// 覆盖阈值
 				// thresholds: {
 				// 	// 设置每个文件的阈值
@@ -146,9 +142,9 @@ export default defineConfig(({ mode }) => {
 				},
 			}),
 			// 用于在开发过程中提供实时的代码检查和错误报告。它集成了多种检查工具，如 TypeScript、VLS (Vetur Language Server)、ESLint、Stylelint 等，帮助开发者在开发阶段就能发现和修复代码中的问题。
-			checker({
-				typescript: true,
-			}),
+			// checker({
+			// 	typescript: true,
+			// }),
 			// 用于增强 Vite 项目的 HTML 模板功能。它允许开发者在构建过程中动态地修改和注入 HTML 内容，从而提供更灵活的 HTML 模板处理能力。
 			// 动态注入: 可以在 HTML 文件中动态注入变量、脚本、样式等。
 			// 模板处理: 支持使用模板引擎语法来处理 HTML 文件。
@@ -180,15 +176,15 @@ export default defineConfig(({ mode }) => {
 					template: 'treemap', // 使用树形图更直观
 				}),
 			// 用于在构建阶段对生成的静态资源文件（如 JavaScript、CSS、HTML 等）进行压缩，生成 .gz 或 .br 等压缩文件。这些压缩文件可以在部署到服务器时直接提供给客户端，从而减少文件传输大小，提高页面加载速度
-			isProduction &&
-				// VITE_BUILD_GZIP &&
-				compression({
-					verbose: true, // 是否在控制台输出压缩结果
-					disable: false, // 是否禁用压缩（用于调试）
-					threshold: 10240, // 只有大于该大小的文件会被压缩，单位为字节
-					algorithm: 'gzip', // 压缩算法，可选 'gzip' 或 'brotliCompress'
-					ext: '.gz', // 生成的压缩文件后缀
-				}),
+			// isProduction &&
+			// 	// VITE_BUILD_GZIP &&
+			// 	compression({
+			// 		verbose: true, // 是否在控制台输出压缩结果
+			// 		disable: false, // 是否禁用压缩（用于调试）
+			// 		threshold: 10240, // 只有大于该大小的文件会被压缩，单位为字节
+			// 		algorithm: 'gzip', // 压缩算法，可选 'gzip' 或 'brotliCompress'
+			// 		ext: '.gz', // 生成的压缩文件后缀
+			// 	}),
 		].filter(Boolean),
 
 		// 构建配置

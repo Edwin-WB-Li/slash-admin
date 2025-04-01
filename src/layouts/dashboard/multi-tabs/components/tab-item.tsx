@@ -1,10 +1,13 @@
+import type { MenuProps } from 'antd';
+import type { TabItemProps } from '../types';
+
 import { Iconify } from '@/components/icon';
-import { Dropdown, type MenuProps } from 'antd';
+import { Dropdown } from 'antd';
 import { useTranslation } from 'react-i18next';
+
 import { MultiTabOperation } from '#/enum';
 import { useTabLabelRender } from '../hooks/use-tab-label-render';
 import { useMultiTabsContext } from '../providers/multi-tabs-provider';
-import type { TabItemProps } from '../types';
 
 export function TabItem({ tab, style, onClose }: TabItemProps) {
 	const { t } = useTranslation();

@@ -1,16 +1,17 @@
 import type { LoginParams } from '@/api/types';
 
-import { useLogin, useMenus } from '@/store/userStore';
 import { CloseCircleOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Col, Divider, Form, Input, Row } from 'antd';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AiFillGithub, AiFillGoogleCircle, AiFillWechat } from 'react-icons/ai';
-// import { useNavigate } from "react-router";
-// const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+// import { toast } from "sonner";
+
+import { useNavigate } from 'react-router';
+const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+import { useLogin, useMenus } from '@/store/userStore';
 
 import { LoginStateEnum, useLoginStateContext } from './providers/LoginStateProvider';
-
 function LoginForm() {
 	const { t } = useTranslation();
 	const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ function LoginForm() {
 	const { loginState, setLoginState } = useLoginStateContext();
 	const featchLogin = useLogin();
 	const featchMenus = useMenus();
-	// const navigate = useNavigate();
+	const navigate = useNavigate();
 
 	if (loginState !== LoginStateEnum.LOGIN) return null;
 
@@ -27,18 +28,25 @@ function LoginForm() {
 		try {
 			await featchLogin({ username, password });
 			await featchMenus();
-			// navigate(HOMEPAGE);
+			// toast.success(t("sys.login.loginSuccess") || "login success!", {
+			//   position: "top-center",
+			// });
+			console.log('跳转前--->5');
+			navigate(HOMEPAGE, { replace: true });
+			window.location.reload();
+			// return <Navigate to="/login" replace />;
+			// // window.location.replace(HOMEPAGE);
+			console.log('跳转后--->6');
 		} finally {
 			setLoading(false);
 		}
 	};
 
-	// 缓存回调函数
 	const handleReset = () => form.resetFields();
 
 	return (
 		<Form
-			className="sm:shadow sm:rounded-xl sm:p-5"
+			className="sm:shadow sm:rounded-xl sm:shadow-blue-500 sm:p-5"
 			form={form}
 			name="login"
 			size="large"

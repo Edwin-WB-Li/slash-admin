@@ -1,5 +1,8 @@
-import { Divider, type MenuProps } from 'antd';
-import Dropdown, { type DropdownProps } from 'antd/es/dropdown/dropdown';
+import type { MenuProps } from 'antd';
+import type { DropdownProps } from 'antd/es/dropdown/dropdown';
+
+import { Divider } from 'antd';
+import Dropdown from 'antd/es/dropdown/dropdown';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router';
@@ -10,14 +13,14 @@ import { useRouter } from '@/router/hooks';
 import { useUserActions, useUserInfo } from '@/store/userStore';
 import { useTheme } from '@/theme/hooks';
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+// const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 /**
  * Account Dropdown
  */
 export default function AccountDropdown() {
 	const { replace } = useRouter();
-	const { username, email, avatar } = useUserInfo();
+	const { nick_name, email, avatar } = useUserInfo();
 	const { clearUserInfoAndToken } = useUserActions();
 	const { backToLogin } = useLoginStateContext();
 	const { t } = useTranslation();
@@ -48,7 +51,7 @@ export default function AccountDropdown() {
 	const dropdownRender: DropdownProps['dropdownRender'] = (menu) => (
 		<div style={contentStyle}>
 			<div className="flex flex-col items-start p-4">
-				<div>{username}</div>
+				<div>{nick_name}</div>
 				<div className="text-gray">{email}</div>
 			</div>
 			<Divider style={{ margin: 0 }} />
@@ -65,10 +68,10 @@ export default function AccountDropdown() {
 			),
 			key: '0',
 		},
-		{
-			label: <NavLink to={HOMEPAGE}>{t('sys.menu.dashboard')}</NavLink>,
-			key: '1',
-		},
+		// {
+		//   label: <NavLink to={HOMEPAGE}>{t("sys.menu.dashboard")}</NavLink>,
+		//   key: "1",
+		// },
 		{
 			label: <NavLink to="/management/user/profile">{t('sys.menu.user.profile')}</NavLink>,
 			key: '2',

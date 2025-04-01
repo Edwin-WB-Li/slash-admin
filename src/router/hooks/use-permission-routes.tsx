@@ -167,21 +167,22 @@ function transformPermissionsToRoutes(
 	});
 }
 
-const ROUTE_MODE = import.meta.env.VITE_APP_ROUTER_MODE;
 /**
  * @description Get Rermission Routes
  * @returns
  */
 export function usePermissionRoutes() {
+	const { VITE_APP_ROUTER_MODE: ROUTE_MODE } = import.meta.env;
+	// 使用动态路由
+	const permissions = useUserPermission();
 	// 使用静态路由
 	if (ROUTE_MODE === 'module') {
 		return getRoutesFromModules();
 	}
-	// 使用动态路由
-	const permissions = useUserPermission();
 	return useMemo(() => {
-		if (!permissions) return [];
-
+		if (!permissions) {
+			return [];
+		}
 		const flattenedPermissions = flattenTrees(permissions);
 		return transformPermissionsToRoutes(permissions, flattenedPermissions);
 	}, [permissions]);
