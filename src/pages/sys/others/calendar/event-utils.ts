@@ -1,5 +1,6 @@
-import { faker } from '@faker-js/faker';
 import type { EventInput } from '@fullcalendar/core';
+
+import { faker } from '@faker-js/faker';
 import dayjs from 'dayjs';
 
 export const INITIAL_EVENTS: EventInput[] = [

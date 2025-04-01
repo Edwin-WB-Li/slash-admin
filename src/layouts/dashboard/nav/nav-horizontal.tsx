@@ -1,10 +1,11 @@
-import { Menu, type MenuProps } from 'antd';
+import type { MenuProps } from 'antd';
+
+import { Menu } from 'antd';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useFlattenedRoutes, usePathname, usePermissionRoutes, useRouteToMenuFn } from '@/router/hooks';
 import { menuFilter } from '@/router/utils';
-
 import { themeVars } from '@/theme/theme.css';
 import { NAV_HORIZONTAL_HEIGHT } from '../config';
 

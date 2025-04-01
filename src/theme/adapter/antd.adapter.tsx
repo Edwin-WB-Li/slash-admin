@@ -1,13 +1,15 @@
-import useLocale from '@/locales/use-locale';
-import { StyleProvider } from '@ant-design/cssinjs';
 import type { ThemeConfig } from 'antd';
+import type { UILibraryAdapter } from '../type';
+
 import { App, ConfigProvider, theme } from 'antd';
+
+import useLocale from '@/locales/use-locale';
+import { useSettings } from '@/store/settingStore';
+import { StyleProvider } from '@ant-design/cssinjs';
 import { ThemeMode } from '#/enum';
 import { baseThemeTokens } from '../tokens/base';
 import { darkColorTokens, lightColorTokens, presetsColors } from '../tokens/color';
-import type { UILibraryAdapter } from '../type';
 
-import { useSettings } from '@/store/settingStore';
 import { removePx } from '@/utils/theme';
 import { lightShadowTokens } from '../tokens/shadow';
 import { darkShadowTokens } from '../tokens/shadow';

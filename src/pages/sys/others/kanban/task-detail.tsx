@@ -1,3 +1,5 @@
+import type { Task } from './types';
+
 import { Avatar, DatePicker, Image, Input, Radio, Space, Tag, Typography } from 'antd';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
@@ -5,7 +7,6 @@ import styled from 'styled-components';
 import { SvgIcon } from '@/components/icon';
 
 import { themeVars } from '@/theme/theme.css';
-import type { Task } from './types';
 
 type Props = {
 	task: Task;

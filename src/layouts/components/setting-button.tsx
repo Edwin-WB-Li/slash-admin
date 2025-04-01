@@ -1,9 +1,10 @@
-import { type CSSProperties, useState } from 'react';
-import { type ThemeColorPresets, ThemeLayout, ThemeMode } from '#/enum';
+import type { CSSProperties } from 'react';
+import type { ThemeColorPresets } from '#/enum';
 
 import { CloseOutlined, LeftOutlined, QuestionCircleOutlined, RightOutlined } from '@ant-design/icons';
 import { Button, Card, Drawer, Slider, Switch, Tooltip } from 'antd';
 import { m } from 'framer-motion';
+import { useState } from 'react';
 import { MdCircle } from 'react-icons/md';
 import screenfull from 'screenfull';
 
@@ -13,6 +14,7 @@ import { varHover } from '@/components/animate/variants/action';
 import { IconButton, SvgIcon } from '@/components/icon';
 import { useSettingActions, useSettings } from '@/store/settingStore';
 import { presetsColors } from '@/theme/tokens/color';
+import { ThemeLayout, ThemeMode } from '#/enum';
 
 import { themeVars } from '@/theme/theme.css';
 import { FontFamilyPreset } from '@/theme/tokens/typography';

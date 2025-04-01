@@ -1,6 +1,9 @@
+import type { TabsProps } from 'antd';
+import type { CSSProperties, ReactNode } from 'react';
+
 import { faker } from '@faker-js/faker';
-import { Badge, Button, Drawer, Space, Tabs, type TabsProps, Tag } from 'antd';
-import { type CSSProperties, type ReactNode, useState } from 'react';
+import { Badge, Button, Drawer, Space, Tabs, Tag } from 'antd';
+import { useState } from 'react';
 
 import CyanBlur from '@/assets/images/background/cyan-blur.png';
 import RedBlur from '@/assets/images/background/red-blur.png';

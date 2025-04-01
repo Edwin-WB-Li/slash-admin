@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { USER_LIST } from '@/_mock/assets';
 import type { KeepAliveTab } from '../types';
+
+import { USER_LIST } from '@/_mock/assets';
 
 export function useTabLabelRender() {
 	const { t } = useTranslation();

@@ -1,6 +1,7 @@
-import { cn } from '@/utils';
 import type { ButtonProps } from 'antd';
 import type { CSSProperties, ReactNode } from 'react';
+
+import { cn } from '@/utils';
 
 type Props = {
 	children: ReactNode;

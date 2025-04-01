@@ -1,24 +1,20 @@
-import {
-	DndContext,
-	type DragEndEvent,
-	DragOverlay,
-	type DragStartEvent,
-	PointerSensor,
-	useSensor,
-	useSensors,
-} from '@dnd-kit/core';
+import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import type { InputRef } from 'antd';
+import type { Column, Columns, DndDataType, Task, Tasks } from './types';
+
 import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import { faker } from '@faker-js/faker';
-import { Button, Input, type InputRef } from 'antd';
+import { Button, Input } from 'antd';
 import { useRef, useState } from 'react';
 import { useEvent } from 'react-use';
 import SimpleBar from 'simplebar-react';
+
+import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 
 import { Iconify } from '@/components/icon';
 import KanbanColumn from './kanban-column';
 import KanbanTask from './kanban-task';
 import { initialData } from './task-utils';
-import type { Column, Columns, DndDataType, Task, Tasks } from './types';
 
 export default function Kanban() {
 	const [state, setState] = useState(initialData);

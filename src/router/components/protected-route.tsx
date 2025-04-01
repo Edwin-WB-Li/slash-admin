@@ -34,5 +34,14 @@ export default function ProtectedRoute({ children }: Props) {
 		return <Navigate to="/login" replace />;
 	}
 
-	return <ErrorBoundary FallbackComponent={PageError}>{children}</ErrorBoundary>;
+	return (
+		<ErrorBoundary
+			FallbackComponent={PageError}
+			onError={(error, info) => {
+				console.error('ErrorBoundary 捕获的错误:', error, info);
+			}}
+		>
+			{children}
+		</ErrorBoundary>
+	);
 }

@@ -60,5 +60,6 @@ export function useRouteToMenuFn() {
 		},
 		[t, themeLayout],
 	);
+
 	return routeToMenuFn;
 }

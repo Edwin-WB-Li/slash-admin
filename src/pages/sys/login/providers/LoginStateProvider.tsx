@@ -1,4 +1,6 @@
-import { type PropsWithChildren, createContext, useContext, useMemo, useState } from 'react';
+import type { PropsWithChildren } from 'react';
+
+import { createContext, useContext, useMemo, useState } from 'react';
 
 export enum LoginStateEnum {
 	LOGIN = 0,
@@ -13,6 +15,7 @@ interface LoginStateContextType {
 	setLoginState: (loginState: LoginStateEnum) => void;
 	backToLogin: () => void;
 }
+
 const LoginStateContext = createContext<LoginStateContextType>({
 	loginState: LoginStateEnum.LOGIN,
 	setLoginState: () => {},

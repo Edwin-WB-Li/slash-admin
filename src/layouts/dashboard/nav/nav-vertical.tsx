@@ -1,4 +1,6 @@
-import { Layout, Menu, type MenuProps } from 'antd';
+import type { MenuProps } from 'antd';
+
+import { Layout, Menu } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useMatches, useNavigate } from 'react-router';
 

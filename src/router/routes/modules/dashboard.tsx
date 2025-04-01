@@ -1,10 +1,10 @@
+import type { AppRouteObject } from '#/router';
+
 import { Suspense, lazy } from 'react';
 import { Navigate, Outlet } from 'react-router';
 
 import { SvgIcon } from '@/components/icon';
 import { CircleLoading } from '@/components/loading';
-
-import type { AppRouteObject } from '#/router';
 
 const HomePage = lazy(() => import('@/pages/dashboard/workbench'));
 const Analysis = lazy(() => import('@/pages/dashboard/analysis'));

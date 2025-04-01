@@ -1,15 +1,15 @@
 import type { LoginParams, MenuOptions, UserInfoType } from '@/api/types';
 
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
+import { toast } from 'sonner';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 import userService from '@/api/services/userService';
 import { t } from '@/locales/i18n';
-import { toast } from 'sonner';
 import { StorageEnum } from '#/enum';
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+// const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 type UserStore = {
 	userInfo: Partial<UserInfoType>;
@@ -19,7 +19,7 @@ type UserStore = {
 	actions: {
 		setUserInfo: (userInfo: UserInfoType) => void;
 		setUserToken: (token: string) => void;
-		setMenus: (menus: MenuOptions[]) => void;
+		setUserMenus: (menus: MenuOptions[]) => void;
 		clearUserInfoAndToken: () => void;
 	};
 };
@@ -31,13 +31,11 @@ const useUserStore = create<UserStore>()(
 			userToken: '',
 			userMenus: [],
 			actions: {
-				setUserInfo: (userInfo) => {
-					set({ userInfo });
-				},
+				setUserInfo: (userInfo) => set({ userInfo }),
 				setUserToken: (userToken) => {
 					set({ userToken });
 				},
-				setMenus: (userMenus) => {
+				setUserMenus: (userMenus) => {
 					set({ userMenus });
 				},
 				clearUserInfoAndToken() {
@@ -66,7 +64,7 @@ export const useUserActions = () => useUserStore((state) => state.actions);
  * @description 登录
  */
 export const useLogin = () => {
-	const navigatge = useNavigate();
+	// const navigatge = useNavigate();
 	const { setUserToken, setUserInfo } = useUserActions();
 	const loginMutation = useMutation({
 		mutationFn: userService.login,
@@ -80,7 +78,7 @@ export const useLogin = () => {
 			toast.success(t('sys.login.loginSuccess') || 'login success!', {
 				position: 'top-center',
 			});
-			navigatge(HOMEPAGE, { replace: true });
+			// navigatge(HOMEPAGE, { replace: true });
 		} catch (err) {
 			throw new Error(err || t('sys.api.apiRequestFailed'));
 		}
@@ -92,7 +90,9 @@ export const useLogin = () => {
  * @description 获取菜单列表
  */
 export const useMenus = () => {
-	const { setMenus } = useUserActions();
+	const { setUserMenus } = useUserActions();
+	// const navigate = useNavigate();
+
 	const getMenusMutation = useMutation({
 		mutationFn: userService.getMenus,
 	});
@@ -100,8 +100,10 @@ export const useMenus = () => {
 		try {
 			const res = await getMenusMutation.mutateAsync();
 			if (res) {
-				setMenus(res);
+				setUserMenus(res);
 			}
+			console.log('--->2');
+			// navigate(HOMEPAGE, { replace: true });
 		} catch (err) {
 			throw new Error(err || t('sys.api.apiRequestFailed'));
 		}
