@@ -1,68 +1,68 @@
-import Card from '@/components/card';
-import { Iconify } from '@/components/icon';
-import { faker } from '@faker-js/faker';
-import { Button, Col, Row, Tag } from 'antd';
+import Card from "@/components/card";
+import { Iconify } from "@/components/icon";
+import { faker } from "@faker-js/faker";
+import { Button, Col, Row, Tag } from "antd";
 
 export default function ConnectionsTab() {
 	const items = [
 		{
 			avatar: faker.image.avatarGitHub(),
 			name: faker.person.fullName(),
-			title: 'UI Designer',
-			tags: ['Figma', 'Sketch'],
-			projects: '18',
-			tasks: '834',
-			connections: '129',
+			title: "UI Designer",
+			tags: ["Figma", "Sketch"],
+			projects: "18",
+			tasks: "834",
+			connections: "129",
 			connected: true,
 		},
 		{
 			avatar: faker.image.avatarGitHub(),
 			name: faker.person.fullName(),
-			title: 'Developer',
-			tags: ['Angular', 'React'],
-			projects: '118',
-			tasks: '2.32k',
-			connections: '1.29k',
+			title: "Developer",
+			tags: ["Angular", "React"],
+			projects: "118",
+			tasks: "2.32k",
+			connections: "1.29k",
 			connected: false,
 		},
 		{
 			avatar: faker.image.avatarGitHub(),
 			name: faker.person.fullName(),
-			title: 'Developer',
-			tags: ['Html', 'React'],
-			projects: '32',
-			tasks: '1.25k',
-			connections: '890',
+			title: "Developer",
+			tags: ["Html", "React"],
+			projects: "32",
+			tasks: "1.25k",
+			connections: "890",
 			connected: false,
 		},
 		{
 			avatar: faker.image.avatarGitHub(),
 			name: faker.person.fullName(),
-			title: 'UI/UX Designer',
-			tags: ['Figma', 'Sketch', 'Photoshop'],
-			projects: '86',
-			tasks: '12.4k',
-			connections: '890',
+			title: "UI/UX Designer",
+			tags: ["Figma", "Sketch", "Photoshop"],
+			projects: "86",
+			tasks: "12.4k",
+			connections: "890",
 			connected: false,
 		},
 		{
 			avatar: faker.image.avatarGitHub(),
 			name: faker.person.fullName(),
-			title: 'Full Stack Developer',
-			tags: ['React', 'Html', 'Node.js'],
-			projects: '244',
-			tasks: '23.9k',
-			connections: '2.14k',
+			title: "Full Stack Developer",
+			tags: ["React", "Html", "Node.js"],
+			projects: "244",
+			tasks: "23.9k",
+			connections: "2.14k",
 			connected: true,
 		},
 		{
 			avatar: faker.image.avatarGitHub(),
 			name: faker.person.fullName(),
-			title: 'SEO',
-			tags: ['Analysis', 'Writing'],
-			projects: '32',
-			tasks: '1.28k',
-			connections: '1.27k',
+			title: "SEO",
+			tags: ["Analysis", "Writing"],
+			projects: "32",
+			tasks: "1.28k",
+			connections: "1.27k",
 			connected: false,
 		},
 	];
@@ -100,7 +100,7 @@ export default function ConnectionsTab() {
 						</div>
 
 						<div className="mt-4 flex">
-							<Button type={item.connected ? 'primary' : 'dashed'}>
+							<Button type={item.connected ? "primary" : "dashed"}>
 								<Iconify icon="ri:user-add-line" size={14} />
 								<span className="ml-2">CONNECTED</span>
 							</Button>

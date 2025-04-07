@@ -1,6 +1,6 @@
-import type React from 'react';
+import type React from "react";
 
-import HeaderSimple from '../components/header-simple';
+import HeaderSimple from "../components/header-simple";
 
 type Props = {
 	children: React.ReactNode;

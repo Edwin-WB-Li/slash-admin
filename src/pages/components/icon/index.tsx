@@ -1,12 +1,12 @@
-import { StepBackwardOutlined } from '@ant-design/icons';
-import { Card, Space, Typography } from 'antd';
+import { StepBackwardOutlined } from "@ant-design/icons";
+import { Card, Space, Typography } from "antd";
 
-import { Iconify, SvgIcon } from '@/components/icon';
-import { themeVars } from '@/theme/theme.css';
+import { Iconify, SvgIcon } from "@/components/icon";
+import { themeVars } from "@/theme/theme.css";
 
 export default function IconPage() {
 	return (
-		<Space direction="vertical" style={{ display: 'flex' }}>
+		<Space direction="vertical" style={{ display: "flex" }}>
 			<Card title="Antd Icons">
 				<span className="mr-1">For more info</span>
 				<Typography.Link
@@ -18,7 +18,7 @@ export default function IconPage() {
 
 				<p className="mt-2 flex flex-col text-info">
 					<code>{`import { StepBackwardOutlined } from '@ant-design/icons';`}</code>
-					<code>{'<StepBackwardOutlined /> '}</code>
+					<code>{"<StepBackwardOutlined /> "}</code>
 				</p>
 
 				<div className="mt-4">

@@ -1,7 +1,7 @@
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
-import { useEffect } from 'react';
-import './index.css';
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import { useEffect } from "react";
+import "./index.css";
 
 // 配置 NProgress
 NProgress.configure({
@@ -39,7 +39,7 @@ export default function ProgressBar() {
 		});
 
 		// 监听 popstate 事件（处理浏览器前进后退）
-		window.addEventListener('popstate', handleRouteChange);
+		window.addEventListener("popstate", handleRouteChange);
 
 		// 初始加载时触发一次
 		handleRouteChange();
@@ -47,7 +47,7 @@ export default function ProgressBar() {
 		// 清理监听器
 		return () => {
 			observer.disconnect();
-			window.removeEventListener('popstate', handleRouteChange);
+			window.removeEventListener("popstate", handleRouteChange);
 		};
 	}, []);
 

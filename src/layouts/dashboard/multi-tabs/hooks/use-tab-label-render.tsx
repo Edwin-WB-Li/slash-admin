@@ -1,15 +1,15 @@
-import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import type { KeepAliveTab } from '../types';
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import type { KeepAliveTab } from "../types";
 
-import { USER_LIST } from '@/_mock/assets';
+import { USER_LIST } from "@/_mock/assets";
 
 export function useTabLabelRender() {
 	const { t } = useTranslation();
 
 	const specialTabRenderMap = useMemo<Record<string, (tab: KeepAliveTab) => React.ReactNode>>(
 		() => ({
-			'sys.menu.system.user_detail': (tab: KeepAliveTab) => {
+			"sys.menu.system.user_detail": (tab: KeepAliveTab) => {
 				const userId = tab.params?.id;
 				const defaultLabel = t(tab.label);
 				if (userId) {

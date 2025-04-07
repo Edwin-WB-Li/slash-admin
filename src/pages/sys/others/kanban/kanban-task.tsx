@@ -1,17 +1,17 @@
-import type { CSSProperties } from 'react';
-import type { Task } from './types';
+import type { CSSProperties } from "react";
+import type { Task } from "./types";
 
-import { useSortable } from '@dnd-kit/sortable';
-import { Avatar, Drawer, Image, Select } from 'antd';
-import { memo, useState } from 'react';
-import styled from 'styled-components';
+import { useSortable } from "@dnd-kit/sortable";
+import { Avatar, Drawer, Image, Select } from "antd";
+import { memo, useState } from "react";
+import styled from "styled-components";
 
-import { IconButton, Iconify, SvgIcon } from '@/components/icon';
-import { themeVars } from '@/theme/theme.css';
-import { rgbAlpha } from '@/utils/theme';
-import { CSS } from '@dnd-kit/utilities';
-import TaskDetail from './task-detail';
-import { TaskPriority } from './types';
+import { IconButton, Iconify, SvgIcon } from "@/components/icon";
+import { themeVars } from "@/theme/theme.css";
+import { rgbAlpha } from "@/utils/theme";
+import { CSS } from "@dnd-kit/utilities";
+import TaskDetail from "./task-detail";
+import { TaskPriority } from "./types";
 
 type Props = {
 	id: string;
@@ -79,12 +79,12 @@ function KanbanTask({ id, task, isDragging }: Props) {
 								size="large"
 								variant="borderless"
 								dropdownStyle={{
-									width: 'auto',
+									width: "auto",
 								}}
 								options={[
-									{ value: 'To do', label: 'To do' },
-									{ value: 'In progress', label: 'In progress' },
-									{ value: 'Done', label: 'Done' },
+									{ value: "To do", label: "To do" },
+									{ value: "In progress", label: "In progress" },
+									{ value: "Done", label: "Done" },
 								]}
 							/>
 						</div>
@@ -107,7 +107,7 @@ function KanbanTask({ id, task, isDragging }: Props) {
 				width={420}
 				styles={{
 					body: { padding: 0 },
-					mask: { backgroundColor: 'transparent' },
+					mask: { backgroundColor: "transparent" },
 				}}
 				style={style}
 			>
@@ -144,9 +144,9 @@ const Container = styled.div<{ $isDragging: boolean }>`
   font-weight: 400;
   font-size: 12px;
   background-color: ${themeVars.colors.background.default};
-  backdrop-filter: ${(props) => (props.$isDragging ? 'blur(6px)' : '')};
+  backdrop-filter: ${(props) => (props.$isDragging ? "blur(6px)" : "")};
 
   &:hover {
-    box-shadow: ${themeVars.shadows['3xl']};
+    box-shadow: ${themeVars.shadows["3xl"]};
   }
 `;

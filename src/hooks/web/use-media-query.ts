@@ -1,21 +1,21 @@
-import { breakpointsTokens } from '@/theme/tokens/breakpoints';
-import { removePx } from '@/utils/theme';
-import { useEffect, useMemo, useState } from 'react';
+import { breakpointsTokens } from "@/theme/tokens/breakpoints";
+import { removePx } from "@/utils/theme";
+import { useEffect, useMemo, useState } from "react";
 
 type MediaQueryConfig = {
 	minWidth?: number;
 	maxWidth?: number;
 	minHeight?: number;
 	maxHeight?: number;
-	orientation?: 'portrait' | 'landscape';
-	prefersColorScheme?: 'dark' | 'light';
+	orientation?: "portrait" | "landscape";
+	prefersColorScheme?: "dark" | "light";
 	prefersReducedMotion?: boolean;
 	devicePixelRatio?: number;
-	pointerType?: 'coarse' | 'fine';
+	pointerType?: "coarse" | "fine";
 };
 
 const buildMediaQuery = (config: MediaQueryConfig | string): string => {
-	if (typeof config === 'string') return config;
+	if (typeof config === "string") return config;
 
 	const conditions: string[] = [];
 
@@ -25,11 +25,11 @@ const buildMediaQuery = (config: MediaQueryConfig | string): string => {
 	if (config.maxHeight) conditions.push(`(max-height: ${config.maxHeight}px)`);
 	if (config.orientation) conditions.push(`(orientation: ${config.orientation})`);
 	if (config.prefersColorScheme) conditions.push(`(prefers-color-scheme: ${config.prefersColorScheme})`);
-	if (config.prefersReducedMotion) conditions.push('(prefers-reduced-motion: reduce)');
+	if (config.prefersReducedMotion) conditions.push("(prefers-reduced-motion: reduce)");
 	if (config.devicePixelRatio) conditions.push(`(-webkit-min-device-pixel-ratio: ${config.devicePixelRatio})`);
 	if (config.pointerType) conditions.push(`(pointer: ${config.pointerType})`);
 
-	return conditions.join(' and ');
+	return conditions.join(" and ");
 };
 
 /**
@@ -91,7 +91,7 @@ export const useMediaQuery = (config: MediaQueryConfig | string) => {
 
 		// 使用新旧两种 API 以确保最大兼容性
 		if (mediaQuery.addEventListener) {
-			mediaQuery.addEventListener('change', handler);
+			mediaQuery.addEventListener("change", handler);
 		} else {
 			// 兼容旧版浏览器
 			mediaQuery.addListener(handler);
@@ -100,7 +100,7 @@ export const useMediaQuery = (config: MediaQueryConfig | string) => {
 		// 清理函数
 		return () => {
 			if (mediaQuery.removeEventListener) {
-				mediaQuery.removeEventListener('change', handler);
+				mediaQuery.removeEventListener("change", handler);
 			} else {
 				// 兼容旧版浏览器
 				mediaQuery.removeListener(handler);

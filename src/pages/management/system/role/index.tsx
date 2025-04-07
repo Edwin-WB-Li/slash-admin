@@ -1,28 +1,28 @@
-import { Button, Card, Popconfirm, Tag } from 'antd';
-import Table, { type ColumnsType } from 'antd/es/table';
-import { useState } from 'react';
+import { Button, Card, Popconfirm, Tag } from "antd";
+import Table, { type ColumnsType } from "antd/es/table";
+import { useState } from "react";
 
-import { ROLE_LIST } from '@/_mock/assets';
-import { IconButton, Iconify } from '@/components/icon';
+import { ROLE_LIST } from "@/_mock/assets";
+import { IconButton, Iconify } from "@/components/icon";
 
-import { RoleModal, type RoleModalProps } from './role-modal';
+import { RoleModal, type RoleModalProps } from "./role-modal";
 
-import type { Role } from '#/entity';
-import { BasicStatus } from '#/enum';
+import type { Role } from "#/entity";
+import { BasicStatus } from "#/enum";
 
 const ROLES: Role[] = ROLE_LIST as Role[];
 
 const DEFAULE_ROLE_VALUE: Role = {
-	id: '',
-	name: '',
-	label: '',
+	id: "",
+	name: "",
+	label: "",
 	status: BasicStatus.ENABLE,
 	permission: [],
 };
 export default function RolePage() {
 	const [roleModalPros, setRoleModalProps] = useState<RoleModalProps>({
 		formValue: { ...DEFAULE_ROLE_VALUE },
-		title: 'New',
+		title: "New",
 		show: false,
 		onOk: () => {
 			setRoleModalProps((prev) => ({ ...prev, show: false }));
@@ -33,31 +33,31 @@ export default function RolePage() {
 	});
 	const columns: ColumnsType<Role> = [
 		{
-			title: 'Name',
-			dataIndex: 'name',
+			title: "Name",
+			dataIndex: "name",
 			width: 300,
 		},
 		{
-			title: 'Label',
-			dataIndex: 'label',
+			title: "Label",
+			dataIndex: "label",
 		},
-		{ title: 'Order', dataIndex: 'order', width: 60 },
+		{ title: "Order", dataIndex: "order", width: 60 },
 		{
-			title: 'Status',
-			dataIndex: 'status',
-			align: 'center',
+			title: "Status",
+			dataIndex: "status",
+			align: "center",
 			width: 120,
 			render: (status) => (
-				<Tag color={status === BasicStatus.DISABLE ? 'error' : 'success'}>
-					{status === BasicStatus.DISABLE ? 'Disable' : 'Enable'}
+				<Tag color={status === BasicStatus.DISABLE ? "error" : "success"}>
+					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
 				</Tag>
 			),
 		},
-		{ title: 'Desc', dataIndex: 'desc' },
+		{ title: "Desc", dataIndex: "desc" },
 		{
-			title: 'Action',
-			key: 'operation',
-			align: 'center',
+			title: "Action",
+			key: "operation",
+			align: "center",
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-center text-gray">
@@ -78,7 +78,7 @@ export default function RolePage() {
 		setRoleModalProps((prev) => ({
 			...prev,
 			show: true,
-			title: 'Create New',
+			title: "Create New",
 			formValue: {
 				...prev.formValue,
 				...DEFAULE_ROLE_VALUE,
@@ -90,7 +90,7 @@ export default function RolePage() {
 		setRoleModalProps((prev) => ({
 			...prev,
 			show: true,
-			title: 'Edit',
+			title: "Edit",
 			formValue,
 		}));
 	};
@@ -107,7 +107,7 @@ export default function RolePage() {
 			<Table
 				rowKey="id"
 				size="small"
-				scroll={{ x: 'max-content' }}
+				scroll={{ x: "max-content" }}
 				pagination={false}
 				columns={columns}
 				dataSource={ROLES}

@@ -1,7 +1,7 @@
-import Card from '@/components/card';
-import Chart from '@/components/chart/chart';
-import useChart from '@/components/chart/useChart';
-import { SvgIcon } from '@/components/icon';
+import Card from "@/components/card";
+import Chart from "@/components/chart/chart";
+import useChart from "@/components/chart/useChart";
+import { SvgIcon } from "@/components/icon";
 
 type Props = {
 	title: string;
@@ -14,7 +14,7 @@ type Props = {
 function ChartLine({ data }: { data: number[] }) {
 	const series = [
 		{
-			name: '',
+			name: "",
 			data,
 		},
 	];
@@ -66,7 +66,7 @@ export default function TotalCard({ title, increase, count, percent, chartData }
 						<SvgIcon icon="ic_decline" size={24} color="rgb(255, 86, 48)" />
 					)}
 					<div className="ml-2">
-						<span>{increase ? '+' : '-'}</span>
+						<span>{increase ? "+" : "-"}</span>
 						<span>{percent}</span>
 					</div>
 				</div>

@@ -1,12 +1,12 @@
-import { Button, Card, Popconfirm, Tag } from 'antd';
-import Table, { type ColumnsType } from 'antd/es/table';
+import { Button, Card, Popconfirm, Tag } from "antd";
+import Table, { type ColumnsType } from "antd/es/table";
 
-import { USER_LIST } from '@/_mock/assets';
-import { IconButton, Iconify } from '@/components/icon';
-import { usePathname, useRouter } from '@/router/hooks';
+import { USER_LIST } from "@/_mock/assets";
+import { IconButton, Iconify } from "@/components/icon";
+import { usePathname, useRouter } from "@/router/hooks";
 
-import type { Role, UserInfo } from '#/entity';
-import { BasicStatus } from '#/enum';
+import type { Role, UserInfo } from "#/entity";
+import { BasicStatus } from "#/enum";
 
 const USERS: UserInfo[] = USER_LIST as UserInfo[];
 
@@ -16,8 +16,8 @@ export default function RolePage() {
 
 	const columns: ColumnsType<UserInfo> = [
 		{
-			title: 'Name',
-			dataIndex: 'name',
+			title: "Name",
+			dataIndex: "name",
 			width: 300,
 			render: (_, record) => {
 				return (
@@ -32,27 +32,27 @@ export default function RolePage() {
 			},
 		},
 		{
-			title: 'Role',
-			dataIndex: 'role',
-			align: 'center',
+			title: "Role",
+			dataIndex: "role",
+			align: "center",
 			width: 120,
 			render: (role: Role) => <Tag color="cyan">{role.name}</Tag>,
 		},
 		{
-			title: 'Status',
-			dataIndex: 'status',
-			align: 'center',
+			title: "Status",
+			dataIndex: "status",
+			align: "center",
 			width: 120,
 			render: (status) => (
-				<Tag color={status === BasicStatus.DISABLE ? 'error' : 'success'}>
-					{status === BasicStatus.DISABLE ? 'Disable' : 'Enable'}
+				<Tag color={status === BasicStatus.DISABLE ? "error" : "success"}>
+					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
 				</Tag>
 			),
 		},
 		{
-			title: 'Action',
-			key: 'operation',
-			align: 'center',
+			title: "Action",
+			key: "operation",
+			align: "center",
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-center text-gray-500">
@@ -88,7 +88,7 @@ export default function RolePage() {
 			<Table
 				rowKey="id"
 				size="small"
-				scroll={{ x: 'max-content' }}
+				scroll={{ x: "max-content" }}
 				pagination={false}
 				columns={columns}
 				dataSource={USERS}

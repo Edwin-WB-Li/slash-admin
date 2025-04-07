@@ -1,17 +1,17 @@
-import { themeVars } from '@/theme/theme.css';
-import { Card, Col, Row, Typography } from 'antd';
-import ChartArea from './view/chart-area';
-import ChartBar from './view/chart-bar';
-import ChartColumnStacked from './view/chart-column-Stacked';
-import ChartColumnMultiple from './view/chart-column-multiple';
-import ChartColumnNegative from './view/chart-column-negative';
-import ChartColumnSingle from './view/chart-column-single';
-import ChartDonut from './view/chart-donut';
-import ChartLine from './view/chart-line';
-import ChartMixed from './view/chart-mixed';
-import ChartPie from './view/chart-pie';
-import ChartRadar from './view/chart-radar';
-import ChartRadial from './view/chart-radial';
+import { themeVars } from "@/theme/theme.css";
+import { Card, Col, Row, Typography } from "antd";
+import ChartArea from "./view/chart-area";
+import ChartBar from "./view/chart-bar";
+import ChartColumnStacked from "./view/chart-column-Stacked";
+import ChartColumnMultiple from "./view/chart-column-multiple";
+import ChartColumnNegative from "./view/chart-column-negative";
+import ChartColumnSingle from "./view/chart-column-single";
+import ChartDonut from "./view/chart-donut";
+import ChartLine from "./view/chart-line";
+import ChartMixed from "./view/chart-mixed";
+import ChartPie from "./view/chart-pie";
+import ChartRadar from "./view/chart-radar";
+import ChartRadial from "./view/chart-radial";
 
 export default function ChartPage() {
 	return (

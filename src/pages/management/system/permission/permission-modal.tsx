@@ -1,18 +1,18 @@
-import type { MenuOptions } from '@/api/types';
-import type { Permission } from '#/entity';
+import type { MenuOptions } from "@/api/types";
+import type { Permission } from "#/entity";
 
-import { AutoComplete, Form, Input, InputNumber, Modal, Radio, TreeSelect } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
+import { AutoComplete, Form, Input, InputNumber, Modal, Radio, TreeSelect } from "antd";
+import { useCallback, useEffect, useState } from "react";
 
-import { useUserPermission } from '@/store/userStore';
+import { useUserPermission } from "@/store/userStore";
 
-import { BasicStatus, PermissionType } from '#/enum';
+import { BasicStatus, PermissionType } from "#/enum";
 
 // Constants
-const ENTRY_PATH = '/src/pages';
-const PAGES = import.meta.glob('/src/pages/**/*.tsx');
+const ENTRY_PATH = "/src/pages";
+const PAGES = import.meta.glob("/src/pages/**/*.tsx");
 const PAGE_SELECT_OPTIONS = Object.entries(PAGES).map(([path]) => {
-	const pagePath = path.replace(ENTRY_PATH, '');
+	const pagePath = path.replace(ENTRY_PATH, "");
 	return {
 		label: pagePath,
 		value: pagePath,
@@ -35,7 +35,7 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 
 	const getParentNameById = useCallback(
 		(parentId: number | null, data: MenuOptions[] | undefined = permissions) => {
-			let name = '';
+			let name = "";
 			if (!data || !parentId) return name;
 			for (let i = 0; i < data.length; i += 1) {
 				if (data[i].id === parentId) {
@@ -91,9 +91,9 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 				<Form.Item<Permission> label="Parent" name="parentId" required>
 					<TreeSelect
 						fieldNames={{
-							label: 'name',
-							value: 'id',
-							children: 'children',
+							label: "name",
+							value: "id",
+							children: "children",
 						}}
 						allowClear
 						treeData={permissions}
@@ -103,22 +103,22 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 					/>
 				</Form.Item>
 
-				<Form.Item<Permission> label="Route" name="route" required>
+				<Form.Item<Permission> label="Path" name="path" required>
 					<Input />
 				</Form.Item>
 
 				<Form.Item noStyle shouldUpdate={(prevValues, currentValues) => prevValues.type !== currentValues.type}>
 					{({ getFieldValue }) => {
-						if (getFieldValue('type') === PermissionType.MENU) {
+						if (getFieldValue("type") === PermissionType.MENU) {
 							return (
 								<Form.Item<Permission>
 									label="Component"
 									name="component"
-									required={getFieldValue('type') === PermissionType.MENU}
+									required={getFieldValue("type") === PermissionType.MENU}
 								>
 									<AutoComplete
 										options={compOptions}
-										filterOption={(input, option) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+										filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
 									/>
 								</Form.Item>
 							);
@@ -139,7 +139,7 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 				</Form.Item>
 
 				<Form.Item<Permission> label="Order" name="order">
-					<InputNumber style={{ width: '100%' }} />
+					<InputNumber style={{ width: "100%" }} />
 				</Form.Item>
 
 				<Form.Item<Permission> label="Status" name="status" required>

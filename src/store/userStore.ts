@@ -1,14 +1,14 @@
-import type { LoginParams, MenuOptions, UserInfoType } from '@/api/types';
+import type { LoginParams, MenuOptions, UserInfoType } from "@/api/types";
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
 // import { useNavigate } from 'react-router';
-import { toast } from 'sonner';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { toast } from "sonner";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-import userService from '@/api/services/userService';
-import { t } from '@/locales/i18n';
-import { StorageEnum } from '#/enum';
+import userService from "@/api/services/userService";
+import { t } from "@/locales/i18n";
+import { StorageEnum } from "#/enum";
 // const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 type UserStore = {
@@ -28,7 +28,7 @@ const useUserStore = create<UserStore>()(
 	persist(
 		(set) => ({
 			userInfo: {},
-			userToken: '',
+			userToken: "",
 			userMenus: [],
 			actions: {
 				setUserInfo: (userInfo) => set({ userInfo }),
@@ -39,12 +39,12 @@ const useUserStore = create<UserStore>()(
 					set({ userMenus });
 				},
 				clearUserInfoAndToken() {
-					set({ userInfo: {}, userToken: '', userMenus: [] });
+					set({ userInfo: {}, userToken: "", userMenus: [] });
 				},
 			},
 		}),
 		{
-			name: 'userStore', // name of the item in the storage (must be unique)
+			name: "userStore", // name of the item in the storage (must be unique)
 			storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
 			partialize: (state) => ({
 				[StorageEnum.UserInfo]: state.userInfo,
@@ -75,12 +75,12 @@ export const useLogin = () => {
 			const { token, userInfo } = res;
 			setUserToken(token);
 			setUserInfo(userInfo);
-			toast.success(t('sys.login.loginSuccess') || 'login success!', {
-				position: 'top-center',
+			toast.success(t("sys.login.loginSuccess") || "login success!", {
+				position: "top-center",
 			});
 			// navigatge(HOMEPAGE, { replace: true });
 		} catch (err) {
-			throw new Error(err || t('sys.api.apiRequestFailed'));
+			throw new Error(err || t("sys.api.apiRequestFailed"));
 		}
 	};
 	return login;
@@ -102,10 +102,10 @@ export const useMenus = () => {
 			if (res) {
 				setUserMenus(res);
 			}
-			console.log('--->2');
+			console.log("--->2");
 			// navigate(HOMEPAGE, { replace: true });
 		} catch (err) {
-			throw new Error(err || t('sys.api.apiRequestFailed'));
+			throw new Error(err || t("sys.api.apiRequestFailed"));
 		}
 	};
 	return getMenus;

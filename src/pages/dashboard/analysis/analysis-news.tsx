@@ -1,5 +1,5 @@
-import { faker } from '@faker-js/faker';
-import { Avatar, List } from 'antd';
+import { faker } from "@faker-js/faker";
+import { Avatar, List } from "antd";
 
 const data = [
 	{
@@ -19,7 +19,7 @@ export default function AnalysisNews() {
 	return (
 		<List
 			size="small"
-			pagination={{ position: 'bottom', align: 'end' }}
+			pagination={{ position: "bottom", align: "end" }}
 			dataSource={data}
 			renderItem={(item) => (
 				<List.Item>

@@ -1,7 +1,7 @@
-import { useMutation } from '@tanstack/react-query';
-import { Button, Card, Col, Row, Typography } from 'antd';
+import { useMutation } from "@tanstack/react-query";
+import { Button, Card, Col, Row, Typography } from "antd";
 
-import demoService from '@/api/services/demoService';
+import demoService from "@/api/services/demoService";
 
 export default function TokenExpired() {
 	const tokenExpiredMutation = useMutation({

@@ -1,10 +1,10 @@
-import { faker } from '@faker-js/faker';
-import { Button, Col, Form, Input, Row, Space, Switch } from 'antd';
+import { faker } from "@faker-js/faker";
+import { Button, Col, Form, Input, Row, Space, Switch } from "antd";
 
-import Card from '@/components/card';
-import { UploadAvatar } from '@/components/upload';
-import { useUserInfo } from '@/store/userStore';
-import { toast } from 'sonner';
+import Card from "@/components/card";
+import { UploadAvatar } from "@/components/upload";
+import { useUserInfo } from "@/store/userStore";
+import { toast } from "sonner";
 
 type FieldType = {
 	name?: string;
@@ -13,13 +13,13 @@ type FieldType = {
 	address?: string;
 	city?: string;
 	code?: string;
-	nick_name?: string;
+	nickName?: string;
 	about: string;
 };
 export default function GeneralTab() {
-	const { avatar, nick_name, email, mobile } = useUserInfo();
+	const { avatar, nickName, email, mobile } = useUserInfo();
 	const initFormValues = {
-		nick_name,
+		nickName,
 		email,
 		mobile,
 		address: faker.location.county(),
@@ -28,7 +28,7 @@ export default function GeneralTab() {
 		about: faker.lorem.paragraphs(),
 	};
 	const handleClick = () => {
-		toast.success('Update success!');
+		toast.success("Update success!");
 	};
 	return (
 		<Row gutter={[16, 16]}>
@@ -51,7 +51,7 @@ export default function GeneralTab() {
 					<Form layout="vertical" initialValues={initFormValues} labelCol={{ span: 8 }} className="w-full">
 						<Row gutter={16}>
 							<Col span={12}>
-								<Form.Item<FieldType> label="Username" name="nick_name">
+								<Form.Item<FieldType> label="Username" name="nickName">
 									<Input />
 								</Form.Item>
 							</Col>

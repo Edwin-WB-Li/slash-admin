@@ -1,14 +1,14 @@
-import { themeVars } from '@/theme/theme.css';
-import { Tabs, type TabsProps, Typography } from 'antd';
-import BackgroundView from './views/background';
-import Inview from './views/inview';
-import ScrollView from './views/scroll';
+import { themeVars } from "@/theme/theme.css";
+import { Tabs, type TabsProps, Typography } from "antd";
+import BackgroundView from "./views/background";
+import Inview from "./views/inview";
+import ScrollView from "./views/scroll";
 
 export default function AnimatePage() {
-	const TABS: TabsProps['items'] = [
-		{ key: 'inview', label: 'In View', children: <Inview /> },
-		{ key: 'scroll', label: 'Scroll', children: <ScrollView /> },
-		{ key: 'background', label: 'Background', children: <BackgroundView /> },
+	const TABS: TabsProps["items"] = [
+		{ key: "inview", label: "In View", children: <Inview /> },
+		{ key: "scroll", label: "Scroll", children: <ScrollView /> },
+		{ key: "background", label: "Background", children: <BackgroundView /> },
 	];
 
 	return (

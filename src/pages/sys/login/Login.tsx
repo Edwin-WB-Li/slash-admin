@@ -1,23 +1,23 @@
-import { Layout } from 'antd';
+import { Layout } from "antd";
 // import { Layout, Typography } from "antd";
 // import { useTranslation } from "react-i18next";
 // import { Navigate } from "react-router";
 
 // import DashboardImg from "@/assets/images/background/dashboard.png";
 // import Overlay from "@/assets/images/background/overlay.jpg";
-import BackguoundImage from '@/assets/images/background/login_bg.svg';
-import LocalePicker from '@/components/locale-picker';
+import BackguoundImage from "@/assets/images/background/login_bg.svg";
+import LocalePicker from "@/components/locale-picker";
 // import { useUserToken } from "@/store/userStore";
 
-import SettingButton from '@/layouts/components/setting-button';
-import { themeVars } from '@/theme/theme.css';
-import { rgbAlpha } from '@/utils/theme';
-import LoginForm from './LoginForm';
-import MobileForm from './MobileForm';
-import QrCodeFrom from './QrCodeForm';
-import RegisterForm from './RegisterForm';
-import ResetForm from './ResetForm';
-import { LoginStateProvider } from './providers/LoginStateProvider';
+import SettingButton from "@/layouts/components/setting-button";
+import { themeVars } from "@/theme/theme.css";
+import { rgbAlpha } from "@/utils/theme";
+import LoginForm from "./LoginForm";
+import MobileForm from "./MobileForm";
+import QrCodeFrom from "./QrCodeForm";
+import RegisterForm from "./RegisterForm";
+import ResetForm from "./ResetForm";
+import { LoginStateProvider } from "./providers/LoginStateProvider";
 
 // const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -33,8 +33,6 @@ function Login() {
 	//   return <Navigate to={HOMEPAGE} replace />;
 	// }
 
-	console.log('login components');
-
 	const gradientBg = rgbAlpha(themeVars.colors.background.defaultChannel, 0.8);
 	const bg = `linear-gradient(${gradientBg}, ${gradientBg}) center center / cover no-repeat,url(${BackguoundImage})`;
 
@@ -45,7 +43,7 @@ function Login() {
 				background: bg,
 			}}
 		>
-			<div className="m-auto flex !h-screen w-full max-w-[480px] flex-col justify-center px-[16px] lg:px-[14px]">
+			<div className="m-auto flex w-full max-w-[480px] flex-col justify-center px-[16px] lg:px-[14px]">
 				<LoginStateProvider>
 					<LoginForm />
 					<MobileForm />

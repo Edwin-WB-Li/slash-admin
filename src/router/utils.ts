@@ -1,6 +1,6 @@
-import type { AppRouteObject, RouteMeta } from '#/router';
+import type { AppRouteObject, RouteMeta } from "#/router";
 
-import { ascend } from 'ramda';
+import { ascend } from "ramda";
 
 /**
  * @description 过滤和排序菜单路由：1. 递归过滤掉没有meta.key的路由项；2. 对子路由递归处理；3. 按order字段升序排列，无order项默认排最后
@@ -23,7 +23,7 @@ export const menuFilter = (items: AppRouteObject[]) => {
 export function getRoutesFromModules() {
 	const menuModules: AppRouteObject[] = [];
 
-	const modules = import.meta.glob('./routes/modules/**/*.tsx', {
+	const modules = import.meta.glob("./routes/modules/**/*.tsx", {
 		eager: true,
 	});
 	for (const key in modules) {

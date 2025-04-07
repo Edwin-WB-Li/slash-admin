@@ -1,8 +1,8 @@
-import Card from '@/components/card';
-import { Iconify } from '@/components/icon';
-import { themeVars } from '@/theme/theme.css';
-import { faker } from '@faker-js/faker';
-import { Typography } from 'antd';
+import Card from "@/components/card";
+import { Iconify } from "@/components/icon";
+import { themeVars } from "@/theme/theme.css";
+import { faker } from "@faker-js/faker";
+import { Typography } from "antd";
 
 export default function TopAuthor() {
 	const getTrophyIconColor = (index: number) => {
@@ -31,7 +31,7 @@ export default function TopAuthor() {
 				<Typography.Title level={5}>Top Authors</Typography.Title>
 			</header>
 			<main className="w-full">
-				{new Array(3).fill('').map((_, index) => (
+				{new Array(3).fill("").map((_, index) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					<div key={index} className="mb-4 flex">
 						<img src={faker.image.avatarGitHub()} alt="" className="h-10 w-10 rounded-full" />

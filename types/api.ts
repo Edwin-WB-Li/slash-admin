@@ -41,7 +41,6 @@ export interface ResponseData<T> {
 
 export interface UserInfoType {
 	id?: string;
-	_id: string;
 	username: string;
 	password?: string;
 	create_time: string;
@@ -51,7 +50,7 @@ export interface UserInfoType {
 	role: string;
 	role_name: string;
 	avatar: string;
-	nick_name: string;
+	nickName: string;
 	status: boolean;
 }
 

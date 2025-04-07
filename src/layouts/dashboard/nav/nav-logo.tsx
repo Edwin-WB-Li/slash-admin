@@ -1,9 +1,9 @@
-import Logo from '@/components/logo';
-import { useSettings } from '@/store/settingStore';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons';
-import { NavLink } from 'react-router';
-import { ThemeLayout } from '#/enum';
-import { HEADER_HEIGHT } from '../config';
+import Logo from "@/components/logo";
+import { useSettings } from "@/store/settingStore";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { NavLink } from "react-router";
+import { ThemeLayout } from "#/enum";
+import { HEADER_HEIGHT } from "../config";
 
 const { VITE_TITLE: TITLE } = import.meta.env;
 

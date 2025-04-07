@@ -1,10 +1,10 @@
-import { Card, Pagination, Radio, Space, Typography } from 'antd';
+import { Card, Pagination, Radio, Space, Typography } from "antd";
 
-import { SvgIcon } from '@/components/icon';
-import useLocale from '@/locales/use-locale';
+import { SvgIcon } from "@/components/icon";
+import useLocale from "@/locales/use-locale";
 
-import { themeVars } from '@/theme/theme.css';
-import { LocalEnum } from '#/enum';
+import { themeVars } from "@/theme/theme.css";
+import { LocalEnum } from "#/enum";
 
 export default function MultiLanguagePage() {
 	const {
@@ -14,7 +14,7 @@ export default function MultiLanguagePage() {
 	} = useLocale();
 
 	return (
-		<Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+		<Space direction="vertical" size="middle" style={{ display: "flex" }}>
 			<Typography.Link href="https://www.i18next.com/" style={{ color: themeVars.colors.palette.primary.default }}>
 				https://www.i18next.com
 			</Typography.Link>

@@ -1,12 +1,12 @@
-import type { Permission, Role } from '#/entity';
+import type { Permission, Role } from "#/entity";
 
-import { Form, Input, InputNumber, Modal, Radio, Tree } from 'antd';
-import { useEffect } from 'react';
+import { Form, Input, InputNumber, Modal, Radio, Tree } from "antd";
+import { useEffect } from "react";
 
-import { PERMISSION_LIST } from '@/_mock/assets';
-import { flattenTrees } from '@/utils/tree';
+import { PERMISSION_LIST } from "@/_mock/assets";
+import { flattenTrees } from "@/utils/tree";
 
-import { BasicStatus } from '#/enum';
+import { BasicStatus } from "#/enum";
 
 export type RoleModalProps = {
 	formValue: Role;
@@ -37,7 +37,7 @@ export function RoleModal({ title, show, formValue, onOk, onCancel }: RoleModalP
 				</Form.Item>
 
 				<Form.Item<Role> label="Order" name="order">
-					<InputNumber style={{ width: '100%' }} />
+					<InputNumber style={{ width: "100%" }} />
 				</Form.Item>
 
 				<Form.Item<Role> label="Status" name="status" required>
@@ -57,9 +57,9 @@ export function RoleModal({ title, show, formValue, onOk, onCancel }: RoleModalP
 						checkedKeys={checkedKeys}
 						treeData={PERMISSIONS}
 						fieldNames={{
-							key: 'id',
-							children: 'children',
-							title: 'name',
+							key: "id",
+							children: "children",
+							title: "name",
 						}}
 					/>
 				</Form.Item>

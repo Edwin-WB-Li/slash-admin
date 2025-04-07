@@ -1,10 +1,10 @@
-import type { UploadProps } from 'antd';
-import Dragger from 'antd/es/upload/Dragger';
-import type { ReactElement } from 'react';
+import type { UploadProps } from "antd";
+import Dragger from "antd/es/upload/Dragger";
+import type { ReactElement } from "react";
 
-import { Iconify } from '../icon';
+import { Iconify } from "../icon";
 
-import { StyledUploadBox } from './styles';
+import { StyledUploadBox } from "./styles";
 
 interface Props extends UploadProps {
 	placeholder?: ReactElement;

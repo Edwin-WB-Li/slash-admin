@@ -1,22 +1,22 @@
-import { themeVars } from '@/theme/theme.css';
-import { rgbAlpha } from '@/utils/theme';
-import { globalStyle } from '@vanilla-extract/css';
-import { style } from '@vanilla-extract/css';
+import { themeVars } from "@/theme/theme.css";
+import { rgbAlpha } from "@/utils/theme";
+import { globalStyle } from "@vanilla-extract/css";
+import { style } from "@vanilla-extract/css";
 
-export const chartWrapper = style({}, 'apexcharts-wrapper');
+export const chartWrapper = style({}, "apexcharts-wrapper");
 
 // TOOLTIP
 globalStyle(`${chartWrapper} .apexcharts-tooltip`, {
 	color: themeVars.colors.text.primary,
 	borderRadius: themeVars.borderRadius.lg,
-	backdropFilter: 'blur(6px)',
+	backdropFilter: "blur(6px)",
 	backgroundColor: rgbAlpha(themeVars.colors.background.paperChannel, 0.8),
 	boxShadow: themeVars.shadows.card,
 });
 
 globalStyle(`${chartWrapper} .apexcharts-tooltip-title`, {
-	textAlign: 'center',
-	fontWeight: 'bold',
+	textAlign: "center",
+	fontWeight: "bold",
 	backgroundColor: themeVars.colors.background.neutral,
 });
 
@@ -24,8 +24,8 @@ globalStyle(`${chartWrapper} .apexcharts-tooltip-title`, {
 globalStyle(`${chartWrapper} .apexcharts-xaxistooltip`, {
 	color: themeVars.colors.text.primary,
 	borderRadius: themeVars.borderRadius.lg,
-	backdropFilter: 'blur(6px)',
-	borderColor: 'transparent',
+	backdropFilter: "blur(6px)",
+	borderColor: "transparent",
 	boxShadow: themeVars.shadows.card,
 	backgroundColor: themeVars.colors.background.paper,
 });
@@ -44,11 +44,11 @@ globalStyle(`${chartWrapper} .apexcharts-legend`, {
 });
 
 globalStyle(`${chartWrapper} .apexcharts-legend-series`, {
-	display: 'inline-flex !important',
-	alignItems: 'center',
+	display: "inline-flex !important",
+	alignItems: "center",
 });
 
 globalStyle(`${chartWrapper} .apexcharts-legend-text`, {
-	lineHeight: '18px',
-	textTransform: 'capitalize',
+	lineHeight: "18px",
+	textTransform: "capitalize",
 });

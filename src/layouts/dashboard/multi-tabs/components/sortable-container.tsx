@@ -1,4 +1,4 @@
-import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 
 import {
 	DndContext,
@@ -11,10 +11,10 @@ import {
 	defaultDropAnimationSideEffects,
 	useSensor,
 	useSensors,
-} from '@dnd-kit/core';
+} from "@dnd-kit/core";
 
-import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable';
-import React from 'react';
+import { SortableContext, horizontalListSortingStrategy } from "@dnd-kit/sortable";
+import React from "react";
 
 interface SortableContainerProps {
 	items: any[];
@@ -74,7 +74,7 @@ const SortableContainer: React.FC<SortableContainerProps> = ({ items, onSortEnd,
 					sideEffects: defaultDropAnimationSideEffects({
 						styles: {
 							active: {
-								opacity: '0.5',
+								opacity: "0.5",
 							},
 						},
 					}),

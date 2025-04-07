@@ -1,67 +1,67 @@
-import { Card, Col, Row } from 'antd';
-import { useMemo, useState } from 'react';
+import { Card, Col, Row } from "antd";
+import { useMemo, useState } from "react";
 
-import ControlPanel from '../../control-panel';
+import ControlPanel from "../../control-panel";
 
-import ContainerView from './container';
-import Toolbar from './toolbar';
+import ContainerView from "./container";
+import Toolbar from "./toolbar";
 
 const variantKey = [
 	{
-		type: 'slide in',
-		values: ['slideInUp', 'slideInDown', 'slideInLeft', 'slideInRight'],
+		type: "slide in",
+		values: ["slideInUp", "slideInDown", "slideInLeft", "slideInRight"],
 	},
 	{
-		type: 'slide out',
-		values: ['slideOutUp', 'slideOutDown', 'slideOutLeft', 'slideOutRight'],
+		type: "slide out",
+		values: ["slideOutUp", "slideOutDown", "slideOutLeft", "slideOutRight"],
 	},
 	{
-		type: 'fade in',
-		values: ['fadeIn', 'fadeInUp', 'fadeInDown', 'fadeInLeft', 'fadeInRight'],
+		type: "fade in",
+		values: ["fadeIn", "fadeInUp", "fadeInDown", "fadeInLeft", "fadeInRight"],
 	},
 	{
-		type: 'fade out',
-		values: ['fadeOut', 'fadeOutUp', 'fadeOutDown', 'fadeOutLeft', 'fadeOutRight'],
+		type: "fade out",
+		values: ["fadeOut", "fadeOutUp", "fadeOutDown", "fadeOutLeft", "fadeOutRight"],
 	},
 	{
-		type: 'zoom in',
-		values: ['zoomIn', 'zoomInUp', 'zoomInDown', 'zoomInLeft', 'zoomInRight'],
+		type: "zoom in",
+		values: ["zoomIn", "zoomInUp", "zoomInDown", "zoomInLeft", "zoomInRight"],
 	},
 	{
-		type: 'zoom out',
-		values: ['zoomOut', 'zoomOutUp', 'zoomOutDown', 'zoomOutLeft', 'zoomOutRight'],
+		type: "zoom out",
+		values: ["zoomOut", "zoomOutUp", "zoomOutDown", "zoomOutLeft", "zoomOutRight"],
 	},
 	{
-		type: 'bounce in',
-		values: ['bounceIn', 'bounceInUp', 'bounceInDown', 'bounceInLeft', 'bounceInRight'],
+		type: "bounce in",
+		values: ["bounceIn", "bounceInUp", "bounceInDown", "bounceInLeft", "bounceInRight"],
 	},
 	{
-		type: 'bounce out',
-		values: ['bounceOut', 'bounceOutUp', 'bounceOutDown', 'bounceOutLeft', 'bounceOutRight'],
+		type: "bounce out",
+		values: ["bounceOut", "bounceOutUp", "bounceOutDown", "bounceOutLeft", "bounceOutRight"],
 	},
 	{
-		type: 'flip in',
-		values: ['flipInX', 'flipInY'],
+		type: "flip in",
+		values: ["flipInX", "flipInY"],
 	},
 	{
-		type: 'flip out',
-		values: ['flipOutX', 'flipOutY'],
+		type: "flip out",
+		values: ["flipOutX", "flipOutY"],
 	},
 	{
-		type: 'scale in',
-		values: ['scaleInX', 'scaleInY'],
+		type: "scale in",
+		values: ["scaleInX", "scaleInY"],
 	},
 	{
-		type: 'scale out',
-		values: ['scaleOutX', 'scaleOutY'],
+		type: "scale out",
+		values: ["scaleOutX", "scaleOutY"],
 	},
 	{
-		type: 'rotate in',
-		values: ['rotateIn'],
+		type: "rotate in",
+		values: ["rotateIn"],
 	},
 	{
-		type: 'rotate out',
-		values: ['rotateOut'],
+		type: "rotate out",
+		values: ["rotateOut"],
 	},
 ];
 
@@ -70,7 +70,7 @@ export default function Inview() {
 		return {
 			isText: false,
 			isMulti: false,
-			selectedVariant: 'slideInUp',
+			selectedVariant: "slideInUp",
 		};
 	}, []);
 

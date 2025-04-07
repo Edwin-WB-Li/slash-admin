@@ -1,17 +1,17 @@
-import { m } from 'framer-motion';
-import { useMemo } from 'react';
+import { m } from "framer-motion";
+import { useMemo } from "react";
 
-import Cover3 from '@/assets/images/cover/cover_3.jpg';
-import MotionContainer from '@/components/animate/motion-container';
-import { getVariant } from '@/components/animate/variants';
-import { themeVars } from '@/theme/theme.css';
+import Cover3 from "@/assets/images/cover/cover_3.jpg";
+import MotionContainer from "@/components/animate/motion-container";
+import { getVariant } from "@/components/animate/variants";
+import { themeVars } from "@/theme/theme.css";
 
 type Props = {
 	variant: string;
 };
 export default function ContainerView({ variant }: Props) {
 	const varients = useMemo(() => getVariant(variant), [variant]);
-	const isKenburns = variant.includes('kenburns');
+	const isKenburns = variant.includes("kenburns");
 
 	return (
 		<div

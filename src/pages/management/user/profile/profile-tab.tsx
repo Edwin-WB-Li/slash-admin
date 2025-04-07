@@ -1,13 +1,13 @@
-import { faker } from '@faker-js/faker';
-import { Avatar, Col, Progress, Row, Space, Table, Tag, Timeline, Typography } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
+import { faker } from "@faker-js/faker";
+import { Avatar, Col, Progress, Row, Space, Table, Tag, Timeline, Typography } from "antd";
+import type { ColumnsType } from "antd/es/table";
 
-import { fakeAvatars } from '@/_mock/utils';
-import Card from '@/components/card';
-import { IconButton, Iconify, SvgIcon } from '@/components/icon';
-import Scrollbar from '@/components/scrollbar';
-import { useUserInfo } from '@/store/userStore';
-import { themeVars } from '@/theme/theme.css';
+import { fakeAvatars } from "@/_mock/utils";
+import Card from "@/components/card";
+import { IconButton, Iconify, SvgIcon } from "@/components/icon";
+import Scrollbar from "@/components/scrollbar";
+import { useUserInfo } from "@/store/userStore";
+import { themeVars } from "@/theme/theme.css";
 
 interface DataType {
 	key: string;
@@ -20,36 +20,36 @@ interface DataType {
 }
 
 export default function ProfileTab() {
-	const { nick_name, email, mobile } = useUserInfo();
+	const { nickName, email, mobile } = useUserInfo();
 	const AboutItems = [
 		{
 			icon: <Iconify icon="fa-solid:user" size={18} />,
-			label: 'Full Name',
-			val: nick_name,
+			label: "Full Name",
+			val: nickName,
 		},
 		{
 			icon: <Iconify icon="eos-icons:role-binding" size={18} />,
-			label: 'Role',
-			val: 'Developer',
+			label: "Role",
+			val: "Developer",
 		},
 		{
 			icon: <Iconify icon="tabler:location-filled" size={18} />,
-			label: 'Country',
-			val: 'USA',
+			label: "Country",
+			val: "USA",
 		},
 		{
 			icon: <Iconify icon="ion:language" size={18} />,
-			label: 'Language',
-			val: 'English',
+			label: "Language",
+			val: "English",
 		},
 		{
 			icon: <Iconify icon="ph:phone-fill" size={18} />,
-			label: 'Contact',
+			label: "Contact",
 			val: mobile,
 		},
 		{
 			icon: <Iconify icon="ic:baseline-email" size={18} />,
-			label: 'email',
+			label: "email",
 			val: email,
 		},
 	];
@@ -94,32 +94,32 @@ export default function ProfileTab() {
 	const TeamItems = [
 		{
 			avatar: <Iconify icon="devicon:react" size={36} />,
-			name: 'React Developers',
+			name: "React Developers",
 			members: `${faker.number.int(100)} Members`,
 			tag: <Tag color="warning">Developer</Tag>,
 		},
 		{
 			avatar: <Iconify icon="devicon:figma" size={36} />,
-			name: 'UI Designer',
+			name: "UI Designer",
 			members: `${faker.number.int(100)} Members`,
 			tag: <Tag color="cyan">Designer</Tag>,
 		},
 		{
 			avatar: <Iconify icon="logos:jest" size={36} />,
-			name: 'Test Team',
+			name: "Test Team",
 			members: `${faker.number.int(100)} Members`,
 			tag: <Tag color="success">Test</Tag>,
 		},
 		{
 			avatar: <Iconify icon="logos:nestjs" size={36} />,
-			name: 'Nest.js Developers',
+			name: "Nest.js Developers",
 			members: `${faker.number.int(100)} Members`,
 			tag: <Tag color="warning">Developer</Tag>,
 		},
 
 		{
 			avatar: <Iconify icon="logos:twitter" size={36} />,
-			name: 'Digital Marketing',
+			name: "Digital Marketing",
 			members: `${faker.number.int(100)} Members`,
 			tag: <Tag>Marketing</Tag>,
 		},
@@ -143,8 +143,8 @@ export default function ProfileTab() {
 
 	const ProjectColumns: ColumnsType<DataType> = [
 		{
-			title: 'NAME',
-			dataIndex: 'name',
+			title: "NAME",
+			dataIndex: "name",
 			render: (_, record) => (
 				<div className="flex items-center">
 					<img src={record.avatar} alt="" className="h-8 w-8 rounded-full" />
@@ -156,13 +156,13 @@ export default function ProfileTab() {
 			),
 		},
 		{
-			title: 'LEADER',
-			dataIndex: 'leader',
+			title: "LEADER",
+			dataIndex: "leader",
 			render: (val) => <span className="opacity-50">{val}</span>,
 		},
 		{
-			title: 'TEAM',
-			dataIndex: 'team',
+			title: "TEAM",
+			dataIndex: "team",
 			render: (val: string[]) => (
 				<Avatar.Group>
 					{val.map((item) => (
@@ -172,15 +172,15 @@ export default function ProfileTab() {
 			),
 		},
 		{
-			title: 'STATUS',
-			dataIndex: 'status',
+			title: "STATUS",
+			dataIndex: "status",
 			render: (val) => (
 				<Progress percent={val} strokeColor={themeVars.colors.palette.primary.default} trailColor="transparent" />
 			),
 		},
 		{
-			title: 'ACTIONS',
-			dataIndex: 'action',
+			title: "ACTIONS",
+			dataIndex: "action",
 			render: () => (
 				<Space size="middle">
 					<IconButton>
@@ -306,13 +306,13 @@ export default function ProfileTab() {
 									<div
 										className="flex h-8 w-8 flex-none items-center justify-center rounded"
 										style={{
-											backgroundColor: item.connected ? themeVars.colors.palette.primary.default : 'transparent',
-											border: item.connected ? '' : `1px solid ${themeVars.colors.palette.primary.default}`,
+											backgroundColor: item.connected ? themeVars.colors.palette.primary.default : "transparent",
+											border: item.connected ? "" : `1px solid ${themeVars.colors.palette.primary.default}`,
 										}}
 									>
 										<Iconify
 											icon="tdesign:user"
-											color={item.connected ? '#fff' : themeVars.colors.palette.primary.default}
+											color={item.connected ? "#fff" : themeVars.colors.palette.primary.default}
 											size={20}
 										/>
 									</div>
@@ -364,7 +364,7 @@ export default function ProfileTab() {
 						<Typography.Title level={5}>Projects</Typography.Title>
 						<div className="!mt-4 w-full">
 							<Scrollbar>
-								<Table rowSelection={{ type: 'checkbox' }} columns={ProjectColumns} dataSource={fakeProjectItems()} />
+								<Table rowSelection={{ type: "checkbox" }} columns={ProjectColumns} dataSource={fakeProjectItems()} />
 							</Scrollbar>
 						</div>
 					</Card>

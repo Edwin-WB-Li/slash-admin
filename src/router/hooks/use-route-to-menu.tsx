@@ -1,21 +1,21 @@
-import type { GetProp, MenuProps } from 'antd';
-import type { AppRouteObject } from '#/router';
+import type { GetProp, MenuProps } from "antd";
+import type { AppRouteObject } from "#/router";
 
-import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
-import { Iconify, SvgIcon } from '@/components/icon';
+import { Iconify, SvgIcon } from "@/components/icon";
 
-import { useSettings } from '@/store/settingStore';
-import { cn } from '@/utils';
-import { ThemeLayout } from '#/enum';
+import { useSettings } from "@/store/settingStore";
+import { cn } from "@/utils";
+import { ThemeLayout } from "#/enum";
 
-type MenuItem = GetProp<MenuProps, 'items'>[number];
+type MenuItem = GetProp<MenuProps, "items">[number];
 
 const renderIcon = (icon: string | React.ReactNode): React.ReactNode => {
-	if (typeof icon !== 'string') return icon;
+	if (typeof icon !== "string") return icon;
 
-	return icon.startsWith('ic') ? (
+	return icon.startsWith("ic") ? (
 		<SvgIcon icon={icon} size={24} className="ant-menu-item-icon" />
 	) : (
 		<Iconify icon={icon} size={24} className="ant-menu-item-icon" />
@@ -43,8 +43,8 @@ export function useRouteToMenuFn() {
 						label: (
 							<div
 								className={cn(
-									'inline-flex items-center overflow-hidden',
-									themeLayout === ThemeLayout.Horizontal ? 'justify-start' : 'justify-between',
+									"inline-flex items-center overflow-hidden",
+									themeLayout === ThemeLayout.Horizontal ? "justify-start" : "justify-between",
 								)}
 							>
 								<div className="">{t(meta.label)}</div>

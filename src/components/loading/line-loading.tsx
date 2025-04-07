@@ -1,8 +1,8 @@
-import { Progress } from 'antd';
-import { useEffect, useState } from 'react';
+import { Progress } from "antd";
+import { useEffect, useState } from "react";
 
-import { themeVars } from '@/theme/theme.css';
-import { rgbAlpha } from '@/utils/theme';
+import { themeVars } from "@/theme/theme.css";
+import { rgbAlpha } from "@/utils/theme";
 
 export function LineLoading() {
 	const [percent, setPercent] = useState(10);

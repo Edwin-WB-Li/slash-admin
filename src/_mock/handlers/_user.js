@@ -1,9 +1,9 @@
-import { faker } from '@faker-js/faker';
-import { http, HttpResponse, delay } from 'msw';
+import { faker } from "@faker-js/faker";
+import { http, HttpResponse, delay } from "msw";
 
-import { UserApi } from '@/api/services/userService';
+import { UserApi } from "@/api/services/userService";
 
-import { USER_LIST } from '../assets';
+import { USER_LIST } from "../assets";
 
 // const signIn = http.post(`/api${UserApi.SignIn}`, async ({ request }) => {
 // 	const { username, password } = await request.json();
@@ -28,7 +28,7 @@ import { USER_LIST } from '../assets';
 // 	});
 // });
 
-const userList = http.get('/api/user', async () => {
+const userList = http.get("/api/user", async () => {
 	await delay(1000);
 	return HttpResponse.json(
 		Array.from({ length: 10 }).map(() => ({

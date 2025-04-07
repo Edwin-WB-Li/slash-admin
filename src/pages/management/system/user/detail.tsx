@@ -1,8 +1,8 @@
-import { USER_LIST } from '@/_mock/assets';
-import Card from '@/components/card';
-import { useParams } from '@/router/hooks';
+import { USER_LIST } from "@/_mock/assets";
+import Card from "@/components/card";
+import { useParams } from "@/router/hooks";
 
-import type { UserInfo } from '#/entity';
+import type { UserInfo } from "#/entity";
 
 const USERS: UserInfo[] = USER_LIST as UserInfo[];
 

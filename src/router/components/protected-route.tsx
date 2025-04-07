@@ -1,9 +1,9 @@
 // import { t } from "@/locales/i18n";
-import PageError from '@/pages/sys/error/PageError';
-import { useUserToken } from '@/store/userStore';
+import PageError from "@/pages/sys/error/PageError";
+import { useUserToken } from "@/store/userStore";
 // import { useEffect } from "react";
-import { ErrorBoundary } from 'react-error-boundary';
-import { Navigate } from 'react-router';
+import { ErrorBoundary } from "react-error-boundary";
+import { Navigate } from "react-router";
 // import { toast } from "sonner";
 // import { useRouter } from "../hooks";
 
@@ -38,7 +38,7 @@ export default function ProtectedRoute({ children }: Props) {
 		<ErrorBoundary
 			FallbackComponent={PageError}
 			onError={(error, info) => {
-				console.error('ErrorBoundary 捕获的错误:', error, info);
+				console.error("ErrorBoundary 捕获的错误:", error, info);
 			}}
 		>
 			{children}

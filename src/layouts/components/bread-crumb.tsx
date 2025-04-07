@@ -1,15 +1,15 @@
-import type { BreadcrumbProps, GetProp } from 'antd';
+import type { BreadcrumbProps, GetProp } from "antd";
 
-import { Breadcrumb } from 'antd';
-import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link, useMatches } from 'react-router';
+import { Breadcrumb } from "antd";
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
+import { Link, useMatches } from "react-router";
 
-import { Iconify } from '@/components/icon';
-import { useFlattenedRoutes, usePermissionRoutes } from '@/router/hooks';
-import { menuFilter } from '@/router/utils';
+import { Iconify } from "@/components/icon";
+import { useFlattenedRoutes, usePermissionRoutes } from "@/router/hooks";
+import { menuFilter } from "@/router/utils";
 
-type MenuItem = GetProp<BreadcrumbProps, 'items'>[number];
+type MenuItem = GetProp<BreadcrumbProps, "items">[number];
 
 /**
  * 动态面包屑解决方案：https://github.com/MinjieChang/myblog/issues/29
@@ -22,7 +22,7 @@ export default function BreadCrumb() {
 
 	const breadCrumbs = useMemo(() => {
 		const menuRoutes = menuFilter(permissionRoutes);
-		const paths = matches.filter((item) => item.pathname !== '/').map((item) => item.pathname);
+		const paths = matches.filter((item) => item.pathname !== "/").map((item) => item.pathname);
 
 		const pathRouteMetas = flattenedRoutes.filter((item) => paths.includes(item.key));
 

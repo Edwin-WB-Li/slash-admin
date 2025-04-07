@@ -1,14 +1,14 @@
-import type { KeepAliveTab, MultiTabsContextType } from '../types';
+import type { KeepAliveTab, MultiTabsContextType } from "../types";
 
-import { useCurrentRouteMeta } from '@/router/hooks';
-import { replaceDynamicParams } from '@/router/hooks/use-current-route-meta';
-import { isEmpty } from 'ramda';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useTabOperations } from '../hooks/use-tab-operations';
+import { useCurrentRouteMeta } from "@/router/hooks";
+import { replaceDynamicParams } from "@/router/hooks/use-current-route-meta";
+import { isEmpty } from "ramda";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { useTabOperations } from "../hooks/use-tab-operations";
 
 const MultiTabsContext = createContext<MultiTabsContextType>({
 	tabs: [],
-	activeTabRoutePath: '',
+	activeTabRoutePath: "",
 	setTabs: () => {},
 	closeTab: () => {},
 	closeOthersTab: () => {},
@@ -23,7 +23,7 @@ export function MultiTabsProvider({ children }: { children: React.ReactNode }) {
 	const currentRouteMeta = useCurrentRouteMeta();
 
 	const activeTabRoutePath = useMemo(() => {
-		if (!currentRouteMeta) return '';
+		if (!currentRouteMeta) return "";
 		const { key, params = {} } = currentRouteMeta;
 		return isEmpty(params) ? key : replaceDynamicParams(key, params);
 	}, [currentRouteMeta]);

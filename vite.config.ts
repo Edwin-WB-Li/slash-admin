@@ -1,22 +1,22 @@
 /// <reference types="vitest/config" />
-import path from 'node:path';
-import react from '@vitejs/plugin-react';
+import path from "node:path";
+import react from "@vitejs/plugin-react";
 
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
-import { visualizer } from 'rollup-plugin-visualizer';
-import { defineConfig, loadEnv } from 'vite';
-import checker from 'vite-plugin-checker';
-import compression from 'vite-plugin-compression';
-import { createHtmlPlugin } from 'vite-plugin-html';
-import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
-import tsconfigPaths from 'vite-tsconfig-paths';
+import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
+import { visualizer } from "rollup-plugin-visualizer";
+import { defineConfig, loadEnv } from "vite";
+// import checker from 'vite-plugin-checker';
+// import compression from 'vite-plugin-compression';
+import { createHtmlPlugin } from "vite-plugin-html";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
+import tsconfigPaths from "vite-tsconfig-paths";
 // ... existing imports ...
 
 export default defineConfig(({ mode }) => {
 	// 加载环境变量
-	const { VITE_PORT, VITE_TITLE, VITE_APP_BASE_PATH, VITE_API_URL } = loadEnv(mode, process.cwd(), '');
-	const base = VITE_APP_BASE_PATH || '/';
-	const isProduction = mode === 'production';
+	const { VITE_PORT, VITE_TITLE, VITE_APP_BASE_PATH, VITE_LOCAL_API_URL } = loadEnv(mode, process.cwd(), "");
+	const base = VITE_APP_BASE_PATH || "/";
+	const isProduction = mode === "production";
 
 	return {
 		// 基础路径
@@ -28,9 +28,9 @@ export default defineConfig(({ mode }) => {
 			host: true,
 			port: Number(VITE_PORT) || 3001,
 			proxy: {
-				'/api': {
-					target: VITE_API_URL || 'http://localhost:3000',
-					// target: VITE_LOCAL_API_URL || 'http://localhost:3000',
+				"/api": {
+					// target: VITE_API_URL || 'http://localhost:3000',
+					target: VITE_LOCAL_API_URL || "http://localhost:3000",
 					changeOrigin: true,
 					// rewrite: (path) => path.replace(/^\/api/, ''),
 					secure: false,
@@ -43,22 +43,22 @@ export default defineConfig(({ mode }) => {
 			// 启用全局变量
 			globals: true,
 			// 设置测试环境为 jsdom | happy-dom
-			environment: 'jsdom',
+			environment: "jsdom",
 			// 指定测试前的设置文件
-			setupFiles: path.resolve(__dirname, './vitest.setup.ts'),
+			setupFiles: path.resolve(__dirname, "./vitest.setup.ts"),
 			// 包含的测试文件路径
-			include: ['src/__tests__/**/*.test.{ts,tsx}'],
+			include: ["src/__tests__/**/*.test.{ts,tsx}"],
 			// 排除的测试文件路径
-			exclude: ['**/node_modules/**', '**/dist/**', 'src/main.tsx'],
+			exclude: ["**/node_modules/**", "**/dist/**", "src/main.tsx"],
 
 			// 加载环境变量
-			env: loadEnv(mode, process.cwd(), ''),
+			env: loadEnv(mode, process.cwd(), ""),
 
 			// 路径别名（与 Vite 配置对齐）
 			alias: {
-				'@': path.resolve(__dirname, './src'),
-				'@/assets': path.resolve(__dirname, './src/assets'),
-				'^!!raw-loader!': path.resolve(__dirname, './__mocks__/rawLoaderMock.js'),
+				"@": path.resolve(__dirname, "./src"),
+				"@/assets": path.resolve(__dirname, "./src/assets"),
+				// '^!!raw-loader!': path.resolve(__dirname, './__mocks__/rawLoaderMock.js'),
 			},
 
 			// 覆盖率配置
@@ -66,10 +66,10 @@ export default defineConfig(({ mode }) => {
 				// 是否启用收集测试覆盖率
 				enabled: true,
 				// 覆盖率提供商: v8 | ìstanbul
-				provider: 'v8',
-				reporter: ['text', 'json', 'clover', 'lcov', 'html'],
+				provider: "v8",
+				reporter: ["text", "json", "clover", "lcov", "html"],
 				// 更改默认覆盖文件夹位置
-				reportsDirectory: './coverage',
+				reportsDirectory: "./coverage",
 				// 是否在重新运行时清除覆盖率数据
 				cleanOnRerun: true,
 				// 是否在失败时也生成覆盖率报告
@@ -77,8 +77,8 @@ export default defineConfig(({ mode }) => {
 				// 是否在运行测试时收集覆盖率数据
 				excludeNodeModules: true,
 				// 包含和排除的文件
-				include: ['src/**/*.{ts,tsx}'],
-				exclude: ['**/*.d.ts', '**/*.stories.tsx', 'src/__tests__/**', 'src/_mocks/**'],
+				include: ["src/**/*.{ts,tsx}"],
+				exclude: ["**/*.d.ts", "**/*.stories.tsx", "src/__tests__/**", "src/_mocks/**"],
 				// 覆盖阈值
 				// thresholds: {
 				// 	// 设置每个文件的阈值
@@ -137,7 +137,7 @@ export default defineConfig(({ mode }) => {
 			react({
 				babel: {
 					parserOpts: {
-						plugins: ['decorators-legacy', 'classProperties'],
+						plugins: ["decorators-legacy", "classProperties"],
 					},
 				},
 			}),
@@ -164,8 +164,8 @@ export default defineConfig(({ mode }) => {
 			tsconfigPaths(),
 			// 配置 SVG 图标插件，用于处理 SVG 图标
 			createSvgIconsPlugin({
-				iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
-				symbolId: 'icon-[dir]-[name]',
+				iconDirs: [path.resolve(process.cwd(), "src/assets/icons")],
+				symbolId: "icon-[dir]-[name]",
 			}),
 			// 生产环境下的打包分析插件，生成打包报告
 			isProduction &&
@@ -173,7 +173,7 @@ export default defineConfig(({ mode }) => {
 					open: true,
 					gzipSize: true,
 					brotliSize: true,
-					template: 'treemap', // 使用树形图更直观
+					template: "treemap", // 使用树形图更直观
 				}),
 			// 用于在构建阶段对生成的静态资源文件（如 JavaScript、CSS、HTML 等）进行压缩，生成 .gz 或 .br 等压缩文件。这些压缩文件可以在部署到服务器时直接提供给客户端，从而减少文件传输大小，提高页面加载速度
 			// isProduction &&
@@ -190,9 +190,9 @@ export default defineConfig(({ mode }) => {
 		// 构建配置
 		build: {
 			// 设置构建目标
-			target: 'esnext',
+			target: "esnext",
 			// 使用 esbuild 进行代码压缩
-			minify: 'esbuild',
+			minify: "esbuild",
 			// 在非生产环境下生成源码映射
 			sourcemap: !isProduction,
 			// 启用 CSS 代码分割
@@ -203,10 +203,10 @@ export default defineConfig(({ mode }) => {
 			rollupOptions: {
 				output: {
 					manualChunks: {
-						'vendor-core': ['react', 'react-dom', 'react-router'],
-						'vendor-ui': ['antd', '@ant-design/icons', '@ant-design/cssinjs', 'framer-motion', 'styled-components'],
-						'vendor-utils': ['axios', 'dayjs', 'i18next', 'zustand', '@iconify/react'],
-						'vendor-charts': ['apexcharts', 'react-apexcharts'],
+						"vendor-core": ["react", "react-dom", "react-router"],
+						"vendor-ui": ["antd", "@ant-design/icons", "@ant-design/cssinjs", "framer-motion", "styled-components"],
+						"vendor-utils": ["axios", "dayjs", "i18next", "zustand", "@iconify/react"],
+						"vendor-charts": ["apexcharts", "react-apexcharts"],
 					},
 				},
 			},
@@ -214,18 +214,18 @@ export default defineConfig(({ mode }) => {
 
 		// 优化依赖预构建
 		optimizeDeps: {
-			include: ['react', 'react-dom', 'react-router', 'antd', '@ant-design/icons', 'axios', 'dayjs'],
-			exclude: ['@iconify/react'], // 排除不需要预构建的依赖
+			include: ["react", "react-dom", "react-router", "antd", "@ant-design/icons", "axios", "dayjs"],
+			exclude: ["@iconify/react"], // 排除不需要预构建的依赖
 		},
 
 		// esbuild 优化配置
 		esbuild: {
 			// 在生产环境下移除 console 和 debugger 语句
-			drop: isProduction ? ['console', 'debugger'] : [],
+			drop: isProduction ? ["console", "debugger"] : [],
 			// 移除法律声明注释
-			legalComments: 'none',
+			legalComments: "none",
 			// 设置构建目标为 esnext
-			target: 'esnext',
+			target: "esnext",
 		},
 	};
 });

@@ -1,15 +1,15 @@
-import Chart from '@/components/chart/chart';
-import useChart from '@/components/chart/useChart';
+import Chart from "@/components/chart/chart";
+import useChart from "@/components/chart/useChart";
 
 const series = [44, 55, 13, 43];
 export default function ChartDonut() {
 	const chartOptions = useChart({
-		labels: ['Apple', 'Mango', 'Orange', 'Watermelon'],
+		labels: ["Apple", "Mango", "Orange", "Watermelon"],
 		stroke: {
 			show: false,
 		},
 		legend: {
-			horizontalAlign: 'center',
+			horizontalAlign: "center",
 		},
 		tooltip: {
 			fillSeriesColor: false,
@@ -17,7 +17,7 @@ export default function ChartDonut() {
 		plotOptions: {
 			pie: {
 				donut: {
-					size: '90%',
+					size: "90%",
 				},
 			},
 		},

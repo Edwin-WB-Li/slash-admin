@@ -1,28 +1,28 @@
 // import type { Permission } from "#/entity";
-import type { MenuOptions } from '@/api/types';
+import type { MenuOptions } from "@/api/types";
 
-import { Button, Card, Popconfirm, Tag } from 'antd';
-import Table, { type ColumnsType } from 'antd/es/table';
-import { isNil } from 'ramda';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Button, Card, Popconfirm, Tag } from "antd";
+import Table, { type ColumnsType } from "antd/es/table";
+import { isNil } from "ramda";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
-import { IconButton, Iconify, SvgIcon } from '@/components/icon';
-import { useUserPermission } from '@/store/userStore';
+import { IconButton, Iconify, SvgIcon } from "@/components/icon";
+import { useUserPermission } from "@/store/userStore";
 
-import PermissionModal, { type PermissionModalProps } from './permission-modal';
+import PermissionModal, { type PermissionModalProps } from "./permission-modal";
 
-import { BasicStatus, PermissionType } from '#/enum';
+import { BasicStatus, PermissionType } from "#/enum";
 
 const defaultPermissionValue: MenuOptions = {
 	parentId: null,
-	name: '',
-	label: '',
-	route: '',
-	component: '',
-	icon: '',
-	hide: false,
-	status: BasicStatus.ENABLE,
+	name: "",
+	label: "",
+	path: "",
+	component: "",
+	icon: "",
+	hideMenu: false,
+	disabled: !!BasicStatus.ENABLE,
 	type: PermissionType.CATALOGUE,
 };
 export default function PermissionPage() {
@@ -31,7 +31,7 @@ export default function PermissionPage() {
 
 	const [permissionModalProps, setPermissionModalProps] = useState<PermissionModalProps>({
 		formValue: { ...defaultPermissionValue },
-		title: 'New',
+		title: "New",
 		show: false,
 		onOk: () => {
 			setPermissionModalProps((prev) => ({ ...prev, show: false }));
@@ -42,49 +42,49 @@ export default function PermissionPage() {
 	});
 	const columns: ColumnsType<MenuOptions> = [
 		{
-			title: 'Name',
-			dataIndex: 'name',
+			title: "Name",
+			dataIndex: "name",
 			width: 300,
 			render: (_, record) => <div>{t(record.label)}</div>,
 		},
 		{
-			title: 'Type',
-			dataIndex: 'type',
+			title: "Type",
+			dataIndex: "type",
 			width: 60,
 			render: (_, record) => <Tag color="processing">{PermissionType[record.type]}</Tag>,
 		},
 		{
-			title: 'Icon',
-			dataIndex: 'icon',
+			title: "Icon",
+			dataIndex: "icon",
 			width: 60,
 			render: (icon: string) => {
-				if (isNil(icon)) return '';
-				if (icon.startsWith('ic')) {
+				if (isNil(icon)) return "";
+				if (icon.startsWith("ic")) {
 					return <SvgIcon icon={icon} size={18} className="ant-menu-item-icon" />;
 				}
 				return <Iconify icon={icon} size={18} className="ant-menu-item-icon" />;
 			},
 		},
 		{
-			title: 'Component',
-			dataIndex: 'component',
+			title: "Component",
+			dataIndex: "component",
 		},
 		{
-			title: 'Status',
-			dataIndex: 'status',
-			align: 'center',
+			title: "Status",
+			dataIndex: "status",
+			align: "center",
 			width: 120,
 			render: (status) => (
-				<Tag color={status === BasicStatus.DISABLE ? 'error' : 'success'}>
-					{status === BasicStatus.DISABLE ? 'Disable' : 'Enable'}
+				<Tag color={status === BasicStatus.DISABLE ? "error" : "success"}>
+					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
 				</Tag>
 			),
 		},
-		{ title: 'Order', dataIndex: 'order', width: 60 },
+		{ title: "Order", dataIndex: "order", width: 60 },
 		{
-			title: 'Action',
-			key: 'operation',
-			align: 'center',
+			title: "Action",
+			key: "operation",
+			align: "center",
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-end text-gray">
@@ -111,7 +111,7 @@ export default function PermissionPage() {
 			...prev,
 			show: true,
 			...defaultPermissionValue,
-			title: 'New',
+			title: "New",
 			formValue: { ...defaultPermissionValue, parentId: parentId ?? null },
 		}));
 	};
@@ -120,7 +120,7 @@ export default function PermissionPage() {
 		setPermissionModalProps((prev) => ({
 			...prev,
 			show: true,
-			title: 'Edit',
+			title: "Edit",
 			formValue,
 		}));
 	};
@@ -136,7 +136,7 @@ export default function PermissionPage() {
 			<Table
 				rowKey="id"
 				size="small"
-				scroll={{ x: 'max-content' }}
+				scroll={{ x: "max-content" }}
 				pagination={false}
 				columns={columns}
 				dataSource={permissions}

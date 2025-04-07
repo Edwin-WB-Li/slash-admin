@@ -1,14 +1,14 @@
-import { type ReactNode, useMemo } from 'react';
+import { type ReactNode, useMemo } from "react";
 
-import { Button, Dropdown, type MenuProps } from 'antd';
-import dayjs from 'dayjs';
+import { Button, Dropdown, type MenuProps } from "antd";
+import dayjs from "dayjs";
 
-import { IconButton, Iconify } from '@/components/icon';
-import { up } from '@/hooks';
-import { useMediaQuery } from '@/hooks';
+import { IconButton, Iconify } from "@/components/icon";
+import { up } from "@/hooks";
+import { useMediaQuery } from "@/hooks";
 
-export type HandleMoveArg = 'next' | 'prev' | 'today';
-export type ViewType = 'dayGridMonth' | 'timeGridWeek' | 'timeGridDay' | 'listWeek';
+export type HandleMoveArg = "next" | "prev" | "today";
+export type ViewType = "dayGridMonth" | "timeGridWeek" | "timeGridDay" | "listWeek";
 type ViewTypeMenu = {
 	key: string;
 	label: string;
@@ -24,39 +24,39 @@ type Props = {
 	onViewTypeChange: (view: ViewType) => void;
 };
 export default function CalendarHeader({ now, view, onMove, onCreate, onViewTypeChange }: Props) {
-	const LgBreakPoint = useMediaQuery(up('lg'));
+	const LgBreakPoint = useMediaQuery(up("lg"));
 
 	const items = useMemo<ViewTypeMenu[]>(
 		() => [
 			{
-				key: '1',
-				label: 'Month',
-				view: 'dayGridMonth',
+				key: "1",
+				label: "Month",
+				view: "dayGridMonth",
 				icon: <Iconify icon="mdi:calendar-month-outline" size={18} />,
 			},
 			{
-				key: '2',
-				label: 'Week',
-				view: 'timeGridWeek',
+				key: "2",
+				label: "Week",
+				view: "timeGridWeek",
 				icon: <Iconify icon="mdi:calendar-weekend-outline" size={18} />,
 			},
 			{
-				key: '3',
-				label: 'Day',
-				view: 'timeGridDay',
+				key: "3",
+				label: "Day",
+				view: "timeGridDay",
 				icon: <Iconify icon="mdi:calendar-today-outline" size={18} />,
 			},
 			{
-				key: '4',
-				label: 'List',
-				view: 'listWeek',
+				key: "4",
+				label: "List",
+				view: "listWeek",
 				icon: <Iconify icon="mdi:view-agenda-outline" size={18} />,
 			},
 		],
 		[],
 	);
 
-	const handleMenuClick: MenuProps['onClick'] = (e) => {
+	const handleMenuClick: MenuProps["onClick"] = (e) => {
 		const selectedViewType = items.find((item) => item.key === e.key);
 		if (selectedViewType) {
 			onViewTypeChange(selectedViewType.view);
@@ -90,16 +90,16 @@ export default function CalendarHeader({ now, view, onMove, onCreate, onViewType
 
 			<div className="flex cursor-pointer items-center justify-center">
 				<IconButton>
-					<Iconify icon="solar:alt-arrow-left-outline" onClick={() => onMove('prev')} size={20} />
+					<Iconify icon="solar:alt-arrow-left-outline" onClick={() => onMove("prev")} size={20} />
 				</IconButton>
-				<span className="mx-2 text-base font-bold">{dayjs(now).format('DD MMM YYYY')}</span>
+				<span className="mx-2 text-base font-bold">{dayjs(now).format("DD MMM YYYY")}</span>
 				<IconButton>
-					<Iconify icon="solar:alt-arrow-right-outline" onClick={() => onMove('next')} size={20} />
+					<Iconify icon="solar:alt-arrow-right-outline" onClick={() => onMove("next")} size={20} />
 				</IconButton>
 			</div>
 
 			<div className="flex items-center">
-				<Button type="primary" onClick={() => onMove('today')}>
+				<Button type="primary" onClick={() => onMove("today")}>
 					Today
 				</Button>
 				<Button className="ml-2" type="primary" onClick={() => onCreate()}>
