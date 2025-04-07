@@ -1,8 +1,9 @@
-// import type { Permission } from "#/entity";
 import type { MenuOptions } from "@/api/types";
+import type { ColumnsType } from "antd/es/table";
+import type { PermissionModalProps } from "./permission-modal";
 
 import { Button, Card, Popconfirm, Tag } from "antd";
-import Table, { type ColumnsType } from "antd/es/table";
+import Table from "antd/es/table";
 import { isNil } from "ramda";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import { useUserPermission } from "@/store/userStore";
 
-import PermissionModal, { type PermissionModalProps } from "./permission-modal";
+import PermissionModal from "./permission-modal";
 
 import { BasicStatus, PermissionType } from "#/enum";
 
