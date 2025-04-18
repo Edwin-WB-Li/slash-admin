@@ -1,32 +1,45 @@
 import type { LoginParams } from "@/api/types";
 
 import { CloseCircleOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
+// import { useQuery } from "@tanstack/react-query";
 import { Button, Checkbox, Col, Divider, Form, Input, Row } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiFillGithub, AiFillGoogleCircle, AiFillWechat } from "react-icons/ai";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 
-const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
+// const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 import { useLogin, useMenus } from "@/store/userStore";
-
 import { LoginStateEnum, useLoginStateContext } from "./providers/LoginStateProvider";
+
 function LoginForm() {
+	const { loginState, setLoginState } = useLoginStateContext();
 	const { t } = useTranslation();
 	const featchLogin = useLogin();
 	const featchMenus = useMenus();
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState(false);
-	const { loginState, setLoginState } = useLoginStateContext();
+	// const { setUserMenus } = useUserActions();
+
+	// const getRoleMenus = (roleId: number) => {
+	// 	return useQuery({
+	// 		queryKey: ["roleMenus", roleId], // 将参数包含在 queryKey 中
+	// 		queryFn: () => roleService.getRoleMenus(roleId), // 将参数传递给请求函数
+	// 		enabled: !!roleId, // 当 userId 存在时才会触发请求
+	// 		staleTime: 5 * 60 * 1000, // 数据保鲜时间
+	// 		gcTime: 15 * 60 * 1000, // 缓存保留时间
+	// 	});
+	// };
+
 	const handleFinish = async ({ username, password }: LoginParams) => {
 		setLoading(true);
 		try {
-			await featchLogin({ username, password });
-			await featchMenus();
-			navigate(HOMEPAGE, { replace: true });
-			window.location.reload();
+			const res = await featchLogin({ username, password });
+			await featchMenus(res?.userInfo?.roleId);
+			// navigate(HOMEPAGE, { replace: true });
+			// window.location.reload();
 		} finally {
 			setLoading(false);
 		}
@@ -43,6 +56,8 @@ function LoginForm() {
 				size="large"
 				initialValues={{
 					remember: true,
+					username: "admin",
+					password: "123456",
 				}}
 				onFinish={handleFinish}
 				autoComplete="off"

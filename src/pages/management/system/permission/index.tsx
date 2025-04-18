@@ -2,18 +2,21 @@ import type { MenuOptions } from "@/api/types";
 import type { ColumnsType } from "antd/es/table";
 import type { PermissionModalProps } from "./permission-modal";
 
+import { useMutation } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import { Button, Card, Popconfirm, Tag } from "antd";
 import Table from "antd/es/table";
 import { isNil } from "ramda";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
 
+import { menuService, roleService } from "@/api/services";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
+import { menusOrderFilter } from "@/router/utils";
 import { useUserPermission } from "@/store/userStore";
-
-import PermissionModal from "./permission-modal";
-
 import { BasicStatus, PermissionType } from "#/enum";
+import PermissionModal from "./permission-modal";
 
 const defaultPermissionValue: MenuOptions = {
 	parentId: null,
@@ -23,24 +26,29 @@ const defaultPermissionValue: MenuOptions = {
 	component: "",
 	icon: "",
 	hideMenu: false,
+	hideTab: false,
 	disabled: !!BasicStatus.ENABLE,
+	newFeature: false,
 	type: PermissionType.CATALOGUE,
 };
-export default function PermissionPage() {
-	const permissions = useUserPermission();
-	const { t } = useTranslation();
 
-	const [permissionModalProps, setPermissionModalProps] = useState<PermissionModalProps>({
-		formValue: { ...defaultPermissionValue },
-		title: "New",
-		show: false,
-		onOk: () => {
-			setPermissionModalProps((prev) => ({ ...prev, show: false }));
-		},
-		onCancel: () => {
-			setPermissionModalProps((prev) => ({ ...prev, show: false }));
-		},
+export default function PermissionPage() {
+	const { t } = useTranslation();
+	const permissions = useUserPermission();
+	const [showPermissionModal, setShowPermissionModal] = useState(false);
+	const [type, setType] = useState("");
+
+	const editMenusMutation = useMutation({
+		mutationFn: menuService.editMenus,
 	});
+	// const { data } = useQuery({
+	// 	queryKey: ["roleMenus"],
+	// 	queryFn: roleService.getRoleMenus(1),
+	// });
+
+	/**
+	 * @description Columns
+	 */
 	const columns: ColumnsType<MenuOptions> = [
 		{
 			title: "Name",
@@ -72,11 +80,11 @@ export default function PermissionPage() {
 		},
 		{
 			title: "Status",
-			dataIndex: "status",
+			dataIndex: "disabled",
 			align: "center",
 			width: 120,
 			render: (status) => (
-				<Tag color={status === BasicStatus.DISABLE ? "error" : "success"}>
+				<Tag color={status === !BasicStatus.DISABLE ? "error" : "success"}>
 					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
 				</Tag>
 			),
@@ -107,24 +115,86 @@ export default function PermissionPage() {
 		},
 	];
 
+	const [permissionModalProps, setPermissionModalProps] = useState<PermissionModalProps>({
+		formValue: { ...defaultPermissionValue },
+		title: "New",
+		show: false,
+		onOk: (value) => handleSumbit(value),
+		onCancel: () => {
+			setPermissionModalProps((prev) => ({ ...prev, show: false }));
+		},
+	});
+
+	/**
+	 * @description 提交表单
+	 * @param value
+	 */
+	const handleSumbit = (value: MenuOptions) => {
+		console.log("提交", value);
+
+		if (value) {
+			const params = {
+				...value,
+				disabled: !!value.disabled,
+			};
+			if (type === "edit") {
+				handleEditMenus(params);
+			} else {
+				roleService.createRoleMenus(params).then((res) => {
+					console.log("res", res);
+					if (res) {
+						toast.success("success", {
+							position: "top-center",
+						});
+						setShowPermissionModal(false);
+					}
+				});
+			}
+		}
+	};
+
+	/**
+	 * @description Create a new Menus
+	 * @param parentId
+	 */
 	const onCreate = (parentId?: number | null) => {
 		setPermissionModalProps((prev) => ({
 			...prev,
 			show: true,
-			...defaultPermissionValue,
+			// ...defaultPermissionValue,
 			title: "New",
 			formValue: { ...defaultPermissionValue, parentId: parentId ?? null },
 		}));
+		setShowPermissionModal(true);
+		setType("new");
 	};
 
-	const onEdit = (formValue: MenuOptions) => {
+	const handleEditMenus = (formValue: MenuOptions) => {
+		console.log("edit", formValue);
+		try {
+			const data = editMenusMutation.mutate(formValue);
+			console.log("edit", data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	/**
+	 * @description Edit a Menus
+	 * @param formValue
+	 */
+	const onEdit = async (formValue: MenuOptions) => {
+		console.log(formValue);
 		setPermissionModalProps((prev) => ({
 			...prev,
 			show: true,
 			title: "Edit",
-			formValue,
+			formValue: { ...formValue, id: formValue.id },
 		}));
+		setShowPermissionModal(true);
+		setType("edit");
 	};
+
 	return (
 		<Card
 			title="Permission List"
@@ -140,10 +210,14 @@ export default function PermissionPage() {
 				scroll={{ x: "max-content" }}
 				pagination={false}
 				columns={columns}
-				dataSource={permissions}
+				dataSource={menusOrderFilter(permissions)}
 			/>
-
-			<PermissionModal {...permissionModalProps} />
+			<PermissionModal
+				{...permissionModalProps}
+				show={showPermissionModal}
+				onCancel={() => setShowPermissionModal(false)}
+				onOk={(value) => handleSumbit(value)}
+			/>
 		</Card>
 	);
 }

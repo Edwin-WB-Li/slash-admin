@@ -1,4 +1,4 @@
-import type { RoleListResonseType, UserInfoType } from "@/api/types";
+import type { RoleListType, UserInfoType } from "@/api/types";
 import type { FormProps } from "antd";
 
 import { useMutation } from "@tanstack/react-query";
@@ -23,7 +23,7 @@ function RegisterForm() {
 	const { t } = useTranslation();
 	const [countdown, setCountdown] = useState(0); // 倒计时的秒数
 	const [second, setSecond] = useState(0);
-	const [roleList, setRoleList] = useState<RoleListResonseType[]>([]);
+	const [roleList, setRoleList] = useState<RoleListType[]>([]);
 	const [loading, setLoading] = useState(false);
 
 	const registerMutation = useMutation({
@@ -48,9 +48,10 @@ function RegisterForm() {
 	const { data: roles } = useQuery({
 		queryKey: ["roles"],
 		queryFn: roleService.getRoleList,
-		staleTime: 5 * 60 * 1000, // 5分钟保鲜期
-		gcTime: 15 * 60 * 1000, // 15分钟缓存保留
-		refetchOnWindowFocus: true, // 窗口聚焦时自动刷新
+		// staleTime: 5 * 60 * 1000, // 5分钟保鲜期
+		// gcTime: 15 * 60 * 1000, // 15分钟缓存保留
+		// refetchOnWindowFocus: true, // 窗口聚焦时自动刷新
+		enabled: true,
 	});
 
 	useEffect(() => {
@@ -89,8 +90,8 @@ function RegisterForm() {
 			const selectedRole = roleList.find((role) => role.id === values.roleId);
 			const data = await registerMutation.mutateAsync({
 				...values,
-				role: (selectedRole as RoleListResonseType)?.role,
-				roleName: (selectedRole as RoleListResonseType)?.roleName,
+				role: (selectedRole as RoleListType)?.role,
+				roleName: (selectedRole as RoleListType)?.roleName,
 			});
 			if (data) {
 				toast.success(t("sys.login.registeredSuccess"), {

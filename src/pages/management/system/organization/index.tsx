@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import { Button, Card, Col, Form, Input, InputNumber, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from "antd";
 import Table, { type ColumnsType } from "antd/es/table";
 import type { TableRowSelection } from "antd/es/table/interface";
 import { useEffect, useState } from "react";
 
-import orgService from "@/api/services/orgService";
+// import orgService from "@/api/services/orgService";
 import { IconButton, Iconify } from "@/components/icon";
 
 import OrganizationChart from "./organization-chart";
@@ -75,10 +75,10 @@ export default function OrganizationPage() {
 		},
 	};
 
-	const { data } = useQuery({
-		queryKey: ["orgs"],
-		queryFn: orgService.getOrgList,
-	});
+	// const { data } = useQuery({
+	// 	queryKey: ["orgs"],
+	// 	queryFn: orgService.getOrgList,
+	// });
 
 	const onSearchFormReset = () => {
 		searchForm.resetFields();
@@ -157,13 +157,15 @@ export default function OrganizationPage() {
 					scroll={{ x: "max-content" }}
 					pagination={false}
 					columns={columns}
-					dataSource={data}
+					// dataSource={data}
+					dataSource={[]}
 					rowSelection={{ ...rowSelection }}
 				/>
 			</Card>
 
 			<Card title="Organization Chart">
-				<OrganizationChart organizations={data} />
+				<OrganizationChart organizations={[]} />
+				{/* <OrganizationChart organizations={data ?? []} /> */}
 			</Card>
 
 			<OrganizationModal {...organizationModalPros} />

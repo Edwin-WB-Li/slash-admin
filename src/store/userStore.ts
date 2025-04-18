@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+import roleService from "@/api/services/roleService";
 import userService from "@/api/services/userService";
 import { t } from "@/locales/i18n";
 import { StorageEnum } from "#/enum";
@@ -78,6 +79,7 @@ export const useLogin = () => {
 			toast.success(t("sys.login.loginSuccess") || "login success!", {
 				position: "top-center",
 			});
+			return res;
 			// navigatge(HOMEPAGE, { replace: true });
 		} catch (err) {
 			throw new Error(err || t("sys.api.apiRequestFailed"));
@@ -89,20 +91,36 @@ export const useLogin = () => {
 /**
  * @description 获取菜单列表
  */
+// export const useMenus = () => {
+// 	const { setUserMenus } = useUserActions();
+// 	// const navigate = useNavigate();
+
+// 	const getMenusMutation = useMutation({
+// 		mutationFn: userService.getMenus,
+// 	});
+// 	const getMenus = async () => {
+// 		try {
+// 			const data = await getMenusMutation.mutateAsync();
+// 			if (data) {
+// 				setUserMenus(data);
+// 			}
+// 			// navigate(HOMEPAGE, { replace: true });
+// 		} catch (err) {
+// 			throw new Error(err || t("sys.api.apiRequestFailed"));
+// 		}
+// 	};
+// 	return getMenus;
+// };
+
 export const useMenus = () => {
 	const { setUserMenus } = useUserActions();
-	// const navigate = useNavigate();
-
-	const getMenusMutation = useMutation({
-		mutationFn: userService.getMenus,
-	});
-	const getMenus = async () => {
+	const getMenus = async (roleId: number) => {
 		try {
-			const res = await getMenusMutation.mutateAsync();
-			if (res) {
-				setUserMenus(res);
+			const data = await roleService.getRoleMenus(roleId);
+			if (data) {
+				setUserMenus(data);
 			}
-			console.log("--->2");
+			return data;
 			// navigate(HOMEPAGE, { replace: true });
 		} catch (err) {
 			throw new Error(err || t("sys.api.apiRequestFailed"));

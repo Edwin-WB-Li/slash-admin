@@ -1,4 +1,11 @@
-import type { LoginParams, LoginResponse, MenuOptions, UserInfoType } from "@/api/types";
+import type {
+	LoginParams,
+	LoginResponse,
+	MenuOptions,
+	UserInfoType,
+	UserListParams,
+	UserListResponse,
+} from "@/api/types";
 import type { UserInfo, UserToken } from "#/entity";
 
 import http from "../apiClient";
@@ -19,11 +26,13 @@ export enum UserApi {
 	Logout = "/auth/logout",
 	Refresh = "/auth/refresh",
 	User = "/user",
+	UserList = "/user/getUserList",
 	Menus = "/menus/getMenuList",
 }
 
 const login = (data: LoginParams) => http.post<LoginResponse>({ url: UserApi.Login, data });
 const register = (data: UserInfoType) => http.post<UserInfoType>({ url: UserApi.Register, data });
+const getUserList = (data: UserListParams) => http.post<UserListResponse>({ url: UserApi.UserList, data });
 // const sendVerifyCode = (data: { email: string }) => http.post<string>({ url: UserApi.SendVerifyCode, data });
 const getMenus = () => http.get<MenuOptions[]>({ url: UserApi.Menus });
 const logout = () => http.get({ url: UserApi.Logout });
@@ -35,4 +44,5 @@ export default {
 	findById,
 	logout,
 	getMenus,
+	getUserList,
 };

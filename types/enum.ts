@@ -3,6 +3,11 @@ export enum BasicStatus {
 	ENABLE = 1,
 }
 
+export enum StatusEnum {
+	Disabled = 0,
+	Enabled = 1,
+}
+
 export enum ResultEnum {
 	SUCCESS = 0,
 	ERROR = -1,

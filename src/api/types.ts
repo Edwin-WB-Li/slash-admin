@@ -1,4 +1,4 @@
-import type { BasicStatus, PermissionType } from "#/enum";
+import type { BasicStatus, PermissionType, StatusEnum } from "#/enum";
 
 // * 请求响应参数(不包含data)
 export interface Result {
@@ -49,6 +49,8 @@ export interface UserInfoType {
 	status?: boolean;
 	isDeleted?: boolean;
 	captcha?: number;
+	createdTime?: string | Date;
+	updatedTime?: string | Date;
 }
 
 // * 登录
@@ -60,6 +62,23 @@ export interface LoginParams {
 export interface LoginResponse {
 	token: string;
 	userInfo: UserInfoType;
+}
+
+export interface UserListParams {
+	username: string;
+	role: string | null;
+	nickName: string;
+	status: boolean;
+	isDeleted: boolean;
+	createdTime: string[];
+	page?: number;
+	pageSize?: number;
+}
+export interface UserListResponse {
+	list: UserInfoType[];
+	total: number;
+	page?: number;
+	pageSize: number;
 }
 
 export interface ResAuthButtons {
@@ -90,12 +109,14 @@ export interface MenuOptions {
 	children?: MenuOptions[];
 }
 
-export interface RoleListResonseType {
-	id: number;
+export interface RoleListType {
+	id?: number;
 	role: string;
 	roleName: string;
-	createdTime: Date;
-	updatedTime: Date;
+	desc: string;
+	status: StatusEnum;
+	createdTime?: Date;
+	updatedTime?: Date;
 }
 
 export interface WeathersResponseType {

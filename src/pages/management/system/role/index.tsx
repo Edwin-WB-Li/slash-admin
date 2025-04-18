@@ -1,59 +1,62 @@
+import type { RoleListType } from "@/api/types";
+import type { ColumnsType } from "antd/es/table";
+import type { RoleModalRef } from "./role-modal";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button, Card, Popconfirm, Tag } from "antd";
-import Table, { type ColumnsType } from "antd/es/table";
-import { useState } from "react";
+import Table from "antd/es/table";
+import dayjs from "dayjs";
+import { useRef, useState } from "react";
 
-import { ROLE_LIST } from "@/_mock/assets";
+import { roleService } from "@/api/services";
 import { IconButton, Iconify } from "@/components/icon";
+// import { t } from "i18next";
+import { toast } from "sonner";
+import { StatusEnum } from "#/enum";
+import { RoleModal } from "./role-modal";
 
-import { RoleModal, type RoleModalProps } from "./role-modal";
-
-import type { Role } from "#/entity";
-import { BasicStatus } from "#/enum";
-
-const ROLES: Role[] = ROLE_LIST as Role[];
-
-const DEFAULE_ROLE_VALUE: Role = {
-	id: "",
-	name: "",
-	label: "",
-	status: BasicStatus.ENABLE,
-	permission: [],
+const DEFAULE_ROLE_VALUE: RoleListType = {
+	role: "",
+	roleName: "",
+	status: StatusEnum.Enabled,
+	desc: "",
+	// permission: [],
 };
 export default function RolePage() {
-	const [roleModalPros, setRoleModalProps] = useState<RoleModalProps>({
-		formValue: { ...DEFAULE_ROLE_VALUE },
-		title: "New",
-		show: false,
-		onOk: () => {
-			setRoleModalProps((prev) => ({ ...prev, show: false }));
-		},
-		onCancel: () => {
-			setRoleModalProps((prev) => ({ ...prev, show: false }));
-		},
-	});
-	const columns: ColumnsType<Role> = [
+	const columns: ColumnsType<RoleListType> = [
 		{
-			title: "Name",
-			dataIndex: "name",
-			width: 300,
+			title: "ID",
+			dataIndex: "id",
+			render: (id) => <Tag color="cyan">{id}</Tag>,
 		},
 		{
-			title: "Label",
-			dataIndex: "label",
+			title: "Role",
+			dataIndex: "role",
+			render: (role) => <Tag color="cyan">{role}</Tag>,
 		},
-		{ title: "Order", dataIndex: "order", width: 60 },
+		{
+			title: "RoleName",
+			dataIndex: "roleName",
+			render: (roleName) => <Tag color="cyan">{roleName}</Tag>,
+		},
 		{
 			title: "Status",
 			dataIndex: "status",
 			align: "center",
 			width: 120,
-			render: (status) => (
-				<Tag color={status === BasicStatus.DISABLE ? "error" : "success"}>
-					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
-				</Tag>
-			),
+			render: (status) => <Tag color={status === StatusEnum.Disabled ? "error" : "success"}>{StatusEnum[status]}</Tag>,
 		},
 		{ title: "Desc", dataIndex: "desc" },
+		{
+			title: "CreatedTime",
+			dataIndex: "createdTime",
+			render: (createdTime) => <Tag color="cyan">{dayjs(createdTime).format("YYYY-MM-DD HH:mm:ss")}</Tag>,
+		},
+		{
+			title: "UpdatedTime",
+			dataIndex: "updatedTime",
+			render: (updatedTime) => <Tag color="cyan">{dayjs(updatedTime).format("YYYY-MM-DD HH:mm:ss")}</Tag>,
+		},
 		{
 			title: "Action",
 			key: "operation",
@@ -74,25 +77,73 @@ export default function RolePage() {
 		},
 	];
 
+	const [formValue, setFormValue] = useState<RoleListType>(DEFAULE_ROLE_VALUE);
+	const [showPermissionModal, setShowPermissionModal] = useState(false);
+	const [title, setTitle] = useState("");
+
+	const roleModalRef = useRef<RoleModalRef>(null);
+	const queryClient = useQueryClient();
+
+	const { isPending: tableLoading, data: roleListData } = useQuery({
+		queryKey: ["roleList"],
+		queryFn: async () => {
+			const res = await roleService.getRoleList();
+			// 保证返回值不是 undefined
+			return res ?? [];
+		},
+		enabled: true,
+	});
+
+	/**
+	 * @description 创建或者编辑角色 mutation 方法
+	 */
+	const createOrEditRoleMutation = useMutation({
+		mutationFn: async (params: RoleListType) => {
+			return await roleService.createOrEditRole(params);
+		},
+		onSuccess: (data) => {
+			// 成功回调
+			if (data) {
+				toast.success(`${title} Success`, {
+					position: "top-center",
+				});
+				queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
+			}
+		},
+		// onError: (error, variables, context) => {
+		// 	// 失败回调
+		// },
+		// onSettled: (data, error, variables, context) => {
+		// 	// 无论成功失败都会调用
+		// },
+	});
+
 	const onCreate = () => {
-		setRoleModalProps((prev) => ({
-			...prev,
-			show: true,
-			title: "Create New",
-			formValue: {
-				...prev.formValue,
-				...DEFAULE_ROLE_VALUE,
-			},
-		}));
+		setTitle("Create");
+		setFormValue(DEFAULE_ROLE_VALUE);
+		setShowPermissionModal(true);
 	};
 
-	const onEdit = (formValue: Role) => {
-		setRoleModalProps((prev) => ({
-			...prev,
-			show: true,
-			title: "Edit",
-			formValue,
-		}));
+	const onEdit = (formValue: RoleListType) => {
+		setShowPermissionModal(true);
+		setTitle("Edit");
+		setFormValue({ ...formValue });
+	};
+
+	/**
+	 * @description 提交表单
+	 * @param value
+	 */
+	const handleSumbit = (value: RoleListType) => {
+		console.log("提交", value);
+		createOrEditRoleMutation.mutate(value); // 触发接口调用
+		setShowPermissionModal(false);
+	};
+
+	// 关闭弹窗时调用
+	const handleCloseModal = () => {
+		// roleModalRef.current?.resetFields();
+		setShowPermissionModal(false);
 	};
 
 	return (
@@ -110,10 +161,17 @@ export default function RolePage() {
 				scroll={{ x: "max-content" }}
 				pagination={false}
 				columns={columns}
-				dataSource={ROLES}
+				dataSource={roleListData ?? []}
+				loading={tableLoading}
 			/>
-
-			<RoleModal {...roleModalPros} />
+			<RoleModal
+				ref={roleModalRef}
+				title={title}
+				show={showPermissionModal}
+				formValue={formValue}
+				onOk={(value) => handleSumbit(value)}
+				onCancel={handleCloseModal}
+			/>
 		</Card>
 	);
 }

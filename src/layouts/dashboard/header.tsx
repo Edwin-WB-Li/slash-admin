@@ -27,7 +27,6 @@ export default function Header() {
 	// const [weathersData, setWeathersData] = useState<WeathersResponseType>();
 	const { themeLayout, breadCrumb } = useSettings();
 
-	// useEffect(() => {
 	// const { data } = useQuery({
 	//   queryKey: ["weathers"],
 	//   queryFn: weathersService.getWeathers,
@@ -41,7 +40,6 @@ export default function Header() {
 	// console.log(data[0]);
 	// setWeathersData(data[0]);
 	// }
-	// }, []);
 
 	const headerStyle: CSSProperties = {
 		borderBottom:

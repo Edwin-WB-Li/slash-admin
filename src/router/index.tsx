@@ -33,6 +33,7 @@ const NO_MATCHED_ROUTE: AppRouteObject = {
 export default function Router() {
 	// 权限路由
 	const permissionRoutes = usePermissionRoutes();
+	// console.log("permissionRoutes", permissionRoutes);
 	// 受保护路由
 	const PROTECTED_ROUTE: AppRouteObject = {
 		path: "/",

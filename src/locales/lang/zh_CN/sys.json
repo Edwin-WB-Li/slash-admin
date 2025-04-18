@@ -14,7 +14,7 @@
 			"errMsg503": "服务不可用，服务器暂时过载或维护!",
 			"errMsg504": "网络超时!",
 			"errMsg505": "http版本不支持该请求!",
-			"errorMessage": "操作失败,系统异常!",
+			"errorMessage": "服务异常,请稍后重试!",
 			"errorTip": "错误提示",
 			"networkException": "网络异常",
 			"networkExceptionMsg": "网络异常，请检查您的网络连接是否正常!",

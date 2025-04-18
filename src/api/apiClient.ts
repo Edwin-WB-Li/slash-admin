@@ -7,13 +7,15 @@ import { toast } from "sonner";
 import { t } from "@/locales/i18n";
 import userStore from "@/store/userStore";
 
+import { isProd } from "@/utils";
+
 // import { useRouter } from '@/router/hooks';
 // import { ResultEnum } from '#/enum';
 // const router = useRouter();
-const { MODE, VITE_API_PROD_BASE_URL, VITE_API_VERSIONS, VITE_PORT, VITE_API_DEV_BASE_URL } = import.meta
+const { VITE_API_PROD_BASE_URL, VITE_API_VERSIONS, VITE_PORT, VITE_API_DEV_BASE_URL } = import.meta
 	.env as ImportMetaEnv;
-const isProd = MODE === "production";
-const baseURL = isProd
+// const isProd = MODE === "production";
+const baseURL = isProd()
 	? `${VITE_API_PROD_BASE_URL}${VITE_API_VERSIONS}`
 	: `${VITE_API_DEV_BASE_URL}:${VITE_PORT}${VITE_API_VERSIONS}`;
 
@@ -44,7 +46,7 @@ axiosInstance.interceptors.request.use(
 			position: "top-center",
 		});
 		// HTTP 401
-		if (response?.status === 401) {
+		if (response?.code === 401) {
 			userStore.getState().actions.clearUserInfoAndToken();
 			window.location.href = "/#/login";
 		}
@@ -85,7 +87,7 @@ axiosInstance.interceptors.response.use(
 			userStore.getState().actions.clearUserInfoAndToken();
 			window.location.href = "/#/login";
 		}
-		return Promise.reject(new Error(errMsg));
+		// return Promise.reject(new Error(errMsg));
 	},
 );
 
