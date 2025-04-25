@@ -23,21 +23,11 @@ function LoginForm() {
 	const [loading, setLoading] = useState(false);
 	// const { setUserMenus } = useUserActions();
 
-	// const getRoleMenus = (roleId: number) => {
-	// 	return useQuery({
-	// 		queryKey: ["roleMenus", roleId], // 将参数包含在 queryKey 中
-	// 		queryFn: () => roleService.getRoleMenus(roleId), // 将参数传递给请求函数
-	// 		enabled: !!roleId, // 当 userId 存在时才会触发请求
-	// 		staleTime: 5 * 60 * 1000, // 数据保鲜时间
-	// 		gcTime: 15 * 60 * 1000, // 缓存保留时间
-	// 	});
-	// };
-
 	const handleFinish = async ({ username, password }: LoginParams) => {
 		setLoading(true);
 		try {
 			const res = await featchLogin({ username, password });
-			await featchMenus(res?.userInfo?.roleId);
+			await featchMenus(res?.userInfo?.roleId as number);
 			// navigate(HOMEPAGE, { replace: true });
 			// window.location.reload();
 		} finally {

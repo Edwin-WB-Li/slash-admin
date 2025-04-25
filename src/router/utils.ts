@@ -26,10 +26,10 @@ export const menuFilter = (items: AppRouteObject[]) => {
 /**
  * @description 排序菜单路由：对子路由递归处理；按order字段升序排列，无order项默认排最后
  */
-export const menusOrderFilter = (items: MenuOptions[]) => {
+export const menusOrderFilter = (items: MenuOptions[] = []) => {
 	return (
 		items
-			.map((item) => {
+			?.map((item) => {
 				if (item.children && item.children.length > 0) {
 					// 如果当前路由有子路由（item.children），对子路由递归调用 menuFilter
 					item.children = menusOrderFilter(item.children);

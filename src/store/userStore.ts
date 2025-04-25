@@ -116,7 +116,7 @@ export const useMenus = () => {
 	const { setUserMenus } = useUserActions();
 	const getMenus = async (roleId: number) => {
 		try {
-			const data = await roleService.getRoleMenus(roleId);
+			const data = await roleService.getRoleMenusByRoleId(roleId);
 			if (data) {
 				setUserMenus(data);
 			}

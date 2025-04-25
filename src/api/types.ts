@@ -42,9 +42,10 @@ export interface UserInfoType {
 	email: string;
 	mobile: string;
 	role: string;
-	roleId: number;
+	roleId: number | null;
 	roleName?: string;
 	avatar: string;
+	desc: string;
 	nickName: string;
 	status?: boolean;
 	isDeleted?: boolean;
@@ -115,8 +116,16 @@ export interface RoleListType {
 	roleName: string;
 	desc: string;
 	status: StatusEnum;
+	permissions?: number[];
 	createdTime?: Date;
+	createdBy?: string | null;
+	updatedBy?: string | null;
 	updatedTime?: Date;
+}
+
+export interface AssignMenusToRoleParamsType {
+	roleId: number;
+	menuIds: number[];
 }
 
 export interface WeathersResponseType {

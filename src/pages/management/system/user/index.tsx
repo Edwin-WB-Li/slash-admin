@@ -1,10 +1,22 @@
-import type { UserInfoType, UserListParams } from "@/api/types";
-import type { FormProps, PaginationProps } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import type { RoleListType, UserInfoType, UserListParams } from "@/api/types";
+import type { FormProps, PaginationProps, TableColumnsType } from "antd";
 
-import { useQuery } from "@tanstack/react-query";
-import { Button, Card, Col, DatePicker, Form, Input, Pagination, Popconfirm, Row, Select, Space, Tag } from "antd";
-import Table from "antd/es/table";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+	Button,
+	Card,
+	Col,
+	DatePicker,
+	Form,
+	Input,
+	Pagination,
+	Popconfirm,
+	Row,
+	Select,
+	Space,
+	Table,
+	Tag,
+} from "antd";
 import dayjs from "dayjs";
 import { t } from "i18next";
 import { useState } from "react";
@@ -12,6 +24,8 @@ import { useState } from "react";
 import { roleService, userService } from "@/api/services";
 import { IconButton, Iconify } from "@/components/icon";
 import { usePathname, useRouter } from "@/router/hooks";
+import { toast } from "sonner";
+import UserModal from "./user-modal";
 
 const { RangePicker } = DatePicker;
 
@@ -26,13 +40,32 @@ const initialValues: UserListParams = {
 	pageSize: 5,
 };
 
+const DEFAULE_USER_VALUE: UserInfoType = {
+	username: "",
+	password: "",
+	confirmPassword: "",
+	role: "",
+	roleName: "",
+	roleId: null,
+	status: true,
+	nickName: "",
+	avatar: "",
+	mobile: "",
+	email: "",
+	desc: "",
+};
+
 export default function UserListPage() {
 	const { push } = useRouter();
 	const [form] = Form.useForm();
 	const pathname = usePathname();
 	const [params, setParams] = useState<UserListParams>(initialValues);
+	const [formValue, setFormValue] = useState<UserInfoType>(DEFAULE_USER_VALUE);
+	const [showModal, setShowModal] = useState(false);
+	const [title, setTitle] = useState("");
+	const queryClient = useQueryClient();
 
-	const columns: ColumnsType<UserInfoType> = [
+	const columns: TableColumnsType<UserInfoType> = [
 		{
 			title: "Name",
 			dataIndex: "name",
@@ -48,6 +81,13 @@ export default function UserListPage() {
 					</div>
 				);
 			},
+		},
+		{
+			title: "UserName",
+			dataIndex: "username",
+			align: "center",
+			width: 120,
+			render: (username) => <Tag color="cyan">{username}</Tag>,
 		},
 		{
 			title: "Role",
@@ -98,7 +138,7 @@ export default function UserListPage() {
 					>
 						<Iconify icon="mdi:card-account-details" size={18} />
 					</IconButton>
-					<IconButton onClick={() => {}}>
+					<IconButton onClick={() => handleCreatedOrEdit("Edit", record)}>
 						<Iconify icon="solar:pen-bold-duotone" size={18} />
 					</IconButton>
 					<Popconfirm title="Delete the User" okText="Yes" cancelText="No" placement="left">
@@ -125,6 +165,9 @@ export default function UserListPage() {
 		enabled: true,
 	});
 
+	/**
+	 * @description 获取角色列表
+	 */
 	const { data: roleListData } = useQuery({
 		queryKey: ["roleList"],
 		queryFn: async () => {
@@ -135,6 +178,26 @@ export default function UserListPage() {
 		enabled: true,
 	});
 
+	const createOrEditMutation = useMutation({
+		mutationFn: async (params: UserInfoType) => {
+			return await userService.createOrEdit(params);
+		},
+		onSuccess: (data) => {
+			// 成功回调
+			if (data) {
+				toast.success(`${title} Success`, {
+					position: "top-center",
+				});
+				queryClient.invalidateQueries({ queryKey: ["userList"] }); // 刷新表格数据
+				setShowModal(false);
+			}
+		},
+	});
+
+	/**
+	 * @description 查询
+	 * @param values
+	 */
 	const onFinish: FormProps<UserListParams>["onFinish"] = (values) => {
 		setParams((prev) => ({
 			...values,
@@ -160,6 +223,34 @@ export default function UserListPage() {
 	const handleReset = () => {
 		form.resetFields();
 		setParams(initialValues);
+	};
+
+	const handleCreatedOrEdit = async (type: string, formValue?: UserInfoType) => {
+		setTitle(type);
+		// await fetchAllPermissions();
+		if (type === "Create") {
+			setFormValue(DEFAULE_USER_VALUE);
+		} else {
+			if (formValue) {
+				setFormValue({ ...formValue });
+				// setRoleId(formValue?.id);
+			}
+		}
+		setShowModal(true);
+	};
+
+	/**
+	 * @description 提交表单
+	 * @param values
+	 */
+	const handleSumbit = async (values: UserInfoType) => {
+		console.log("提交", values);
+		const selectedRole = roleListData?.find((role) => role.id === values.roleId);
+		await createOrEditMutation.mutateAsync({
+			...values,
+			role: selectedRole?.role as string,
+			roleName: (selectedRole as RoleListType)?.roleName,
+		});
 	};
 
 	return (
@@ -259,7 +350,7 @@ export default function UserListPage() {
 			<Card
 				title="User List"
 				extra={
-					<Button type="primary" onClick={() => {}}>
+					<Button type="primary" onClick={() => handleCreatedOrEdit("Create")}>
 						New
 					</Button>
 				}
@@ -286,6 +377,14 @@ export default function UserListPage() {
 					/>
 				</div>
 			</Card>
+			<UserModal
+				formValue={formValue}
+				title={title}
+				show={showModal}
+				roleListData={roleListData ?? []}
+				onOk={(value) => handleSumbit(value)}
+				onCancel={() => setShowModal(false)}
+			/>
 		</Space>
 	);
 }

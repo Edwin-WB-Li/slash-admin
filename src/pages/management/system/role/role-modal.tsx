@@ -1,23 +1,24 @@
-import type { RoleListType } from "@/api/types";
-// import type { Permission, Role } from "#/entity";
+import type { MenuOptions, RoleListType } from "@/api/types";
+import type { TreeDataNode, TreeProps } from "antd";
 
-// import { Form, Input, Modal, Radio, Select, Tree } from "antd";
-import { Form, Input, Modal, Radio } from "antd";
+import { Form, Input, Modal, Radio, Tree } from "antd";
 import { t } from "i18next";
-import { forwardRef, useEffect, useImperativeHandle } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { toast } from "sonner";
 
-// import { PERMISSION_LIST } from "@/_mock/assets";
-// import { flattenTrees } from "@/utils/tree";
-
+import { menusOrderFilter } from "@/router/utils";
 import { getEnumOptions } from "@/utils";
+// import { flattenTrees } from "@/utils/tree";
 import { StatusEnum } from "#/enum";
 
 export type RoleModalProps = {
 	formValue: RoleListType;
 	title: string;
 	show: boolean;
-	onOk: (values: RoleListType) => void;
+	currentPermissions?: MenuOptions[];
+	allPermissions: MenuOptions[];
+	defaultCheckedKeys: React.Key[];
+	onOk: (values: RoleListType | number[], permission?: number[]) => void;
 	onCancel: VoidFunction;
 };
 
@@ -25,24 +26,36 @@ export interface RoleModalRef {
 	resetFields: () => void;
 }
 
-// const PERMISSIONS: Permission[] = PERMISSION_LIST as Permission[];
 // export function RoleModal({ title, show, formValue, onOk, onCancel }: RoleModalProps) {
 export const RoleModal = forwardRef<RoleModalRef, RoleModalProps>(function RoleModal(
-	{ title, show, formValue, onOk, onCancel },
+	{ title, show = false, formValue, onOk, onCancel, defaultCheckedKeys = [], allPermissions = [] },
 	ref,
 ) {
 	const [form] = Form.useForm();
-
 	useImperativeHandle(ref, () => ({
 		resetFields: () => form.resetFields(),
 	}));
 
-	// const flattenedPermissions = flattenTrees(formValue.permission);
-	// const checkedKeys = flattenedPermissions.map((item) => item.id);
+	const [checkedKeys, setCheckedKeys] = useState<React.Key[]>(defaultCheckedKeys);
+	const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
+	const [parentCheckedKeys, setParentCheckedKeys] = useState<React.Key[]>([]);
 
 	useEffect(() => {
+		console.log("defaultCheckedKeys", defaultCheckedKeys);
+		// 初始化时设置默认选中的权限
+		if (defaultCheckedKeys?.length > 0) setCheckedKeys(defaultCheckedKeys);
+	}, [defaultCheckedKeys]);
+
+	useEffect(() => {
+		console.log(formValue);
 		form.setFieldsValue({ ...formValue });
 	}, [formValue, form]);
+
+	useEffect(() => {
+		if (show && title === "Create") {
+			setCheckedKeys([]);
+		}
+	}, [title, show]);
 
 	const handleSumbit = async () => {
 		try {
@@ -51,10 +64,10 @@ export const RoleModal = forwardRef<RoleModalRef, RoleModalProps>(function RoleM
 			// 如果校验通过，调用父组件的 onOk 回调
 			if (title === "Edit") {
 				const mergedValues = { id: formValue.id, ...values };
-				onOk(mergedValues);
-				return;
+				onOk(mergedValues, [...(checkedKeys as number[]), ...(parentCheckedKeys as number[])]);
+			} else {
+				onOk(values, [...(checkedKeys as number[]), ...(parentCheckedKeys as number[])]);
 			}
-			onOk(values);
 		} catch (error) {
 			console.log("表单校验失败", error);
 			toast.error(t("common.perfectTheForm"), {
@@ -63,12 +76,32 @@ export const RoleModal = forwardRef<RoleModalRef, RoleModalProps>(function RoleM
 		}
 	};
 
-	// useEffect(() => {
-	// 	console.log("子组件-formValue", formValue);
-	// }, [formValue]);
+	useEffect(() => {
+		console.log("checkedKeys", checkedKeys);
+	}, [checkedKeys]);
+
+	const onCheck: TreeProps["onCheck"] = (checkedKeys, info) => {
+		console.log("onCheck", checkedKeys, info);
+		setCheckedKeys(checkedKeys as React.Key[]);
+		setParentCheckedKeys((info?.halfCheckedKeys as React.Key[]) ?? []);
+	};
+
+	const onSelect: TreeProps["onSelect"] = (selectedKeysValue, info) => {
+		console.log("onSelect", selectedKeysValue, info);
+		setSelectedKeys(selectedKeysValue);
+	};
+
+	function menuOptionsToDataNodes(menus: MenuOptions[]): TreeDataNode[] {
+		return menus.map((item) => ({
+			key: item.id as React.Key, // 用 id 作为 key
+			title: item.name, // 或其他你想展示的字段
+			children: item.children ? menuOptionsToDataNodes(item.children) : undefined,
+			// ...item, // 保留其他属性（可选）
+		}));
+	}
 
 	return (
-		<Modal title={title} open={show} onOk={handleSumbit} onCancel={onCancel} destroyOnClose={false}>
+		<Modal title={title} open={show} onOk={handleSumbit} onCancel={onCancel} destroyOnClose>
 			<Form
 				// initialValues={formValue}
 				form={form}
@@ -107,18 +140,16 @@ export const RoleModal = forwardRef<RoleModalRef, RoleModalProps>(function RoleM
 					<Input.TextArea />
 				</Form.Item>
 
-				{/* <Form.Item<Role> label="Permission" name="permission">
+				<Form.Item<RoleListType> label="Permission" name="permissions" required>
 					<Tree
 						checkable
 						checkedKeys={checkedKeys}
-						treeData={PERMISSIONS}
-						fieldNames={{
-							key: "id",
-							children: "children",
-							title: "name",
-						}}
+						onCheck={onCheck}
+						onSelect={onSelect}
+						selectedKeys={selectedKeys}
+						treeData={menuOptionsToDataNodes(menusOrderFilter(allPermissions as MenuOptions[]))}
 					/>
-				</Form.Item> */}
+				</Form.Item>
 			</Form>
 		</Modal>
 	);

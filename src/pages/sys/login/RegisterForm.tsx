@@ -48,9 +48,6 @@ function RegisterForm() {
 	const { data: roles } = useQuery({
 		queryKey: ["roles"],
 		queryFn: roleService.getRoleList,
-		// staleTime: 5 * 60 * 1000, // 5分钟保鲜期
-		// gcTime: 15 * 60 * 1000, // 15分钟缓存保留
-		// refetchOnWindowFocus: true, // 窗口聚焦时自动刷新
 		enabled: true,
 	});
 

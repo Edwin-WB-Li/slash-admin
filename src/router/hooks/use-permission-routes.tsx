@@ -66,6 +66,7 @@ function NewFeatureTag() {
  * @returns
  */
 const createBaseRoute = (permission: MenuOptions, completeRoute: string): AppRouteObject => {
+	console.log("--------------->", completeRoute);
 	const {
 		path,
 		label,

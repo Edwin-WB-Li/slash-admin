@@ -1,4 +1,4 @@
-import { Typography } from "antd";
+import { Space, Typography } from "antd";
 import { m } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { NavLink } from "react-router";
@@ -6,6 +6,7 @@ import { NavLink } from "react-router";
 import Character8 from "@/assets/images/characters/character_8.png";
 import MotionContainer from "@/components/animate/motion-container";
 import { varBounce } from "@/components/animate/variants/bounce";
+import userStore from "@/store/userStore";
 import { themeVars } from "@/theme/theme.css";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
@@ -140,10 +141,23 @@ export default function Page() {
 							</defs>
 						</svg>
 					</m.div>
-
-					<NavLink to={HOMEPAGE} className="rounded-md p-4 !text-text-primary !bg-primary">
-						Go to Home
-					</NavLink>
+					<Space>
+						<NavLink to={HOMEPAGE} className="rounded-md p-4 !text-text-primary !bg-primary">
+							Go to Home
+						</NavLink>
+						<NavLink
+							to={HOMEPAGE}
+							onClick={(event) => {
+								// 阻止默认导航行为：
+								event.preventDefault();
+								userStore.getState().actions.clearUserInfoAndToken();
+								window.location.href = "/#/login";
+							}}
+							className="rounded-md p-4 !text-text-primary !bg-primary"
+						>
+							Go to Login
+						</NavLink>
+					</Space>
 				</MotionContainer>
 			</div>
 		</>

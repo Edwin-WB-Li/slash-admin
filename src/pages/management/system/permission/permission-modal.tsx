@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useUserPermission } from "@/store/userStore";
 import { t } from "i18next";
 import { toast } from "sonner";
-import { BasicStatus, PermissionType } from "#/enum";
+import { PermissionType } from "#/enum";
 // Constants
 const ENTRY_PATH = "/src/pages";
 const PAGES = import.meta.glob("/src/pages/**/*.tsx");
@@ -92,92 +92,6 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 	};
 
 	return (
-		// <Modal
-		// 	forceRender
-		// 	title={title}
-		// 	open={show}
-		// 	onOk={onOk}
-		// 	onCancel={onCancel}
-		// >
-		// 	<Form initialValues={formValue} form={form} labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} layout="horizontal">
-		// 		<Form.Item<MenuOptions> label="Type" name="type" required>
-		// 			<Radio.Group optionType="button" buttonStyle="solid">
-		// 				<Radio value={PermissionType.CATALOGUE}>CATALOGUE</Radio>
-		// 				<Radio value={PermissionType.MENU}>MENU</Radio>
-		// 			</Radio.Group>
-		// 		</Form.Item>
-
-		// 		<Form.Item<MenuOptions> label="Name" name="name" required>
-		// 			<Input />
-		// 		</Form.Item>
-
-		// 		<Form.Item<MenuOptions> label="Label" name="label" required tooltip="internationalization config">
-		// 			<Input />
-		// 		</Form.Item>
-
-		// 		<Form.Item<MenuOptions> label="Parent" name="parentId" required>
-		// 			<TreeSelect
-		// 				fieldNames={{
-		// 					label: "name",
-		// 					value: "id",
-		// 					children: "children",
-		// 				}}
-		// 				allowClear
-		// 				treeData={permissions}
-		// 				onChange={(_value, labelList) => {
-		// 					updateCompOptions(labelList[0] as string);
-		// 				}}
-		// 			/>
-		// 		</Form.Item>
-
-		// 		<Form.Item<MenuOptions> label="Path" name="path" required>
-		// 			<Input />
-		// 		</Form.Item>
-
-		// 		<Form.Item noStyle shouldUpdate={(prevValues, currentValues) => prevValues.type !== currentValues.type}>
-		// 			{({ getFieldValue }) => {
-		// 				if (getFieldValue("type") === PermissionType.MENU) {
-		// 					return (
-		// 						<Form.Item<MenuOptions>
-		// 							label="Component"
-		// 							name="component"
-		// 							required={getFieldValue("type") === PermissionType.MENU}
-		// 						>
-		// 							<AutoComplete
-		// 								options={compOptions}
-		// 								filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
-		// 							/>
-		// 						</Form.Item>
-		// 					);
-		// 				}
-		// 				return null;
-		// 			}}
-		// 		</Form.Item>
-
-		// 		<Form.Item<MenuOptions> label="Icon" name="icon" tooltip="local icon should start with ic">
-		// 			<Input />
-		// 		</Form.Item>
-
-		// 		<Form.Item<MenuOptions> label="Hide" name="hideMenu" tooltip="hide in menu">
-		// 			<Radio.Group optionType="button" buttonStyle="solid">
-		// 				<Radio value={false}>Show</Radio>
-		// 				<Radio value>Hide</Radio>
-		// 			</Radio.Group>
-		// 		</Form.Item>
-
-		// 		<Form.Item<MenuOptions> label="Order" name="order">
-		// 			<InputNumber style={{ width: "100%" }} />
-		// 		</Form.Item>
-
-		// 		<Form.Item<MenuOptions> label="Disabled" name="disabled" required>
-		// 			<Radio.Group optionType="button" buttonStyle="solid">
-		// 				<Radio value={BasicStatus.ENABLE}> Enable </Radio>
-		// 				<Radio value={BasicStatus.DISABLE}> Disable </Radio>
-		// 			</Radio.Group>
-		// 		</Form.Item>
-		// 	</Form>
-		// </Modal>
-
 		<Modal
 			forceRender
 			title={title}
@@ -307,8 +221,8 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 
 			<Form.Item<MenuOptions> label="Disabled" name="disabled" required>
 				<Radio.Group optionType="button" buttonStyle="solid">
-					<Radio value={BasicStatus.ENABLE}> Enable </Radio>
-					<Radio value={BasicStatus.DISABLE}> Disable </Radio>
+					<Radio value={false}> Enable </Radio>
+					<Radio value={true}> Disable </Radio>
 				</Radio.Group>
 			</Form.Item>
 			{/* </Form> */}

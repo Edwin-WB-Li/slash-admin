@@ -1,9 +1,7 @@
 import type { MenuOptions } from "@/api/types";
 import type { ColumnsType } from "antd/es/table";
-import type { PermissionModalProps } from "./permission-modal";
 
-import { useMutation } from "@tanstack/react-query";
-// import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button, Card, Popconfirm, Tag } from "antd";
 import Table from "antd/es/table";
 import { isNil } from "ramda";
@@ -11,14 +9,14 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-import { menuService, roleService } from "@/api/services";
+import { menuService } from "@/api/services";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import { menusOrderFilter } from "@/router/utils";
-import { useUserPermission } from "@/store/userStore";
+// import { useUserPermission } from "@/store/userStore";
 import { BasicStatus, PermissionType } from "#/enum";
 import PermissionModal from "./permission-modal";
 
-const defaultPermissionValue: MenuOptions = {
+const DEFAULE_PERMISSION_VALUE: MenuOptions = {
 	parentId: null,
 	name: "",
 	label: "",
@@ -27,25 +25,18 @@ const defaultPermissionValue: MenuOptions = {
 	icon: "",
 	hideMenu: false,
 	hideTab: false,
-	disabled: !!BasicStatus.ENABLE,
+	disabled: false,
 	newFeature: false,
 	type: PermissionType.CATALOGUE,
 };
 
 export default function PermissionPage() {
 	const { t } = useTranslation();
-	const permissions = useUserPermission();
+	// const permissions = useUserPermission();
+	const [title, setTitle] = useState("");
+	const [formValue, setFormValue] = useState<MenuOptions>(DEFAULE_PERMISSION_VALUE);
 	const [showPermissionModal, setShowPermissionModal] = useState(false);
-	const [type, setType] = useState("");
-
-	const editMenusMutation = useMutation({
-		mutationFn: menuService.editMenus,
-	});
-	// const { data } = useQuery({
-	// 	queryKey: ["roleMenus"],
-	// 	queryFn: roleService.getRoleMenus(1),
-	// });
-
+	const queryClient = useQueryClient();
 	/**
 	 * @description Columns
 	 */
@@ -98,14 +89,22 @@ export default function PermissionPage() {
 			render: (_, record) => (
 				<div className="flex w-full justify-end text-gray">
 					{record?.type === PermissionType.CATALOGUE && (
-						<IconButton onClick={() => onCreate(record.id)}>
+						// <IconButton onClick={() => onCreate(record.id)}>
+						<IconButton onClick={() => handleCreatedOrEdit("Create", record)}>
 							<Iconify icon="gridicons:add-outline" size={18} />
 						</IconButton>
 					)}
-					<IconButton onClick={() => onEdit(record)}>
+					{/* <IconButton onClick={() => onEdit(record)}> */}
+					<IconButton onClick={() => handleCreatedOrEdit("Edit", record)}>
 						<Iconify icon="solar:pen-bold-duotone" size={18} />
 					</IconButton>
-					<Popconfirm title="Delete the Permission" okText="Yes" cancelText="No" placement="left">
+					<Popconfirm
+						title="Delete the Permission"
+						okText="Yes"
+						cancelText="No"
+						placement="left"
+						onConfirm={() => handleConfirmDelete(record.id as number)}
+					>
 						<IconButton>
 							<Iconify icon="mingcute:delete-2-fill" size={18} className="text-error" />
 						</IconButton>
@@ -115,91 +114,89 @@ export default function PermissionPage() {
 		},
 	];
 
-	const [permissionModalProps, setPermissionModalProps] = useState<PermissionModalProps>({
-		formValue: { ...defaultPermissionValue },
-		title: "New",
-		show: false,
-		onOk: (value) => handleSumbit(value),
-		onCancel: () => {
-			setPermissionModalProps((prev) => ({ ...prev, show: false }));
+	/**
+	 * @description 获取所有的菜单列表
+	 */
+	const { data: allPermissions } = useQuery({
+		queryKey: ["allPermissions"],
+		queryFn: async () => {
+			const res = await menuService.getAllMenus();
+			return res ?? [];
+		},
+		enabled: true,
+	});
+
+	const createOrEditMenusMutation = useMutation({
+		mutationFn: async (params: MenuOptions) => {
+			const server = title === "Edit" ? menuService.editMenus(params) : menuService.createMenus(params);
+			return await server;
+		},
+		onSuccess: (data) => {
+			// 成功回调
+			if (data) {
+				toast.success(`${title} Success`, {
+					position: "top-center",
+				});
+				queryClient.invalidateQueries({ queryKey: ["allPermissions"] }); // 刷新表格数据
+				setShowPermissionModal(false);
+			}
 		},
 	});
+
+	const deletedRoleMutation = useMutation({
+		mutationFn: async (ids: number[]) => {
+			return await menuService.deleteMenus(ids);
+		},
+		onSuccess: (data) => {
+			// 成功回调
+			if (data) {
+				toast.success("Delete Success", {
+					position: "top-center",
+				});
+				queryClient.invalidateQueries({ queryKey: ["allPermissions"] });
+			}
+		},
+	});
+
+	const handleCreatedOrEdit = async (type: string, formValue?: MenuOptions) => {
+		setTitle(type);
+		if (type === "Create") {
+			setFormValue({ ...DEFAULE_PERMISSION_VALUE, parentId: formValue?.id ?? null });
+		} else {
+			if (formValue) {
+				setFormValue({ ...formValue, id: formValue.id });
+			}
+		}
+		setShowPermissionModal(true);
+	};
+
+	/**
+	 * @description 删除角色
+	 * @param ids
+	 */
+	const handleConfirmDelete = (ids: number) => {
+		deletedRoleMutation.mutateAsync([ids]);
+	};
 
 	/**
 	 * @description 提交表单
 	 * @param value
 	 */
-	const handleSumbit = (value: MenuOptions) => {
+	const handleSumbit = async (value: MenuOptions) => {
 		console.log("提交", value);
-
 		if (value) {
 			const params = {
 				...value,
-				disabled: !!value.disabled,
 			};
-			if (type === "edit") {
-				handleEditMenus(params);
-			} else {
-				roleService.createRoleMenus(params).then((res) => {
-					console.log("res", res);
-					if (res) {
-						toast.success("success", {
-							position: "top-center",
-						});
-						setShowPermissionModal(false);
-					}
-				});
-			}
+			await createOrEditMenusMutation.mutateAsync(params);
 		}
-	};
-
-	/**
-	 * @description Create a new Menus
-	 * @param parentId
-	 */
-	const onCreate = (parentId?: number | null) => {
-		setPermissionModalProps((prev) => ({
-			...prev,
-			show: true,
-			// ...defaultPermissionValue,
-			title: "New",
-			formValue: { ...defaultPermissionValue, parentId: parentId ?? null },
-		}));
-		setShowPermissionModal(true);
-		setType("new");
-	};
-
-	const handleEditMenus = (formValue: MenuOptions) => {
-		console.log("edit", formValue);
-		try {
-			const data = editMenusMutation.mutate(formValue);
-			console.log("edit", data);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	/**
-	 * @description Edit a Menus
-	 * @param formValue
-	 */
-	const onEdit = async (formValue: MenuOptions) => {
-		console.log(formValue);
-		setPermissionModalProps((prev) => ({
-			...prev,
-			show: true,
-			title: "Edit",
-			formValue: { ...formValue, id: formValue.id },
-		}));
-		setShowPermissionModal(true);
-		setType("edit");
 	};
 
 	return (
 		<Card
 			title="Permission List"
 			extra={
-				<Button type="primary" onClick={() => onCreate()}>
+				<Button type="primary" onClick={() => handleCreatedOrEdit("Create")}>
 					New
 				</Button>
 			}
@@ -210,10 +207,11 @@ export default function PermissionPage() {
 				scroll={{ x: "max-content" }}
 				pagination={false}
 				columns={columns}
-				dataSource={menusOrderFilter(permissions)}
+				dataSource={menusOrderFilter(allPermissions ?? [])}
 			/>
 			<PermissionModal
-				{...permissionModalProps}
+				title={title}
+				formValue={formValue}
 				show={showPermissionModal}
 				onCancel={() => setShowPermissionModal(false)}
 				onOk={(value) => handleSumbit(value)}
