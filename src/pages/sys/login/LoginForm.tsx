@@ -1,35 +1,28 @@
 import type { LoginParams } from "@/api/types";
 
 import { CloseCircleOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
-// import { useQuery } from "@tanstack/react-query";
 import { Button, Checkbox, Col, Divider, Form, Input, Row } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiFillGithub, AiFillGoogleCircle, AiFillWechat } from "react-icons/ai";
-// import { useNavigate } from "react-router";
 
-// const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 import { useLogin, useMenus } from "@/store/userStore";
 import { LoginStateEnum, useLoginStateContext } from "./providers/LoginStateProvider";
 
 function LoginForm() {
 	const { loginState, setLoginState } = useLoginStateContext();
 	const { t } = useTranslation();
-	const featchLogin = useLogin();
-	const featchMenus = useMenus();
-	// const navigate = useNavigate();
-
 	const [form] = Form.useForm();
 	const [loading, setLoading] = useState(false);
-	// const { setUserMenus } = useUserActions();
+	const featchMenus = useMenus();
+	const featchLogin = useLogin();
 
 	const handleFinish = async ({ username, password }: LoginParams) => {
 		setLoading(true);
 		try {
 			const res = await featchLogin({ username, password });
+			// 获取当前 user 菜单权限
 			await featchMenus(res?.userInfo?.roleId as number);
-			// navigate(HOMEPAGE, { replace: true });
-			// window.location.reload();
 		} finally {
 			setLoading(false);
 		}

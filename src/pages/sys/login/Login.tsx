@@ -1,15 +1,12 @@
 import { Layout } from "antd";
-// import { Layout, Typography } from "antd";
-// import { useTranslation } from "react-i18next";
 import { Navigate } from "react-router";
 
-// import DashboardImg from "@/assets/images/background/dashboard.png";
-// import Overlay from "@/assets/images/background/overlay.jpg";
 import BackguoundImage from "@/assets/images/background/login_bg.svg";
 import LocalePicker from "@/components/locale-picker";
 import { useUserToken } from "@/store/userStore";
 
 import SettingButton from "@/layouts/components/setting-button";
+import { useUserPermission } from "@/store/userStore";
 import { themeVars } from "@/theme/theme.css";
 import { rgbAlpha } from "@/utils/theme";
 import LoginForm from "./LoginForm";
@@ -18,23 +15,19 @@ import QrCodeFrom from "./QrCodeForm";
 import RegisterForm from "./RegisterForm";
 import ResetForm from "./ResetForm";
 import { LoginStateProvider } from "./providers/LoginStateProvider";
-
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 function Login() {
-	// const { t } = useTranslation();
+	const gradientBg = rgbAlpha(themeVars.colors.background.defaultChannel, 0.8);
+	const bg = `linear-gradient(${gradientBg}, ${gradientBg}) center center / cover no-repeat,url(${BackguoundImage})`;
 	const token = useUserToken();
-	// console.log("login token", token);
+	const permissionRoutes = useUserPermission();
 
-	// // 判断用户是否有权限
-	// // if (token.accessToken) {
-	if (token) {
+	// 判断用户是否有权限
+	if (token && permissionRoutes?.length > 0) {
 		// 如果有授权，则跳转到首页
 		return <Navigate to={HOMEPAGE} replace />;
 	}
-
-	const gradientBg = rgbAlpha(themeVars.colors.background.defaultChannel, 0.8);
-	const bg = `linear-gradient(${gradientBg}, ${gradientBg}) center center / cover no-repeat,url(${BackguoundImage})`;
 
 	return (
 		<Layout
