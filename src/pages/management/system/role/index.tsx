@@ -1,5 +1,5 @@
 import type { AssignMenusToRoleParamsType, MenuOptions, RoleListType } from "@/api/types";
-import type { ColumnsType } from "antd/es/table";
+import type { TableColumnsType } from "antd";
 import type { RoleModalRef } from "./role-modal";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -24,7 +24,7 @@ const DEFAULE_ROLE_VALUE: RoleListType = {
 	// permission: [],
 };
 export default function RoleListPage() {
-	const columns: ColumnsType<RoleListType> = [
+	const columns: TableColumnsType<RoleListType> = [
 		{
 			title: "ID",
 			dataIndex: "id",
@@ -234,7 +234,8 @@ export default function RoleListPage() {
 			.mutateAsync(value as RoleListType)
 			.then((role) => {
 				console.log("createOrEditRole", role);
-				// 再分配权限
+				if (!role) return;
+				// 角色创建成功后再分配权限
 				return AssignMenusToRoleMutation.mutateAsync({
 					roleId: role?.id as number, // 创建时用新角色id，编辑时用当前角色id
 					menuIds: (permissions as number[]) ?? [],
@@ -261,10 +262,10 @@ export default function RoleListPage() {
 	};
 
 	// 关闭弹窗时调用
-	const handleCloseModal = () => {
-		// roleModalRef.current?.resetFields();
-		setShowPermissionModal(false);
-	};
+	// const handleCloseModal = () => {
+	// 	// roleModalRef.current?.resetFields();
+	// 	setShowPermissionModal(false);
+	// };
 
 	return (
 		<Card
@@ -293,7 +294,7 @@ export default function RoleListPage() {
 				formValue={formValue}
 				defaultCheckedKeys={defaultCheckedKeys}
 				onOk={(value, permission) => handleSumbit(value, permission)}
-				onCancel={handleCloseModal}
+				onCancel={() => setShowPermissionModal(false)}
 			/>
 		</Card>
 	);

@@ -53,7 +53,7 @@ export const RoleModal = forwardRef<RoleModalRef, RoleModalProps>(function RoleM
 
 	useEffect(() => {
 		if (show && title === "Create") {
-			setCheckedKeys([]);
+			setCheckedKeys([6, 7, 8]);
 		}
 	}, [title, show]);
 
@@ -92,9 +92,11 @@ export const RoleModal = forwardRef<RoleModalRef, RoleModalProps>(function RoleM
 	};
 
 	function menuOptionsToDataNodes(menus: MenuOptions[]): TreeDataNode[] {
+		const defaultDisabledKeys = [6, 7, 8]; // 假设这些是你想要禁用的节点的 key
 		return menus.map((item) => ({
 			key: item.id as React.Key, // 用 id 作为 key
 			title: item.name, // 或其他你想展示的字段
+			disabled: defaultDisabledKeys.includes(item.id as number), // 禁用节点
 			children: item.children ? menuOptionsToDataNodes(item.children) : undefined,
 			// ...item, // 保留其他属性（可选）
 		}));

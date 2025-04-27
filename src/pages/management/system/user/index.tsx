@@ -131,15 +131,15 @@ export default function UserListPage() {
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-center text-gray-500">
+					<IconButton onClick={() => handleCreatedOrEdit("Edit", record)}>
+						<Iconify icon="solar:pen-bold-duotone" size={18} />
+					</IconButton>
 					<IconButton
 						onClick={() => {
 							push(`${pathname}/${record.id}`);
 						}}
 					>
 						<Iconify icon="mdi:card-account-details" size={18} />
-					</IconButton>
-					<IconButton onClick={() => handleCreatedOrEdit("Edit", record)}>
-						<Iconify icon="solar:pen-bold-duotone" size={18} />
 					</IconButton>
 					<Popconfirm title="Delete the User" okText="Yes" cancelText="No" placement="left">
 						<IconButton>

@@ -103,10 +103,9 @@ export interface MenuOptions {
 	type: PermissionType;
 	name: string;
 	label: string;
-	route?: string;
 	icon?: string;
-	createTime?: string | Date;
-	updateTime?: string | Date;
+	createdTime?: string | Date;
+	updatedTime?: string | Date;
 	children?: MenuOptions[];
 }
 

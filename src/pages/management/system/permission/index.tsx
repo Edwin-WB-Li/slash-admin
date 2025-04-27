@@ -1,5 +1,5 @@
 import type { MenuOptions } from "@/api/types";
-import type { ColumnsType } from "antd/es/table";
+import type { TableColumnsType } from "antd";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button, Card, Popconfirm, Tag } from "antd";
@@ -12,7 +12,6 @@ import { toast } from "sonner";
 import { menuService } from "@/api/services";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import { menusOrderFilter } from "@/router/utils";
-// import { useUserPermission } from "@/store/userStore";
 import { BasicStatus, PermissionType } from "#/enum";
 import PermissionModal from "./permission-modal";
 
@@ -23,6 +22,7 @@ const DEFAULE_PERMISSION_VALUE: MenuOptions = {
 	path: "",
 	component: "",
 	icon: "",
+	order: 1,
 	hideMenu: false,
 	hideTab: false,
 	disabled: false,
@@ -32,7 +32,6 @@ const DEFAULE_PERMISSION_VALUE: MenuOptions = {
 
 export default function PermissionPage() {
 	const { t } = useTranslation();
-	// const permissions = useUserPermission();
 	const [title, setTitle] = useState("");
 	const [formValue, setFormValue] = useState<MenuOptions>(DEFAULE_PERMISSION_VALUE);
 	const [showPermissionModal, setShowPermissionModal] = useState(false);
@@ -40,7 +39,7 @@ export default function PermissionPage() {
 	/**
 	 * @description Columns
 	 */
-	const columns: ColumnsType<MenuOptions> = [
+	const columns: TableColumnsType<MenuOptions> = [
 		{
 			title: "Name",
 			dataIndex: "name",

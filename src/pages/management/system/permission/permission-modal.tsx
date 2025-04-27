@@ -124,7 +124,8 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 			<Form.Item<MenuOptions>
 				label="Type"
 				name="type"
-				rules={[{ required: true, message: t("sys.login.accountPlaceholder") }]}
+				rules={[{ required: true, message: t("common.chooseText") }]}
+				tooltip="menus type"
 			>
 				<Radio.Group optionType="button" buttonStyle="solid">
 					<Radio value={PermissionType.CATALOGUE}>CATALOGUE</Radio>
@@ -132,24 +133,20 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 				</Radio.Group>
 			</Form.Item>
 
-			<Form.Item<MenuOptions>
-				label="Name"
-				name="name"
-				rules={[{ required: true, message: t("sys.login.accountPlaceholder") }]}
-			>
-				<Input />
+			<Form.Item<MenuOptions> label="Name" name="name" rules={[{ required: true, message: t("common.inputText") }]}>
+				<Input placeholder={t("common.inputText")} />
 			</Form.Item>
 
 			<Form.Item<MenuOptions>
 				label="Label"
 				name="label"
-				rules={[{ required: true, message: t("sys.login.accountPlaceholder") }]}
+				rules={[{ required: true, message: t("common.inputText") }]}
 				tooltip="internationalization config"
 			>
-				<Input />
+				<Input placeholder={t("common.inputText")} />
 			</Form.Item>
 
-			<Form.Item<MenuOptions> label="Parent" name="parentId" required>
+			<Form.Item<MenuOptions> label="Parent" name="parentId" required tooltip="parent level">
 				<TreeSelect
 					fieldNames={{
 						label: "name",
@@ -161,15 +158,12 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 					onChange={(_value, labelList) => {
 						updateCompOptions(labelList[0] as string);
 					}}
+					placeholder={t("common.chooseText")}
 				/>
 			</Form.Item>
 
-			<Form.Item<MenuOptions>
-				label="Path"
-				name="path"
-				rules={[{ required: true, message: t("sys.login.accountPlaceholder") }]}
-			>
-				<Input />
+			<Form.Item<MenuOptions> label="Path" name="path" rules={[{ required: true, message: t("common.inputText") }]}>
+				<Input placeholder={t("common.inputText")} />
 			</Form.Item>
 
 			<Form.Item noStyle shouldUpdate={(prevValues, currentValues) => prevValues.type !== currentValues.type}>
@@ -182,6 +176,7 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 								required={getFieldValue("type") === PermissionType.MENU}
 							>
 								<AutoComplete
+									placeholder={t("common.chooseText")}
 									allowClear
 									options={compOptions}
 									filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
@@ -194,28 +189,24 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 			</Form.Item>
 
 			<Form.Item<MenuOptions> label="Icon" name="icon" tooltip="local icon should start with ic">
-				<Input />
+				<Input placeholder={t("common.inputText")} />
 			</Form.Item>
 
-			<Form.Item<MenuOptions> label="Hide" name="hideMenu" tooltip="hide in menu">
+			<Form.Item<MenuOptions> label="Hide" name="hideMenu" tooltip="hide in menu" required>
 				<Radio.Group optionType="button" buttonStyle="solid">
 					<Radio value={false}>Show</Radio>
 					<Radio value={true}>Hide</Radio>
 				</Radio.Group>
 			</Form.Item>
 
-			<Form.Item<MenuOptions> label="NewFeature" name="newFeature" tooltip="new identification display">
+			<Form.Item<MenuOptions> label="NewFeature" name="newFeature" tooltip="new identification display" required>
 				<Radio.Group optionType="button" buttonStyle="solid">
 					<Radio value={true}>Show</Radio>
 					<Radio value={false}>Hide</Radio>
 				</Radio.Group>
 			</Form.Item>
 
-			<Form.Item<MenuOptions>
-				label="Order"
-				name="order"
-				rules={[{ required: true, message: t("sys.login.accountPlaceholder") }]}
-			>
+			<Form.Item<MenuOptions> label="Order" name="order" rules={[{ required: true, message: t("common.inputText") }]}>
 				<InputNumber style={{ width: "100%" }} />
 			</Form.Item>
 
