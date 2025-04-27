@@ -1,10 +1,10 @@
-import type { Organization } from '#/entity';
+import type { Organization } from "#/entity";
 
-import { Tree, TreeNode } from 'react-organizational-chart';
-import styled from 'styled-components';
+import { Tree, TreeNode } from "react-organizational-chart";
+import styled from "styled-components";
 
-import { themeVars } from '@/theme/theme.css';
-import { rgbAlpha } from '@/utils/theme';
+import { themeVars } from "@/theme/theme.css";
+import { rgbAlpha } from "@/utils/theme";
 
 type Props = {
 	organizations?: Organization[];

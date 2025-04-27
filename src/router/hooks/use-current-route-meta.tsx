@@ -1,12 +1,12 @@
-import type { Params } from 'react-router';
-import type { RouteMeta } from '#/router';
+import type { Params } from "react-router";
+import type { RouteMeta } from "#/router";
 
-import { isEmpty } from 'ramda';
-import { useEffect, useState } from 'react';
-import { useMatches, useOutlet } from 'react-router';
+import { isEmpty } from "ramda";
+import { useEffect, useState } from "react";
+import { useMatches, useOutlet } from "react-router";
 
-import { useFlattenedRoutes } from './use-flattened-routes';
-import { useRouter } from './use-router';
+import { useFlattenedRoutes } from "./use-flattened-routes";
+import { useRouter } from "./use-router";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 /**

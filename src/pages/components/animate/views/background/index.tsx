@@ -1,15 +1,15 @@
-import { Card, Col, Row } from 'antd';
-import { useMemo, useState } from 'react';
+import { Card, Col, Row } from "antd";
+import { useMemo, useState } from "react";
 
-import ControlPanel from '../../control-panel';
+import ControlPanel from "../../control-panel";
 
-import ContainerView from './container';
-import Toolbar from './toolbar';
+import ContainerView from "./container";
+import Toolbar from "./toolbar";
 
 export default function BackgroundView() {
 	const defaultValue = useMemo(() => {
 		return {
-			selectedVariant: 'kenburnsTop',
+			selectedVariant: "kenburnsTop",
 		};
 	}, []);
 	const [selectedVariant, setSelectedVariant] = useState(defaultValue.selectedVariant);
@@ -41,15 +41,15 @@ export default function BackgroundView() {
 }
 const variantKey = [
 	{
-		type: 'kenburns',
-		values: ['kenburnsTop', 'kenburnsBottom', 'kenburnsLeft', 'kenburnsRight'],
+		type: "kenburns",
+		values: ["kenburnsTop", "kenburnsBottom", "kenburnsLeft", "kenburnsRight"],
 	},
 	{
-		type: 'pan',
-		values: ['panTop', 'panBottom', 'panLeft', 'panRight'],
+		type: "pan",
+		values: ["panTop", "panBottom", "panLeft", "panRight"],
 	},
 	{
-		type: 'color change',
-		values: ['color2x', 'color3x', 'color4x', 'color5x'],
+		type: "color change",
+		values: ["color2x", "color3x", "color4x", "color5x"],
 	},
 ];

@@ -1,4 +1,4 @@
-import type { BasicStatus, PermissionType } from '#/enum';
+import type { BasicStatus, PermissionType, StatusEnum } from "#/enum";
 
 // * 请求响应参数(不包含data)
 export interface Result {
@@ -30,22 +30,28 @@ export interface ResponseData<T> {
 	code: number;
 	message: string;
 	data: T;
-	status?: boolean;
 }
 
 export interface UserInfoType {
-	id?: string;
+	id?: number;
 	username: string;
 	password?: string;
-	create_time: string;
-	update_time: string;
+	confirmPassword?: string;
+	createTime?: string;
+	updateTime?: string;
 	email: string;
 	mobile: string;
 	role: string;
-	role_name: string;
+	roleId: number | null;
+	roleName?: string;
 	avatar: string;
-	nick_name: string;
-	status: boolean;
+	desc: string;
+	nickName: string;
+	status?: boolean;
+	isDeleted?: boolean;
+	captcha?: number;
+	createdTime?: string | Date;
+	updatedTime?: string | Date;
 }
 
 // * 登录
@@ -53,10 +59,29 @@ export interface LoginParams {
 	username: string;
 	password: string;
 }
+
 export interface LoginResponse {
 	token: string;
 	userInfo: UserInfoType;
 }
+
+export interface UserListParams {
+	username: string;
+	role: string | null;
+	nickName: string;
+	status: boolean;
+	isDeleted: boolean;
+	createdTime: string[];
+	page?: number;
+	pageSize?: number;
+}
+export interface UserListResponse {
+	list: UserInfoType[];
+	total: number;
+	page?: number;
+	pageSize: number;
+}
+
 export interface ResAuthButtons {
 	[propName: string]: any;
 }
@@ -65,44 +90,41 @@ export interface MenuOptions {
 	id?: number;
 	parentId: number | null;
 	order?: number;
-	path?: string;
+	path: string;
 	title?: string;
 	component?: string;
 	hide?: boolean;
+	hideMenu?: boolean;
 	hideTab?: boolean;
 	status?: BasicStatus;
 	frameSrc?: URL;
 	newFeature?: boolean;
+	disabled: boolean;
 	type: PermissionType;
 	name: string;
 	label: string;
-	route: string;
 	icon?: string;
-	create_time?: string | Date;
-	update_time?: string | Date;
+	createdTime?: string | Date;
+	updatedTime?: string | Date;
 	children?: MenuOptions[];
 }
 
-export interface MenuResponse {
-	list: MenuListResponseType[];
+export interface RoleListType {
+	id?: number;
+	role: string;
+	roleName: string;
+	desc: string;
+	status: StatusEnum;
+	permissions?: number[];
+	createdTime?: Date;
+	createdBy?: string | null;
+	updatedBy?: string | null;
+	updatedTime?: Date;
 }
-export interface MenuListResponseType {
-	_id: string;
-	meta: {
-		title: string;
-		role: string[];
-	};
-	children?: MenuChildrenOptionsType[];
-}
-export interface MenuChildrenOptionsType {
-	path: string;
-	meta: {
-		title: string;
-		role: string[];
-		requiresAuth: boolean;
-		key: string;
-	};
-	children?: MenuOptions[];
+
+export interface AssignMenusToRoleParamsType {
+	roleId: number;
+	menuIds: number[];
 }
 
 export interface WeathersResponseType {

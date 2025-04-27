@@ -1,25 +1,25 @@
-import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
-import type { InputRef } from 'antd';
-import type { Column, Columns, DndDataType, Task, Tasks } from './types';
+import type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import type { InputRef } from "antd";
+import type { Column, Columns, DndDataType, Task, Tasks } from "./types";
 
-import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
-import { faker } from '@faker-js/faker';
-import { Button, Input } from 'antd';
-import { useRef, useState } from 'react';
-import { useEvent } from 'react-use';
-import SimpleBar from 'simplebar-react';
+import { SortableContext, arrayMove, horizontalListSortingStrategy } from "@dnd-kit/sortable";
+import { faker } from "@faker-js/faker";
+import { Button, Input } from "antd";
+import { useRef, useState } from "react";
+import { useEvent } from "react-use";
+import SimpleBar from "simplebar-react";
 
-import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, DragOverlay, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 
-import { Iconify } from '@/components/icon';
-import KanbanColumn from './kanban-column';
-import KanbanTask from './kanban-task';
-import { initialData } from './task-utils';
+import { Iconify } from "@/components/icon";
+import KanbanColumn from "./kanban-column";
+import KanbanTask from "./kanban-task";
+import { initialData } from "./task-utils";
 
 export default function Kanban() {
 	const [state, setState] = useState(initialData);
 	const [activeId, setActiveId] = useState<string | null>(null);
-	const [activeType, setActiveType] = useState<'column' | 'task' | null>(null);
+	const [activeType, setActiveType] = useState<"column" | "task" | null>(null);
 	const [addingColumn, setAddingColumn] = useState(false);
 	const inputRef = useRef<InputRef>(null);
 
@@ -35,7 +35,7 @@ export default function Kanban() {
 		const { active } = event;
 		setActiveId(active.id as string);
 		// 通过判断 id 格式来确定拖拽类型
-		setActiveType(active.id.toString().startsWith('task-') ? 'task' : 'column');
+		setActiveType(active.id.toString().startsWith("task-") ? "task" : "column");
 	};
 
 	const handleDragEnd = (event: DragEndEvent) => {
@@ -48,7 +48,7 @@ export default function Kanban() {
 		}
 
 		if (active.id !== over.id) {
-			if (activeType === 'column') {
+			if (activeType === "column") {
 				// 处理列的拖拽
 				const oldIndex = state.columnOrder.indexOf(active.id as string);
 				const newIndex = state.columnOrder.indexOf(over.id as string);
@@ -129,10 +129,10 @@ export default function Kanban() {
 				});
 			}
 			setAddingColumn(false);
-			console.log('click outside');
+			console.log("click outside");
 		}
 	};
-	useEvent('click', handleClickOutside);
+	useEvent("click", handleClickOutside);
 
 	const createColumn = (column: Column) => {
 		const newState: DndDataType = {
@@ -256,7 +256,7 @@ export default function Kanban() {
 						</SortableContext>
 
 						<DragOverlay>
-							{activeId && activeType === 'column' ? (
+							{activeId && activeType === "column" ? (
 								<KanbanColumn
 									id={activeId}
 									index={state.columnOrder.indexOf(activeId)}
@@ -269,7 +269,7 @@ export default function Kanban() {
 									isDragging
 								/>
 							) : null}
-							{activeId && activeType === 'task' ? (
+							{activeId && activeType === "task" ? (
 								<KanbanTask id={activeId} task={state.tasks[activeId]} isDragging />
 							) : null}
 						</DragOverlay>

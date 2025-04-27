@@ -1,6 +1,6 @@
-import { Iconify } from '@/components/icon';
-import { themeVars } from '@/theme/theme.css';
-import { Progress } from 'antd';
+import { Iconify } from "@/components/icon";
+import { themeVars } from "@/theme/theme.css";
+import { Progress } from "antd";
 
 export function Conversion() {
 	return (

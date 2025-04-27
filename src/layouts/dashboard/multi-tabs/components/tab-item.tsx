@@ -1,20 +1,20 @@
-import type { MenuProps } from 'antd';
-import type { TabItemProps } from '../types';
+import type { MenuProps } from "antd";
+import type { TabItemProps } from "../types";
 
-import { Iconify } from '@/components/icon';
-import { Dropdown } from 'antd';
-import { useTranslation } from 'react-i18next';
+import { Iconify } from "@/components/icon";
+import { Dropdown } from "antd";
+import { useTranslation } from "react-i18next";
 
-import { MultiTabOperation } from '#/enum';
-import { useTabLabelRender } from '../hooks/use-tab-label-render';
-import { useMultiTabsContext } from '../providers/multi-tabs-provider';
+import { MultiTabOperation } from "#/enum";
+import { useTabLabelRender } from "../hooks/use-tab-label-render";
+import { useMultiTabsContext } from "../providers/multi-tabs-provider";
 
 export function TabItem({ tab, style, onClose }: TabItemProps) {
 	const { t } = useTranslation();
 	const { tabs, refreshTab, closeTab, closeOthersTab, closeLeft, closeRight, closeAll } = useMultiTabsContext();
 
 	const renderTabLabel = useTabLabelRender();
-	const menuItems: MenuProps['items'] = [
+	const menuItems: MenuProps["items"] = [
 		{
 			label: t(`sys.tab.${MultiTabOperation.REFRESH}`),
 			key: MultiTabOperation.REFRESH,
@@ -27,7 +27,7 @@ export function TabItem({ tab, style, onClose }: TabItemProps) {
 			disabled: tabs.length === 1,
 		},
 		{
-			type: 'divider',
+			type: "divider",
 		},
 		{
 			label: t(`sys.tab.${MultiTabOperation.CLOSELEFT}`),
@@ -42,7 +42,7 @@ export function TabItem({ tab, style, onClose }: TabItemProps) {
 			disabled: tabs.findIndex((t) => t.key === tab.key) === tabs.length - 1,
 		},
 		{
-			type: 'divider',
+			type: "divider",
 		},
 		{
 			label: t(`sys.tab.${MultiTabOperation.CLOSEOTHERS}`),
@@ -87,7 +87,7 @@ export function TabItem({ tab, style, onClose }: TabItemProps) {
 
 	return (
 		<Dropdown
-			trigger={['contextMenu']}
+			trigger={["contextMenu"]}
 			menu={{
 				items: menuItems,
 				onClick: menuClick,

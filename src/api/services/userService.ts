@@ -1,37 +1,28 @@
-import type { LoginParams, LoginResponse, MenuOptions } from '@/api/types';
-import type { UserInfo, UserToken } from '#/entity';
+import type { LoginParams, LoginResponse, UserInfoType, UserListParams, UserListResponse } from "@/api/types";
 
-import http from '../apiClient';
-
-export interface SignInReq {
-	username: string;
-	password: string;
-}
-
-export interface SignUpReq extends SignInReq {
-	email: string;
-}
-export type SignInRes = UserToken & { user: UserInfo };
+import http from "../apiClient";
 
 export enum UserApi {
-	Login = '/user/login',
-	SignUp = '/auth/signup',
-	Logout = '/auth/logout',
-	Refresh = '/auth/refresh',
-	User = '/user',
-	Menus = '/menus/getMenuList',
+	Login = "/user/login",
+	Register = "/user/createOrEditUser",
+	Logout = "/auth/logout",
+	Refresh = "/auth/refresh",
+	User = "/user",
+	UserList = "/user/getUserList",
+	CreateOrEdit = "/user/createOrEditUser",
 }
 
 const login = (data: LoginParams) => http.post<LoginResponse>({ url: UserApi.Login, data });
-const signup = (data: SignUpReq) => http.post<SignInRes>({ url: UserApi.SignUp, data });
-const getMenus = () => http.get<MenuOptions[]>({ url: UserApi.Menus });
+const register = (data: UserInfoType) => http.post<UserInfoType>({ url: UserApi.Register, data });
+const createOrEdit = (data: UserInfoType) => http.post<UserInfoType>({ url: UserApi.CreateOrEdit, data });
+const getUserList = (data: UserListParams) => http.post<UserListResponse>({ url: UserApi.UserList, data });
+
 const logout = () => http.get({ url: UserApi.Logout });
-const findById = (id: string) => http.get<UserInfo[]>({ url: `${UserApi.User}/${id}` });
 
 export default {
 	login,
-	signup,
-	findById,
 	logout,
-	getMenus,
+	register,
+	getUserList,
+	createOrEdit,
 };

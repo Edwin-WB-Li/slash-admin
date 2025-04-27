@@ -1,4 +1,4 @@
-import type { EventContentArg } from '@fullcalendar/core';
+import type { EventContentArg } from "@fullcalendar/core";
 
 export default function CalendarEvent(eventInfo: EventContentArg) {
 	const { timeText, event, backgroundColor } = eventInfo;

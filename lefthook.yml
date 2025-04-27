@@ -9,11 +9,12 @@ pre-commit:
   commands:
     format:
       glob: "*.{js,jsx,ts,tsx,json,md}"
-      run: npx @biomejs/biome format --write --no-errors-on-unmatched {staged_files}
+      # run: npx @biomejs/biome format --write --no-errors-on-unmatched {staged_files}
+      run: npm run lint:format -- {staged_files}
       stage_fixed: true
     lint:
       glob: "*.{js,jsx,ts,tsx}"
-      run: npx @biomejs/biome lint --no-errors-on-unmatched {staged_files}
+      run: npm run lint:fix -- {staged_files}
     check-types:
       glob: "*.{ts,tsx}"
       run: npx tsc --noEmit
@@ -23,4 +24,4 @@ commit-msg:
     commitlint:
       run: npx commitlint --edit {1}
       # 允许空提交信息
-      skip: merge|rebase
+      skip: false

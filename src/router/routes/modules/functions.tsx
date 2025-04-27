@@ -1,25 +1,25 @@
-import type { AppRouteObject } from '#/router';
+import type { AppRouteObject } from "#/router";
 
-import { Suspense, lazy } from 'react';
-import { Navigate, Outlet } from 'react-router';
+import { Suspense, lazy } from "react";
+import { Navigate, Outlet } from "react-router";
 
-import { Iconify } from '@/components/icon';
-import { CircleLoading } from '@/components/loading';
+import { Iconify } from "@/components/icon";
+import { CircleLoading } from "@/components/loading";
 
-const ClipboardPage = lazy(() => import('@/pages/functions/clipboard'));
+const ClipboardPage = lazy(() => import("@/pages/functions/clipboard"));
 
 const functions: AppRouteObject = {
 	order: 4,
-	path: 'functions',
+	path: "functions",
 	element: (
 		<Suspense fallback={<CircleLoading />}>
 			<Outlet />
 		</Suspense>
 	),
 	meta: {
-		label: 'sys.menu.functions',
+		label: "sys.menu.functions",
 		icon: <Iconify icon="solar:plain-2-bold-duotone" className="ant-menu-item-icon" size="24" />,
-		key: '/functions',
+		key: "/functions",
 	},
 	children: [
 		{
@@ -27,9 +27,9 @@ const functions: AppRouteObject = {
 			element: <Navigate to="clipboard" replace />,
 		},
 		{
-			path: 'clipboard',
+			path: "clipboard",
 			element: <ClipboardPage />,
-			meta: { label: 'sys.menu.clipboard', key: '/functions/clipboard' },
+			meta: { label: "sys.menu.clipboard", key: "/functions/clipboard" },
 		},
 	],
 };

@@ -1,12 +1,12 @@
-import { Col, Row } from 'antd';
+import { Col, Row } from "antd";
 
-import Character3 from '@/assets/images/characters/character_3.png';
-import { Iconify } from '@/components/icon';
-import { useUserInfo } from '@/store/userStore';
-import { themeVars } from '@/theme/theme.css';
+import Character3 from "@/assets/images/characters/character_3.png";
+import { Iconify } from "@/components/icon";
+import { useUserInfo } from "@/store/userStore";
+import { themeVars } from "@/theme/theme.css";
 
 export default function BannerCard() {
-	const { nick_name } = useUserInfo();
+	const { nickName } = useUserInfo();
 
 	const bg = `linear-gradient(135deg, rgba(${themeVars.colors.palette.primary.lightChannel}, .2), rgba(${themeVars.colors.palette.primary.defaultChannel}, .2)) ${themeVars.colors.common.white}`;
 
@@ -15,11 +15,11 @@ export default function BannerCard() {
 			className="!mx-0 rounded-2xl p-7"
 			gutter={[16, 16]}
 			justify="space-between"
-			style={{ background: bg, height: '100%' }}
+			style={{ background: bg, height: "100%" }}
 		>
 			<Col span={24} md={12} xl={16} className="flex-1 text-center md:text-left">
 				<div className="mt-4 text-lg font-semibold md:text-xl" style={{ color: themeVars.colors.palette.primary.dark }}>
-					<h4> Hi, {nick_name} ,Welcome Back 👋 </h4>
+					<h4> Hi, {nickName} ,Welcome Back 👋 </h4>
 				</div>
 				<div
 					style={{ color: themeVars.colors.palette.primary.dark }}
@@ -45,7 +45,7 @@ export default function BannerCard() {
 						backgroundColor: themeVars.colors.palette.primary.default,
 						color: themeVars.colors.common.white,
 					}}
-					onClick={() => window.open('https://discord.gg/fXemAXVNDa')}
+					onClick={() => window.open("https://discord.gg/fXemAXVNDa")}
 				>
 					<Iconify icon="carbon:logo-discord" size={24} />
 					<span className="ml-2 font-black">Join Discord</span>

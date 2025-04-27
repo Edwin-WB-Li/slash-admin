@@ -1,5 +1,5 @@
-import { themeVars } from '@/theme/theme.css';
-import { Card } from 'antd';
+import { themeVars } from "@/theme/theme.css";
+import { Card } from "antd";
 
 type Props = {
 	variantKey: {
@@ -30,7 +30,7 @@ export default function ControlPanel({ variantKey, selectedVariant, onChangeVari
 								className="m-2 cursor-pointer rounded-md p-2"
 								onClick={() => onChangeVarient(item)}
 								onKeyDown={(e) => {
-									if (e.key === 'Enter') {
+									if (e.key === "Enter") {
 										onChangeVarient(item);
 									}
 								}}

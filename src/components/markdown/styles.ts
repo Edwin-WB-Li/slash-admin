@@ -2,9 +2,9 @@
  * https://styled-components.com/
  * vscode plugin: https://github.com/styled-components/vscode-styled-components
  */
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { themeVars } from '@/theme/theme.css';
+import { themeVars } from "@/theme/theme.css";
 
 const StyledMarkdown = styled.div`
   display: grid;

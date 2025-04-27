@@ -1,4 +1,4 @@
-import { chain } from 'ramda';
+import { chain } from "ramda";
 
 /**
  * @description Flatten an array containing a tree structure

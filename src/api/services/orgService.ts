@@ -1,9 +1,9 @@
-import type { Organization } from '#/entity';
+import type { Organization } from "#/entity";
 
-import apiClient from '../apiClient';
+import apiClient from "../apiClient";
 
 export enum OrgApi {
-	Org = '/org',
+	Org = "/org",
 }
 
 const getOrgList = () => apiClient.get<Organization[]>({ url: OrgApi.Org });

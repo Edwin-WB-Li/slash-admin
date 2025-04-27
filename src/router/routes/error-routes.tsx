@@ -1,16 +1,16 @@
-import type { AppRouteObject } from '#/router';
+import type { AppRouteObject } from "#/router";
 
-import { Suspense, lazy } from 'react';
-import { Outlet } from 'react-router';
+import { Suspense, lazy } from "react";
+import { Outlet } from "react-router";
 
-import { CircleLoading } from '@/components/loading';
-import SimpleLayout from '@/layouts/simple';
+import { CircleLoading } from "@/components/loading";
+import SimpleLayout from "@/layouts/simple";
 
-import ProtectedRoute from '../components/protected-route';
+import ProtectedRoute from "../components/protected-route";
 
-const Page403 = lazy(() => import('@/pages/sys/error/Page403'));
-const Page404 = lazy(() => import('@/pages/sys/error/Page404'));
-const Page500 = lazy(() => import('@/pages/sys/error/Page500'));
+const Page403 = lazy(() => import("@/pages/sys/error/Page403"));
+const Page404 = lazy(() => import("@/pages/sys/error/Page404"));
+const Page500 = lazy(() => import("@/pages/sys/error/Page500"));
 
 /**
  * error routes
@@ -27,8 +27,8 @@ export const ERROR_ROUTE: AppRouteObject = {
 		</ProtectedRoute>
 	),
 	children: [
-		{ path: '403', element: <Page403 /> },
-		{ path: '404', element: <Page404 /> },
-		{ path: '500', element: <Page500 /> },
+		{ path: "403", element: <Page403 /> },
+		{ path: "404", element: <Page404 /> },
+		{ path: "500", element: <Page500 /> },
 	],
 };

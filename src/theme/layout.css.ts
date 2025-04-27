@@ -1,3 +1,3 @@
-import { createTheme } from '@vanilla-extract/css';
+import { createTheme } from "@vanilla-extract/css";
 
-export const [layoutClass, layoutVars] = createTheme({}, 'slash-layout');
+export const [layoutClass, layoutVars] = createTheme({}, "slash-layout");

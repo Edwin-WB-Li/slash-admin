@@ -1,26 +1,26 @@
-import type { TabsProps } from 'antd';
-import type { CSSProperties, ReactNode } from 'react';
+import type { TabsProps } from "antd";
+import type { CSSProperties, ReactNode } from "react";
 
-import { faker } from '@faker-js/faker';
-import { Badge, Button, Drawer, Space, Tabs, Tag } from 'antd';
-import { useState } from 'react';
+import { faker } from "@faker-js/faker";
+import { Badge, Button, Drawer, Space, Tabs, Tag } from "antd";
+import { useState } from "react";
 
-import CyanBlur from '@/assets/images/background/cyan-blur.png';
-import RedBlur from '@/assets/images/background/red-blur.png';
-import { IconButton, Iconify, SvgIcon } from '@/components/icon';
-import { themeVars } from '@/theme/theme.css';
+import CyanBlur from "@/assets/images/background/cyan-blur.png";
+import RedBlur from "@/assets/images/background/red-blur.png";
+import { IconButton, Iconify, SvgIcon } from "@/components/icon";
+import { themeVars } from "@/theme/theme.css";
 
 export default function NoticeButton() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const [count, setCount] = useState(4);
 
 	const style: CSSProperties = {
-		backdropFilter: 'blur(20px)',
+		backdropFilter: "blur(20px)",
 		backgroundImage: `url("${CyanBlur}"), url("${RedBlur}")`,
-		backgroundRepeat: 'no-repeat, no-repeat',
+		backgroundRepeat: "no-repeat, no-repeat",
 		backgroundColor: `rgba(${themeVars.colors.background.paperChannel}, 0.9)`,
-		backgroundPosition: 'right top, left bottom',
-		backgroundSize: '50, 50%',
+		backgroundPosition: "right top, left bottom",
+		backgroundSize: "50, 50%",
 	};
 
 	return (
@@ -29,7 +29,7 @@ export default function NoticeButton() {
 				<Badge
 					count={count}
 					styles={{
-						root: { color: 'inherit' },
+						root: { color: "inherit" },
 						indicator: { color: themeVars.colors.common.white },
 					}}
 				>
@@ -45,7 +45,7 @@ export default function NoticeButton() {
 				width={420}
 				styles={{
 					body: { padding: 0 },
-					mask: { backgroundColor: 'transparent' },
+					mask: { backgroundColor: "transparent" },
 				}}
 				style={style}
 				extra={
@@ -180,7 +180,7 @@ function NoticeTab() {
 					<div>
 						<span className="font-light">Your order is placed waiting for shipping</span>
 					</div>
-					<span className="text-xs font-light opacity-60">4 days ago</span>{' '}
+					<span className="text-xs font-light opacity-60">4 days ago</span>{" "}
 				</div>
 			</div>
 
@@ -192,7 +192,7 @@ function NoticeTab() {
 					<div>
 						<span className="font-light">You have new mail</span>
 					</div>
-					<span className="text-xs font-light opacity-60">5 days ago</span>{' '}
+					<span className="text-xs font-light opacity-60">5 days ago</span>{" "}
 				</div>
 			</div>
 
@@ -216,14 +216,14 @@ function NoticeTab() {
 					<div>
 						<span className="font-light">Delivery processing your order is being shipped</span>
 					</div>
-					<span className="text-xs font-light opacity-60">8 days ago</span>{' '}
+					<span className="text-xs font-light opacity-60">8 days ago</span>{" "}
 				</div>
 			</div>
 		</div>
 	);
-	const items: TabsProps['items'] = [
+	const items: TabsProps["items"] = [
 		{
-			key: '1',
+			key: "1",
 			label: (
 				<div className="flex">
 					<span>All</span>
@@ -233,7 +233,7 @@ function NoticeTab() {
 			children: tabChildren,
 		},
 		{
-			key: '2',
+			key: "2",
 			label: (
 				<div className="flex">
 					<span>Unread</span>
@@ -243,7 +243,7 @@ function NoticeTab() {
 			children: tabChildren,
 		},
 		{
-			key: '3',
+			key: "3",
 			label: (
 				<div className="flex">
 					<span>Archived</span>

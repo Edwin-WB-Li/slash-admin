@@ -1,75 +1,75 @@
-import { faker } from '@faker-js/faker';
-import { Avatar, Col, Divider, Row, Tag } from 'antd';
-import dayjs from 'dayjs';
+import { faker } from "@faker-js/faker";
+import { Avatar, Col, Divider, Row, Tag } from "antd";
+import dayjs from "dayjs";
 
-import { fakeAvatars } from '@/_mock/utils';
-import Card from '@/components/card';
-import { IconButton, Iconify } from '@/components/icon';
+import { fakeAvatars } from "@/_mock/utils";
+import Card from "@/components/card";
+import { IconButton, Iconify } from "@/components/icon";
 
 export default function ProjectsTab() {
 	const items = [
 		{
 			icon: <Iconify icon="logos:react" size={40} />,
-			name: 'Admin Template',
+			name: "Admin Template",
 			client: faker.person.fullName(),
-			desc: 'Time is our most valuable asset, that is why we want to help you save it by creating…',
+			desc: "Time is our most valuable asset, that is why we want to help you save it by creating…",
 			members: fakeAvatars(15),
 			startDate: dayjs(faker.date.past({ years: 1 })),
 			deadline: dayjs(faker.date.future({ years: 1 })),
 			messages: 236,
-			allHours: '98/135',
+			allHours: "98/135",
 			allTasks: faker.number.int({ min: 60, max: 99 }),
 			closedTasks: faker.number.int({ min: 30, max: 60 }),
 		},
 		{
 			icon: <Iconify icon="logos:vue" size={40} />,
-			name: 'App Design',
-			desc: 'App design combines the user interface (UI) and user experience (UX).  ',
+			name: "App Design",
+			desc: "App design combines the user interface (UI) and user experience (UX).  ",
 			client: faker.person.fullName(),
 			members: fakeAvatars(27),
 			startDate: dayjs(faker.date.past({ years: 1 })),
 			deadline: dayjs(faker.date.future({ years: 1 })),
 			messages: 236,
-			allHours: '880/421',
+			allHours: "880/421",
 			allTasks: faker.number.int({ min: 60, max: 99 }),
 			closedTasks: faker.number.int({ min: 30, max: 60 }),
 		},
 		{
 			icon: <Iconify icon="logos:figma" size={40} />,
-			name: 'Figma Dashboard',
-			desc: 'Use this template to organize your design project. Some of the key features are… ',
+			name: "Figma Dashboard",
+			desc: "Use this template to organize your design project. Some of the key features are… ",
 			client: faker.person.fullName(),
 			members: fakeAvatars(32),
 			startDate: dayjs(faker.date.past({ years: 1 })),
 			deadline: dayjs(faker.date.future({ years: 1 })),
 			messages: 236,
-			allHours: '1.2k/820',
+			allHours: "1.2k/820",
 			allTasks: faker.number.int({ min: 60, max: 99 }),
 			closedTasks: faker.number.int({ min: 30, max: 60 }),
 		},
 		{
 			icon: <Iconify icon="logos:html-5" size={40} />,
-			name: 'Create Website',
-			desc: 'Your domain name should reflect your products or services so that your...  ',
+			name: "Create Website",
+			desc: "Your domain name should reflect your products or services so that your...  ",
 			client: faker.person.fullName(),
 			members: fakeAvatars(221),
 			startDate: dayjs(faker.date.past({ years: 1 })),
 			deadline: dayjs(faker.date.future({ years: 1 })),
 			messages: 236,
-			allHours: '142/420',
+			allHours: "142/420",
 			allTasks: faker.number.int({ min: 60, max: 99 }),
 			closedTasks: faker.number.int({ min: 30, max: 60 }),
 		},
 		{
 			icon: <Iconify icon="logos:adobe-xd" size={40} />,
-			name: 'Logo Design',
-			desc: 'Premium logo designs created by top logo designers. Create the branding of business.  ',
+			name: "Logo Design",
+			desc: "Premium logo designs created by top logo designers. Create the branding of business.  ",
 			client: faker.person.fullName(),
 			members: fakeAvatars(125),
 			startDate: dayjs(faker.date.past({ years: 1 })),
 			deadline: dayjs(faker.date.future({ years: 1 })),
 			messages: 232,
-			allHours: '580/445',
+			allHours: "580/445",
 			allTasks: faker.number.int({ min: 60, max: 99 }),
 			closedTasks: faker.number.int({ min: 30, max: 60 }),
 		},
@@ -98,12 +98,12 @@ export default function ProjectsTab() {
 							<div className="my-2 flex justify-between">
 								<span>
 									Start Date:
-									<span className="ml-2 opacity-50">{item.startDate.format('DD/MM/YYYY')}</span>
+									<span className="ml-2 opacity-50">{item.startDate.format("DD/MM/YYYY")}</span>
 								</span>
 
 								<span>
 									Deadline:
-									<span className="ml-2 opacity-50">{item.deadline.format('DD/MM/YYYY')}</span>
+									<span className="ml-2 opacity-50">{item.deadline.format("DD/MM/YYYY")}</span>
 								</span>
 							</div>
 							<span className="opacity-70">{item.desc}</span>
@@ -118,7 +118,7 @@ export default function ProjectsTab() {
 									<span className="ml-2 opacity-50">{item.allHours}</span>
 								</span>
 
-								<Tag color="warning">{item.deadline.diff(dayjs(), 'day')} days left</Tag>
+								<Tag color="warning">{item.deadline.diff(dayjs(), "day")} days left</Tag>
 							</div>
 							<div className="flex w-full ">
 								<Avatar.Group max={{ count: 4 }}>

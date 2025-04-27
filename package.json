@@ -10,8 +10,8 @@
 		"test": "vitest --mode test",
 		"test:coverage": "vitest --coverage --mode test",
 		"vitest-ui": "vitest --ui --coverage --mode test",
-		"lint:format": "npx biome format --write ./src",
-		"lint:fix": "npx biome lint --write ./src",
+		"lint:format": "npx biome format --write --no-errors-on-unmatched",
+		"lint:fix": "npx biome lint --write --no-errors-on-unmatched",
 		"preview": "vite preview --mode production",
 		"preinstall": "lefthook install"
 	},

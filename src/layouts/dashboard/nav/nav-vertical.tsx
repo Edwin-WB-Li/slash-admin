@@ -1,19 +1,19 @@
-import type { MenuProps } from 'antd';
+import type { MenuProps } from "antd";
 
-import { Layout, Menu } from 'antd';
-import { useEffect, useMemo, useState } from 'react';
-import { useMatches, useNavigate } from 'react-router';
+import { Layout, Menu } from "antd";
+import { useEffect, useMemo, useState } from "react";
+import { useMatches, useNavigate } from "react-router";
 
-import Scrollbar from '@/components/scrollbar';
-import { useFlattenedRoutes, usePathname, usePermissionRoutes, useRouteToMenuFn } from '@/router/hooks';
-import { menuFilter } from '@/router/utils';
-import { useSettingActions, useSettings } from '@/store/settingStore';
+import Scrollbar from "@/components/scrollbar";
+import { useFlattenedRoutes, usePathname, usePermissionRoutes, useRouteToMenuFn } from "@/router/hooks";
+import { menuFilter } from "@/router/utils";
+import { useSettingActions, useSettings } from "@/store/settingStore";
 
-import { NAV_WIDTH } from '../config';
+import { NAV_WIDTH } from "../config";
 
-import NavLogo from './nav-logo';
+import NavLogo from "./nav-logo";
 
-import { ThemeLayout, ThemeMode } from '#/enum';
+import { ThemeLayout, ThemeMode } from "#/enum";
 
 const { Sider } = Layout;
 
@@ -47,7 +47,7 @@ export default function NavVertical(props: Props) {
 	useEffect(() => {
 		if (!collapsed) {
 			const keys = matches
-				.filter((match) => match.pathname !== '/' && match.pathname !== pathname)
+				.filter((match) => match.pathname !== "/" && match.pathname !== pathname)
 				.map((match) => match.pathname);
 			setOpenKeys(keys);
 		}
@@ -60,10 +60,10 @@ export default function NavVertical(props: Props) {
 		});
 	};
 
-	const onClick: MenuProps['onClick'] = ({ key }) => {
+	const onClick: MenuProps["onClick"] = ({ key }) => {
 		const nextLink = flattenedRoutes?.find((e) => e.key === key);
 		if (nextLink?.hideTab && nextLink?.frameSrc) {
-			window.open(nextLink?.frameSrc, '_blank');
+			window.open(nextLink?.frameSrc, "_blank");
 			return;
 		}
 
@@ -71,15 +71,15 @@ export default function NavVertical(props: Props) {
 		props?.closeSideBarDrawer?.();
 	};
 
-	const handleOpenChange: MenuProps['onOpenChange'] = (keys) => {
+	const handleOpenChange: MenuProps["onOpenChange"] = (keys) => {
 		setOpenKeys(keys);
 	};
 
 	const sidebarTheme = useMemo(() => {
 		if (themeMode === ThemeMode.Dark) {
-			return darkSidebar ? 'light' : 'dark';
+			return darkSidebar ? "light" : "dark";
 		}
-		return darkSidebar ? 'dark' : 'light';
+		return darkSidebar ? "dark" : "light";
 	}, [themeMode, darkSidebar]);
 
 	return (

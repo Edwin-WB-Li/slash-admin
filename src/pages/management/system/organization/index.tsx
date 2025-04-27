@@ -1,27 +1,27 @@
-import { useQuery } from '@tanstack/react-query';
-import { Button, Card, Col, Form, Input, InputNumber, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from 'antd';
-import Table, { type ColumnsType } from 'antd/es/table';
-import type { TableRowSelection } from 'antd/es/table/interface';
-import { useEffect, useState } from 'react';
+// import { useQuery } from "@tanstack/react-query";
+import { Button, Card, Col, Form, Input, InputNumber, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from "antd";
+import Table, { type ColumnsType } from "antd/es/table";
+import type { TableRowSelection } from "antd/es/table/interface";
+import { useEffect, useState } from "react";
 
-import orgService from '@/api/services/orgService';
-import { IconButton, Iconify } from '@/components/icon';
+// import orgService from "@/api/services/orgService";
+import { IconButton, Iconify } from "@/components/icon";
 
-import OrganizationChart from './organization-chart';
+import OrganizationChart from "./organization-chart";
 
-import type { Organization } from '#/entity';
+import type { Organization } from "#/entity";
 
-type SearchFormFieldType = Pick<Organization, 'name' | 'status'>;
+type SearchFormFieldType = Pick<Organization, "name" | "status">;
 
 export default function OrganizationPage() {
 	const [searchForm] = Form.useForm();
 	const [organizationModalPros, setOrganizationModalProps] = useState<OrganizationModalProps>({
 		formValue: {
-			id: '',
-			name: '',
-			status: 'enable',
+			id: "",
+			name: "",
+			status: "enable",
 		},
-		title: 'New',
+		title: "New",
 		show: false,
 		onOk: () => {
 			setOrganizationModalProps((prev) => ({ ...prev, show: false }));
@@ -32,20 +32,20 @@ export default function OrganizationPage() {
 	});
 
 	const columns: ColumnsType<Organization> = [
-		{ title: 'Name', dataIndex: 'name', width: 300 },
-		{ title: 'Order', dataIndex: 'order', align: 'center', width: 60 },
+		{ title: "Name", dataIndex: "name", width: 300 },
+		{ title: "Order", dataIndex: "order", align: "center", width: 60 },
 		{
-			title: 'Status',
-			dataIndex: 'status',
-			align: 'center',
+			title: "Status",
+			dataIndex: "status",
+			align: "center",
 			width: 120,
-			render: (status) => <Tag color={status === 'enable' ? 'success' : 'error'}>{status}</Tag>,
+			render: (status) => <Tag color={status === "enable" ? "success" : "error"}>{status}</Tag>,
 		},
-		{ title: 'Desc', dataIndex: 'desc', align: 'center', width: 300 },
+		{ title: "Desc", dataIndex: "desc", align: "center", width: 300 },
 		{
-			title: 'Action',
-			key: 'operation',
-			align: 'center',
+			title: "Action",
+			key: "operation",
+			align: "center",
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-center text-gray">
@@ -65,7 +65,7 @@ export default function OrganizationPage() {
 	// rowSelection objects indicates the need for row selection
 	const rowSelection: TableRowSelection<Organization> = {
 		onChange: (selectedRowKeys, selectedRows) => {
-			console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+			console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
 		},
 		onSelect: (record, selected, selectedRows) => {
 			console.log(record, selected, selectedRows);
@@ -75,10 +75,10 @@ export default function OrganizationPage() {
 		},
 	};
 
-	const { data } = useQuery({
-		queryKey: ['orgs'],
-		queryFn: orgService.getOrgList,
-	});
+	// const { data } = useQuery({
+	// 	queryKey: ["orgs"],
+	// 	queryFn: orgService.getOrgList,
+	// });
 
 	const onSearchFormReset = () => {
 		searchForm.resetFields();
@@ -88,14 +88,14 @@ export default function OrganizationPage() {
 		setOrganizationModalProps((prev) => ({
 			...prev,
 			show: true,
-			title: 'Create New',
+			title: "Create New",
 			formValue: {
 				...prev.formValue,
-				id: '',
-				name: '',
+				id: "",
+				name: "",
 				order: 1,
-				desc: '',
-				status: 'enable',
+				desc: "",
+				status: "enable",
 			},
 		}));
 	};
@@ -104,7 +104,7 @@ export default function OrganizationPage() {
 		setOrganizationModalProps((prev) => ({
 			...prev,
 			show: true,
-			title: 'Edit',
+			title: "Edit",
 			formValue,
 		}));
 	};
@@ -154,16 +154,18 @@ export default function OrganizationPage() {
 				<Table
 					rowKey="id"
 					size="small"
-					scroll={{ x: 'max-content' }}
+					scroll={{ x: "max-content" }}
 					pagination={false}
 					columns={columns}
-					dataSource={data}
+					// dataSource={data}
+					dataSource={[]}
 					rowSelection={{ ...rowSelection }}
 				/>
 			</Card>
 
 			<Card title="Organization Chart">
-				<OrganizationChart organizations={data} />
+				<OrganizationChart organizations={[]} />
+				{/* <OrganizationChart organizations={data ?? []} /> */}
 			</Card>
 
 			<OrganizationModal {...organizationModalPros} />
@@ -191,7 +193,7 @@ function OrganizationModal({ title, show, formValue, onOk, onCancel }: Organizat
 					<Input />
 				</Form.Item>
 				<Form.Item<Organization> label="Order" name="order" required>
-					<InputNumber style={{ width: '100%' }} />
+					<InputNumber style={{ width: "100%" }} />
 				</Form.Item>
 				<Form.Item<Organization> label="Status" name="status" required>
 					<Radio.Group optionType="button" buttonStyle="solid">

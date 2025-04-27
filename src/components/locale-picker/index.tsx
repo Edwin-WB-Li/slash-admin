@@ -1,11 +1,11 @@
-import { Dropdown } from 'antd';
+import { Dropdown } from "antd";
 
-import useLocale, { LANGUAGE_MAP } from '@/locales/use-locale';
+import useLocale, { LANGUAGE_MAP } from "@/locales/use-locale";
 
-import { IconButton, SvgIcon } from '../icon';
+import { IconButton, SvgIcon } from "../icon";
 
-import type { MenuProps } from 'antd';
-import type { LocalEnum } from '#/enum';
+import type { MenuProps } from "antd";
+import type { LocalEnum } from "#/enum";
 
 type Locale = keyof typeof LocalEnum;
 
@@ -15,7 +15,7 @@ type Locale = keyof typeof LocalEnum;
 export default function LocalePicker() {
 	const { setLocale, locale } = useLocale();
 
-	const localeList: MenuProps['items'] = Object.values(LANGUAGE_MAP).map((item) => {
+	const localeList: MenuProps["items"] = Object.values(LANGUAGE_MAP).map((item) => {
 		return {
 			key: item.locale,
 			label: item.label,
@@ -26,7 +26,7 @@ export default function LocalePicker() {
 	return (
 		<Dropdown
 			placement="bottomRight"
-			trigger={['click']}
+			trigger={["click"]}
 			menu={{ items: localeList, onClick: (e) => setLocale(e.key as Locale) }}
 		>
 			<IconButton className="h-10 w-10 hover:scale-105">

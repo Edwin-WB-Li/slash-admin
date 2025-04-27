@@ -1,11 +1,11 @@
-import { Button, Col, Row, Switch, Typography } from 'antd';
+import { Button, Col, Row, Switch, Typography } from "antd";
 
-import Card from '@/components/card';
-import { toast } from 'sonner';
+import Card from "@/components/card";
+import { toast } from "sonner";
 
 export default function NotificationsTab() {
 	const handleClick = () => {
-		toast.success('Update success!');
+		toast.success("Update success!");
 	};
 	return (
 		<Card className="!h-auto flex-col">

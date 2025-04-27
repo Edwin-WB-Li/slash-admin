@@ -1,8 +1,8 @@
-import { Typography } from 'antd';
+import { Typography } from "antd";
 
-import Card from '@/components/card';
-import Chart from '@/components/chart/chart';
-import useChart from '@/components/chart/useChart';
+import Card from "@/components/card";
+import Chart from "@/components/chart/chart";
+import useChart from "@/components/chart/useChart";
 
 export default function CurrentDownload() {
 	return (
@@ -20,13 +20,13 @@ export default function CurrentDownload() {
 const series = [44, 55, 13, 43];
 function ChartDonut() {
 	const chartOptions = useChart({
-		labels: ['Mac', 'Window', 'IOS', 'Android'],
+		labels: ["Mac", "Window", "IOS", "Android"],
 		stroke: {
 			show: false,
 		},
 		legend: {
-			position: 'bottom',
-			horizontalAlign: 'center',
+			position: "bottom",
+			horizontalAlign: "center",
 		},
 		tooltip: {
 			fillSeriesColor: false,
@@ -37,13 +37,13 @@ function ChartDonut() {
 		plotOptions: {
 			pie: {
 				donut: {
-					size: '90%',
+					size: "90%",
 					labels: {
 						total: {
-							fontSize: '12px',
+							fontSize: "12px",
 						},
 						value: {
-							fontSize: '18px',
+							fontSize: "18px",
 							fontWeight: 700,
 						},
 					},

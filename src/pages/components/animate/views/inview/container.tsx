@@ -1,13 +1,13 @@
-import { m } from 'framer-motion';
-import { repeat } from 'ramda';
-import { useMemo } from 'react';
+import { m } from "framer-motion";
+import { repeat } from "ramda";
+import { useMemo } from "react";
 
-import Cover3 from '@/assets/images/cover/cover_3.jpg';
-import MotionContainer from '@/components/animate/motion-container';
-import { getVariant } from '@/components/animate/variants';
-import { themeVars } from '@/theme/theme.css';
+import Cover3 from "@/assets/images/cover/cover_3.jpg";
+import MotionContainer from "@/components/animate/motion-container";
+import { getVariant } from "@/components/animate/variants";
+import { themeVars } from "@/theme/theme.css";
 
-const TEXT = 'SlashAdmin';
+const TEXT = "SlashAdmin";
 type Props = {
 	isText: boolean;
 	isMulti: boolean;
@@ -25,7 +25,7 @@ export default function ContainerView({ isText, variant, isMulti }: Props) {
 		>
 			{isText ? (
 				<MotionContainer className="flex h-[480px] items-center justify-center font-bold md:text-6xl">
-					{TEXT.split('').map((letter) => (
+					{TEXT.split("").map((letter) => (
 						<m.div key={letter} variants={varients}>
 							{letter}
 						</m.div>
@@ -38,11 +38,11 @@ export default function ContainerView({ isText, variant, isMulti }: Props) {
 							key={img}
 							src={img}
 							style={{
-								objectFit: 'cover',
-								width: '240px',
-								height: isMulti ? '36px' : '240px',
-								margin: 'auto',
-								borderRadius: '8px',
+								objectFit: "cover",
+								width: "240px",
+								height: isMulti ? "36px" : "240px",
+								margin: "auto",
+								borderRadius: "8px",
 							}}
 							variants={varients}
 						/>

@@ -1,24 +1,24 @@
-import type { CSSProperties } from 'react';
-import type { ThemeColorPresets } from '#/enum';
+import type { CSSProperties } from "react";
+import type { ThemeColorPresets } from "#/enum";
 
-import { CloseOutlined, LeftOutlined, QuestionCircleOutlined, RightOutlined } from '@ant-design/icons';
-import { Button, Card, Drawer, Slider, Switch, Tooltip } from 'antd';
-import { m } from 'framer-motion';
-import { useState } from 'react';
-import { MdCircle } from 'react-icons/md';
-import screenfull from 'screenfull';
+import { CloseOutlined, LeftOutlined, QuestionCircleOutlined, RightOutlined } from "@ant-design/icons";
+import { Button, Card, Drawer, Slider, Switch, Tooltip } from "antd";
+import { m } from "framer-motion";
+import { useState } from "react";
+import { MdCircle } from "react-icons/md";
+import screenfull from "screenfull";
 
-import CyanBlur from '@/assets/images/background/cyan-blur.png';
-import RedBlur from '@/assets/images/background/red-blur.png';
-import { varHover } from '@/components/animate/variants/action';
-import { IconButton, SvgIcon } from '@/components/icon';
-import { useSettingActions, useSettings } from '@/store/settingStore';
-import { presetsColors } from '@/theme/tokens/color';
-import { ThemeLayout, ThemeMode } from '#/enum';
+import CyanBlur from "@/assets/images/background/cyan-blur.png";
+import RedBlur from "@/assets/images/background/red-blur.png";
+import { varHover } from "@/components/animate/variants/action";
+import { IconButton, SvgIcon } from "@/components/icon";
+import { useSettingActions, useSettings } from "@/store/settingStore";
+import { presetsColors } from "@/theme/tokens/color";
+import { ThemeLayout, ThemeMode } from "#/enum";
 
-import { themeVars } from '@/theme/theme.css';
-import { FontFamilyPreset } from '@/theme/tokens/typography';
-import { cn } from '@/utils';
+import { themeVars } from "@/theme/theme.css";
+import { FontFamilyPreset } from "@/theme/tokens/typography";
+import { cn } from "@/utils";
 
 /**
  * App Setting
@@ -104,12 +104,12 @@ export default function SettingButton() {
 	};
 
 	const style: CSSProperties = {
-		backdropFilter: 'blur(20px)',
+		backdropFilter: "blur(20px)",
 		backgroundImage: `url("${CyanBlur}"), url("${RedBlur}")`,
-		backgroundRepeat: 'no-repeat, no-repeat',
+		backgroundRepeat: "no-repeat, no-repeat",
 		backgroundColor: `rgba(${themeVars.colors.background.paperChannel}, 0.9)`,
-		backgroundPosition: 'right top, left bottom',
-		backgroundSize: '50, 50%',
+		backgroundPosition: "right top, left bottom",
+		backgroundSize: "50, 50%",
 	};
 
 	const [isFullscreen, setIsFullscreen] = useState(screenfull.isFullscreen);
@@ -134,7 +134,7 @@ export default function SettingButton() {
 					}}
 					transition={{
 						duration: 12,
-						ease: 'linear',
+						ease: "linear",
 						repeat: Number.POSITIVE_INFINITY,
 					}}
 					whileTap="tap"
@@ -155,7 +155,7 @@ export default function SettingButton() {
 				closable={false}
 				styles={{
 					body: { padding: 0 },
-					mask: { backgroundColor: 'transparent' },
+					mask: { backgroundColor: "transparent" },
 				}}
 				style={style}
 				extra={
@@ -193,27 +193,27 @@ export default function SettingButton() {
 							<Card
 								onClick={() => setThemeMode(ThemeMode.Light)}
 								className={cn(
-									themeMode === ThemeMode.Light ? 'border border-primary' : '',
-									'flex h-20 w-full cursor-pointer items-center justify-center',
+									themeMode === ThemeMode.Light ? "border border-primary" : "",
+									"flex h-20 w-full cursor-pointer items-center justify-center",
 								)}
 							>
 								<SvgIcon
 									icon="ic-settings-mode-sun"
 									size="24"
-									color={themeMode === ThemeMode.Light ? themeVars.colors.palette.primary.default : ''}
+									color={themeMode === ThemeMode.Light ? themeVars.colors.palette.primary.default : ""}
 								/>
 							</Card>
 							<Card
 								onClick={() => setThemeMode(ThemeMode.Dark)}
 								className={cn(
-									themeMode === ThemeMode.Dark ? 'border border-primary' : '',
-									'flex h-20 w-full cursor-pointer items-center justify-center',
+									themeMode === ThemeMode.Dark ? "border border-primary" : "",
+									"flex h-20 w-full cursor-pointer items-center justify-center",
 								)}
 							>
 								<SvgIcon
 									icon="ic-settings-mode-moon"
 									size="24"
-									color={themeMode === ThemeMode.Dark ? themeVars.colors.palette.primary.default : ''}
+									color={themeMode === ThemeMode.Dark ? themeVars.colors.palette.primary.default : ""}
 								/>
 							</Card>
 						</div>
@@ -226,17 +226,17 @@ export default function SettingButton() {
 							<Card
 								onClick={() => setThemeLayout(ThemeLayout.Vertical)}
 								className={cn(
-									themeLayout === ThemeLayout.Vertical ? 'border border-primary' : '',
-									'h-16 cursor-pointer',
+									themeLayout === ThemeLayout.Vertical ? "border border-primary" : "",
+									"h-16 cursor-pointer",
 								)}
 								style={{ flexGrow: 1, flexShrink: 0 }}
 								styles={{
 									body: {
 										padding: 0,
-										display: 'flex',
-										justifyContent: 'center',
-										alignItems: 'center',
-										height: '100%',
+										display: "flex",
+										justifyContent: "center",
+										alignItems: "center",
+										height: "100%",
 									},
 								}}
 							>
@@ -272,18 +272,18 @@ export default function SettingButton() {
 							<Card
 								onClick={() => setThemeLayout(ThemeLayout.Horizontal)}
 								className={cn(
-									themeLayout === ThemeLayout.Horizontal ? 'border border-primary' : '',
-									'h-16 cursor-pointer',
+									themeLayout === ThemeLayout.Horizontal ? "border border-primary" : "",
+									"h-16 cursor-pointer",
 								)}
 								style={{ flexGrow: 1, flexShrink: 0 }}
 								styles={{
 									body: {
 										padding: 0,
-										display: 'flex',
-										flexDirection: 'column',
-										justifyContent: 'center',
-										alignItems: 'center',
-										height: '100%',
+										display: "flex",
+										flexDirection: "column",
+										justifyContent: "center",
+										alignItems: "center",
+										height: "100%",
 									},
 								}}
 							>
@@ -318,15 +318,15 @@ export default function SettingButton() {
 							</Card>
 							<Card
 								onClick={() => setThemeLayout(ThemeLayout.Mini)}
-								className={cn(themeLayout === ThemeLayout.Mini ? 'border border-primary' : '', 'h-16 cursor-pointer')}
+								className={cn(themeLayout === ThemeLayout.Mini ? "border border-primary" : "", "h-16 cursor-pointer")}
 								style={{ flexGrow: 1, flexShrink: 0 }}
 								styles={{
 									body: {
 										padding: 0,
-										display: 'flex',
-										justifyContent: 'center',
-										alignItems: 'center',
-										height: '100%',
+										display: "flex",
+										justifyContent: "center",
+										alignItems: "center",
+										height: "100%",
 									},
 								}}
 							>
@@ -368,11 +368,11 @@ export default function SettingButton() {
 							className="flex h-20 w-full cursor-pointer items-center justify-center"
 							styles={{
 								body: {
-									width: '50%',
+									width: "50%",
 									padding: 0,
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center',
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
 								},
 							}}
 						>
@@ -381,7 +381,7 @@ export default function SettingButton() {
 									className="flex w-full items-center justify-between"
 									style={{
 										color: themeVars.colors.palette.primary.default,
-										transition: 'width 300ms 0ms',
+										transition: "width 300ms 0ms",
 									}}
 								>
 									<LeftOutlined />
@@ -392,7 +392,7 @@ export default function SettingButton() {
 								<div
 									className="flex w-1/2 items-center justify-between"
 									style={{
-										transition: 'width 300ms 0ms',
+										transition: "width 300ms 0ms",
 									}}
 								>
 									<RightOutlined />
@@ -411,11 +411,11 @@ export default function SettingButton() {
 								<Card
 									key={preset}
 									className={cn(
-										'flex h-12 w-full cursor-pointer items-center justify-center',
-										themeColorPresets === preset ? 'border border-primary' : '',
+										"flex h-12 w-full cursor-pointer items-center justify-center",
+										themeColorPresets === preset ? "border border-primary" : "",
 									)}
 									style={{
-										backgroundColor: themeColorPresets === preset ? `${color}14` : '',
+										backgroundColor: themeColorPresets === preset ? `${color}14` : "",
 									}}
 									onClick={() => setThemeColorPresets(preset as ThemeColorPresets)}
 								>
@@ -441,15 +441,15 @@ export default function SettingButton() {
 								<Card
 									key={font}
 									className={cn(
-										'flex h-20 w-full cursor-pointer items-center justify-center',
-										fontFamily === family ? 'border border-primary' : '',
+										"flex h-20 w-full cursor-pointer items-center justify-center",
+										fontFamily === family ? "border border-primary" : "",
 									)}
 									onClick={() => setFontFamily(family)}
 								>
 									<div
 										className={cn(
-											fontFamily === family ? 'text-primary font-medium' : 'text-text-disabled',
-											'text-center text-lg',
+											fontFamily === family ? "text-primary font-medium" : "text-text-disabled",
+											"text-center text-lg",
 										)}
 									>
 										<span>A</span>
@@ -457,11 +457,11 @@ export default function SettingButton() {
 									</div>
 									<span
 										className={cn(
-											fontFamily === family ? 'text-text-primary font-medium' : 'text-text-disabled',
-											'text-sm',
+											fontFamily === family ? "text-text-primary font-medium" : "text-text-disabled",
+											"text-sm",
 										)}
 									>
-										{family.replace('Variable', '')}
+										{family.replace("Variable", "")}
 									</span>
 								</Card>
 							))}

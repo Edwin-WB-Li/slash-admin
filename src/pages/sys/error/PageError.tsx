@@ -1,15 +1,15 @@
-import type { FallbackProps } from 'react-error-boundary';
+import type { FallbackProps } from "react-error-boundary";
 
-import { Typography } from 'antd';
-import { m } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
+import { Typography } from "antd";
+import { m } from "framer-motion";
+import { Helmet } from "react-helmet-async";
 
-import Character5 from '@/assets/images/characters/character_5.png';
-import MotionContainer from '@/components/animate/motion-container';
-import { varBounce } from '@/components/animate/variants/bounce';
-import { useRouter } from '@/router/hooks';
+import Character5 from "@/assets/images/characters/character_5.png";
+import MotionContainer from "@/components/animate/motion-container";
+import { varBounce } from "@/components/animate/variants/bounce";
+import { useRouter } from "@/router/hooks";
 
-import { themeVars } from '@/theme/theme.css';
+import { themeVars } from "@/theme/theme.css";
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 

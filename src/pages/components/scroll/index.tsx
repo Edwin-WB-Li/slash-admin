@@ -1,14 +1,14 @@
-import { Tabs, type TabsProps } from 'antd';
+import { Tabs, type TabsProps } from "antd";
 
-import ScrollbarView from './views/scroll-bar';
-import ScrollProgressView from './views/scroll-progress';
+import ScrollbarView from "./views/scroll-bar";
+import ScrollProgressView from "./views/scroll-progress";
 
 export default function ScrollPage() {
-	const TABS: TabsProps['items'] = [
-		{ key: 'scrollbar', label: 'Scrollbar', children: <ScrollbarView /> },
+	const TABS: TabsProps["items"] = [
+		{ key: "scrollbar", label: "Scrollbar", children: <ScrollbarView /> },
 		{
-			key: 'scroll-progress',
-			label: 'ScrollProgress',
+			key: "scroll-progress",
+			label: "ScrollProgress",
 			children: <ScrollProgressView />,
 		},
 	];

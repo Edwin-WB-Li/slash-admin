@@ -1,10 +1,10 @@
-import { faker } from '@faker-js/faker';
-import { Card, Typography } from 'antd';
-import { useScroll } from 'framer-motion';
-import { useRef } from 'react';
+import { faker } from "@faker-js/faker";
+import { Card, Typography } from "antd";
+import { useScroll } from "framer-motion";
+import { useRef } from "react";
 
-import ScrollProgress from '@/components/scroll-progress';
-import { themeVars } from '@/theme/theme.css';
+import ScrollProgress from "@/components/scroll-progress";
+import { themeVars } from "@/theme/theme.css";
 
 const TEXT = faker.lorem.paragraphs({ min: 20, max: 30 });
 export default function ScrollProgressView() {

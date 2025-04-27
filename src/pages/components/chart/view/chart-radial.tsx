@@ -1,6 +1,6 @@
-import Chart from '@/components/chart/chart';
-import useChart from '@/components/chart/useChart';
-import { fNumber } from '@/utils/format-number';
+import Chart from "@/components/chart/chart";
+import useChart from "@/components/chart/useChart";
+import { fNumber } from "@/utils/format-number";
 
 const series = [44, 55];
 export default function ChartRadial() {
@@ -10,16 +10,16 @@ export default function ChartRadial() {
 				enabled: true,
 			},
 		},
-		labels: ['Apples', 'Oranges'],
+		labels: ["Apples", "Oranges"],
 		legend: {
 			floating: true,
-			position: 'bottom',
-			horizontalAlign: 'center',
+			position: "bottom",
+			horizontalAlign: "center",
 		},
 		plotOptions: {
 			radialBar: {
 				hollow: {
-					size: '68%',
+					size: "68%",
 				},
 				dataLabels: {
 					value: {

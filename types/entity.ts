@@ -31,12 +31,14 @@ export interface Permission {
 	name: string;
 	label: string;
 	type: PermissionType;
-	route: string;
+	route?: string;
+	path?: string;
 	status?: BasicStatus;
 	order?: number;
 	icon?: string;
 	component?: string;
 	hide?: boolean;
+	disabled?: boolean;
 	hideTab?: boolean;
 	frameSrc?: URL;
 	newFeature?: boolean;

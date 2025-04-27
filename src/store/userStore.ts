@@ -1,14 +1,15 @@
-import type { LoginParams, MenuOptions, UserInfoType } from '@/api/types';
+import type { LoginParams, MenuOptions, UserInfoType } from "@/api/types";
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
 // import { useNavigate } from 'react-router';
-import { toast } from 'sonner';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import { toast } from "sonner";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-import userService from '@/api/services/userService';
-import { t } from '@/locales/i18n';
-import { StorageEnum } from '#/enum';
+import roleService from "@/api/services/roleService";
+import userService from "@/api/services/userService";
+import { t } from "@/locales/i18n";
+import { StorageEnum } from "#/enum";
 // const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 type UserStore = {
@@ -28,7 +29,7 @@ const useUserStore = create<UserStore>()(
 	persist(
 		(set) => ({
 			userInfo: {},
-			userToken: '',
+			userToken: "",
 			userMenus: [],
 			actions: {
 				setUserInfo: (userInfo) => set({ userInfo }),
@@ -39,12 +40,12 @@ const useUserStore = create<UserStore>()(
 					set({ userMenus });
 				},
 				clearUserInfoAndToken() {
-					set({ userInfo: {}, userToken: '', userMenus: [] });
+					set({ userInfo: {}, userToken: "", userMenus: [] });
 				},
 			},
 		}),
 		{
-			name: 'userStore', // name of the item in the storage (must be unique)
+			name: "userStore", // name of the item in the storage (must be unique)
 			storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
 			partialize: (state) => ({
 				[StorageEnum.UserInfo]: state.userInfo,
@@ -75,12 +76,13 @@ export const useLogin = () => {
 			const { token, userInfo } = res;
 			setUserToken(token);
 			setUserInfo(userInfo);
-			toast.success(t('sys.login.loginSuccess') || 'login success!', {
-				position: 'top-center',
+			toast.success(t("sys.login.loginSuccess") || "login success!", {
+				position: "top-center",
 			});
+			return res;
 			// navigatge(HOMEPAGE, { replace: true });
 		} catch (err) {
-			throw new Error(err || t('sys.api.apiRequestFailed'));
+			throw new Error(err || t("sys.api.apiRequestFailed"));
 		}
 	};
 	return login;
@@ -89,23 +91,39 @@ export const useLogin = () => {
 /**
  * @description 获取菜单列表
  */
+// export const useMenus = () => {
+// 	const { setUserMenus } = useUserActions();
+// 	// const navigate = useNavigate();
+
+// 	const getMenusMutation = useMutation({
+// 		mutationFn: userService.getMenus,
+// 	});
+// 	const getMenus = async () => {
+// 		try {
+// 			const data = await getMenusMutation.mutateAsync();
+// 			if (data) {
+// 				setUserMenus(data);
+// 			}
+// 			// navigate(HOMEPAGE, { replace: true });
+// 		} catch (err) {
+// 			throw new Error(err || t("sys.api.apiRequestFailed"));
+// 		}
+// 	};
+// 	return getMenus;
+// };
+
 export const useMenus = () => {
 	const { setUserMenus } = useUserActions();
-	// const navigate = useNavigate();
-
-	const getMenusMutation = useMutation({
-		mutationFn: userService.getMenus,
-	});
-	const getMenus = async () => {
+	const getMenus = async (roleId: number) => {
 		try {
-			const res = await getMenusMutation.mutateAsync();
-			if (res) {
-				setUserMenus(res);
+			const data = await roleService.getRoleMenusByRoleId(roleId);
+			if (data) {
+				setUserMenus(data);
 			}
-			console.log('--->2');
+			return data;
 			// navigate(HOMEPAGE, { replace: true });
 		} catch (err) {
-			throw new Error(err || t('sys.api.apiRequestFailed'));
+			throw new Error(err || t("sys.api.apiRequestFailed"));
 		}
 	};
 	return getMenus;

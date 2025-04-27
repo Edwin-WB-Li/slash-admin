@@ -1,9 +1,9 @@
-import type { WeathersResponseType } from '@/api/types';
+import type { WeathersResponseType } from "@/api/types";
 
-import http from '../apiClient';
+import http from "../apiClient";
 
 export enum WeathersApi {
-	weathers = '/weathers/getWeathersByIp',
+	weathers = "/weathers/getWeathersByIp",
 }
 
 const getWeathers = () => http.get<WeathersResponseType[]>({ url: WeathersApi.weathers });

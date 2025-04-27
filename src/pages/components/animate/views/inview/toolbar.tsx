@@ -1,5 +1,5 @@
-import { ReloadOutlined } from '@ant-design/icons';
-import { Switch } from 'antd';
+import { ReloadOutlined } from "@ant-design/icons";
+import { Switch } from "antd";
 
 type Props = {
 	isText: boolean;
