@@ -2,8 +2,7 @@ import type { MenuOptions } from "@/api/types";
 import type { TableColumnsType } from "antd";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Card, Popconfirm, Tag } from "antd";
-import Table from "antd/es/table";
+import { Button, Card, Popconfirm, Table, Tag } from "antd";
 import { isNil } from "ramda";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,6 +11,7 @@ import { toast } from "sonner";
 import { menuService } from "@/api/services";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import { menusOrderFilter } from "@/router/utils";
+import { useMenus, useUserInfo } from "@/store/userStore";
 import { BasicStatus, PermissionType } from "#/enum";
 import PermissionModal from "./permission-modal";
 
@@ -36,6 +36,8 @@ export default function PermissionPage() {
 	const [formValue, setFormValue] = useState<MenuOptions>(DEFAULE_PERMISSION_VALUE);
 	const [showPermissionModal, setShowPermissionModal] = useState(false);
 	const queryClient = useQueryClient();
+	const featchMenus = useMenus();
+	const userInfo = useUserInfo();
 	/**
 	 * @description Columns
 	 */
@@ -43,19 +45,25 @@ export default function PermissionPage() {
 		{
 			title: "Name",
 			dataIndex: "name",
-			width: 300,
+			width: 250,
+			fixed: "left",
 			render: (_, record) => <div>{t(record.label)}</div>,
 		},
 		{
 			title: "Type",
 			dataIndex: "type",
 			width: 60,
-			render: (_, record) => <Tag color="processing">{PermissionType[record.type]}</Tag>,
+			render: (type) => <Tag color="processing">{PermissionType[type]}</Tag>,
+		},
+		{
+			title: "Path",
+			dataIndex: "path",
+			width: 80,
 		},
 		{
 			title: "Icon",
 			dataIndex: "icon",
-			width: 60,
+			width: 80,
 			render: (icon: string) => {
 				if (isNil(icon)) return "";
 				if (icon.startsWith("ic")) {
@@ -69,10 +77,25 @@ export default function PermissionPage() {
 			dataIndex: "component",
 		},
 		{
+			title: "Menu",
+			dataIndex: "hideMenu",
+			render: (data) => <Tag color={data ? "error" : "success"}>{data ? "Hide" : "Show"}</Tag>,
+		},
+		{
+			title: "Tab",
+			dataIndex: "hideTab",
+			render: (data) => <Tag color={data ? "error" : "success"}>{data ? "Hide" : "Show"}</Tag>,
+		},
+		{
+			title: "New Tag",
+			dataIndex: "newFeature",
+			render: (data) => <Tag color={data ? "success" : "error"}>{data ? "Show" : "Hide"}</Tag>,
+		},
+		{
 			title: "Status",
 			dataIndex: "disabled",
 			align: "center",
-			width: 120,
+			width: 100,
 			render: (status) => (
 				<Tag color={status === !BasicStatus.DISABLE ? "error" : "success"}>
 					{status === BasicStatus.DISABLE ? "Disable" : "Enable"}
@@ -84,16 +107,15 @@ export default function PermissionPage() {
 			title: "Action",
 			key: "operation",
 			align: "center",
+			fixed: "right",
 			width: 100,
 			render: (_, record) => (
 				<div className="flex w-full justify-end text-gray">
 					{record?.type === PermissionType.CATALOGUE && (
-						// <IconButton onClick={() => onCreate(record.id)}>
 						<IconButton onClick={() => handleCreatedOrEdit("Create", record)}>
 							<Iconify icon="gridicons:add-outline" size={18} />
 						</IconButton>
 					)}
-					{/* <IconButton onClick={() => onEdit(record)}> */}
 					<IconButton onClick={() => handleCreatedOrEdit("Edit", record)}>
 						<Iconify icon="solar:pen-bold-duotone" size={18} />
 					</IconButton>
@@ -130,13 +152,14 @@ export default function PermissionPage() {
 			const server = title === "Edit" ? menuService.editMenus(params) : menuService.createMenus(params);
 			return await server;
 		},
-		onSuccess: (data) => {
+		onSuccess: async (data) => {
 			// 成功回调
 			if (data) {
 				toast.success(`${title} Success`, {
 					position: "top-center",
 				});
 				queryClient.invalidateQueries({ queryKey: ["allPermissions"] }); // 刷新表格数据
+				await featchMenus(userInfo?.roleId as number);
 				setShowPermissionModal(false);
 			}
 		},

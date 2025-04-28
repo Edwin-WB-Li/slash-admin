@@ -3,15 +3,14 @@ import type { TableColumnsType } from "antd";
 import type { RoleModalRef } from "./role-modal";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Card, Popconfirm, Tag } from "antd";
-import Table from "antd/es/table";
+import { Button, Card, Popconfirm, Table, Tag } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { menuService, roleService } from "@/api/services";
 import { IconButton, Iconify } from "@/components/icon";
-// import { t } from "i18next";
+import { useMenus, useUserInfo } from "@/store/userStore";
 import { processPermissions } from "@/utils";
 import { StatusEnum } from "#/enum";
 import { RoleModal } from "./role-modal";
@@ -94,7 +93,8 @@ export default function RoleListPage() {
 	const roleModalRef = useRef<RoleModalRef>(null);
 	const queryClient = useQueryClient();
 	const [defaultCheckedKeys, setDefaultCheckedKeys] = useState<React.Key[]>([]);
-
+	const featchMenus = useMenus();
+	const userInfo = useUserInfo();
 	/**
 	 * @description 获取角色列表
 	 */
@@ -142,10 +142,11 @@ export default function RoleListPage() {
 		onSuccess: (data) => {
 			// 成功回调
 			if (data) {
-				toast.success(`${title} Success`, {
-					position: "top-center",
-				});
+				// toast.success(`${title} Success`, {
+				// 	position: "top-center",
+				// });
 				queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
+				// 刷新菜单
 			}
 		},
 	});
@@ -174,13 +175,14 @@ export default function RoleListPage() {
 		mutationFn: async (params: AssignMenusToRoleParamsType) => {
 			return await roleService.assignMenusToRole(params);
 		},
-		onSuccess: (data) => {
+		onSuccess: async (data) => {
 			// 成功回调
 			if (data) {
-				toast.success("Assign Success", {
-					position: "top-center",
-				});
-				// queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
+				// toast.success("Assign Success", {
+				// 	position: "top-center",
+				// });
+				queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
+				await featchMenus(userInfo?.roleId as number);
 			}
 		},
 	});
@@ -230,20 +232,29 @@ export default function RoleListPage() {
 	const handleSumbit = (value: RoleListType | number[], permissions?: number[]) => {
 		console.log("提交", value, permissions);
 		// 先保存角色
-		createOrEditRoleMutation
-			.mutateAsync(value as RoleListType)
-			.then((role) => {
-				console.log("createOrEditRole", role);
-				if (!role) return;
-				// 角色创建成功后再分配权限
-				return AssignMenusToRoleMutation.mutateAsync({
-					roleId: role?.id as number, // 创建时用新角色id，编辑时用当前角色id
-					menuIds: (permissions as number[]) ?? [],
-				});
-			})
-			.then(() => {
-				setShowPermissionModal(false);
+		const promise = createOrEditRoleMutation.mutateAsync(value as RoleListType).then((role) => {
+			console.log("createOrEditRole", role);
+			if (!role) return;
+			// 角色创建成功后再分配权限
+			return AssignMenusToRoleMutation.mutateAsync({
+				roleId: role?.id as number, // 创建时用新角色id，编辑时用当前角色id
+				menuIds: (permissions as number[]) ?? [],
 			});
+		});
+		// .then(() => {
+		// 	setShowPermissionModal(false);
+		// });
+
+		toast.promise(promise, {
+			position: "top-center",
+			loading: `${title}...`,
+			success: `${title} Success`,
+			error: `${title} Error`,
+		});
+
+		promise.then(() => {
+			setShowPermissionModal(false);
+		});
 
 		// Promise.all([
 		// 	createOrEditRoleMutation.mutateAsync(value as RoleListType),
@@ -260,12 +271,6 @@ export default function RoleListPage() {
 		// 		// 有一个失败
 		// 	});
 	};
-
-	// 关闭弹窗时调用
-	// const handleCloseModal = () => {
-	// 	// roleModalRef.current?.resetFields();
-	// 	setShowPermissionModal(false);
-	// };
 
 	return (
 		<Card

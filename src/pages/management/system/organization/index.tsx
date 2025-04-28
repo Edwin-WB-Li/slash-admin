@@ -1,7 +1,21 @@
-// import { useQuery } from "@tanstack/react-query";
-import { Button, Card, Col, Form, Input, InputNumber, Modal, Popconfirm, Radio, Row, Select, Space, Tag } from "antd";
-import Table, { type ColumnsType } from "antd/es/table";
-import type { TableRowSelection } from "antd/es/table/interface";
+import type { TableColumnsType, TableProps } from "antd";
+
+import {
+	Button,
+	Card,
+	Col,
+	Form,
+	Input,
+	InputNumber,
+	Modal,
+	Popconfirm,
+	Radio,
+	Row,
+	Select,
+	Space,
+	Table,
+	Tag,
+} from "antd";
 import { useEffect, useState } from "react";
 
 // import orgService from "@/api/services/orgService";
@@ -31,7 +45,7 @@ export default function OrganizationPage() {
 		},
 	});
 
-	const columns: ColumnsType<Organization> = [
+	const columns: TableColumnsType<Organization> = [
 		{ title: "Name", dataIndex: "name", width: 300 },
 		{ title: "Order", dataIndex: "order", align: "center", width: 60 },
 		{
@@ -63,7 +77,7 @@ export default function OrganizationPage() {
 	];
 
 	// rowSelection objects indicates the need for row selection
-	const rowSelection: TableRowSelection<Organization> = {
+	const rowSelection: TableProps<Organization>["rowSelection"] = {
 		onChange: (selectedRowKeys, selectedRows) => {
 			console.log(`selectedRowKeys: ${selectedRowKeys}`, "selectedRows: ", selectedRows);
 		},

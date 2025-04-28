@@ -1,8 +1,6 @@
-import type { MenuProps } from "antd";
-import type { DropdownProps } from "antd/es/dropdown/dropdown";
+import type { DropdownProps, MenuProps } from "antd";
 
-import { Divider } from "antd";
-import Dropdown from "antd/es/dropdown/dropdown";
+import { Divider, Dropdown } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
@@ -12,8 +10,6 @@ import { useLoginStateContext } from "@/pages/sys/login/providers/LoginStateProv
 import { useRouter } from "@/router/hooks";
 import { useUserActions, useUserInfo } from "@/store/userStore";
 import { useTheme } from "@/theme/hooks";
-
-// const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 /**
  * Account Dropdown
@@ -68,10 +64,6 @@ export default function AccountDropdown() {
 			),
 			key: "0",
 		},
-		// {
-		//   label: <NavLink to={HOMEPAGE}>{t("sys.menu.dashboard")}</NavLink>,
-		//   key: "1",
-		// },
 		{
 			label: <NavLink to="/management/user/profile">{t("sys.menu.user.profile")}</NavLink>,
 			key: "2",

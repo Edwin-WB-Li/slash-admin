@@ -76,13 +76,13 @@ export const useLogin = () => {
 			const { token, userInfo } = res;
 			setUserToken(token);
 			setUserInfo(userInfo);
-			toast.success(t("sys.login.loginSuccess") || "login success!", {
+			toast.success(t("sys.login.loginSuccess") ?? "login success!", {
 				position: "top-center",
 			});
 			return res;
 			// navigatge(HOMEPAGE, { replace: true });
 		} catch (err) {
-			throw new Error(err || t("sys.api.apiRequestFailed"));
+			throw new Error(err ?? t("sys.api.apiRequestFailed"));
 		}
 	};
 	return login;
@@ -121,9 +121,8 @@ export const useMenus = () => {
 				setUserMenus(data);
 			}
 			return data;
-			// navigate(HOMEPAGE, { replace: true });
 		} catch (err) {
-			throw new Error(err || t("sys.api.apiRequestFailed"));
+			throw new Error(err ?? t("sys.api.apiRequestFailed"));
 		}
 	};
 	return getMenus;

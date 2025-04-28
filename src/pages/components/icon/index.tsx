@@ -11,6 +11,7 @@ export default function IconPage() {
 				<span className="mr-1">For more info</span>
 				<Typography.Link
 					href="https://ant.design/components/icon-cn"
+					target="_blank"
 					style={{ color: themeVars.colors.palette.primary.default }}
 				>
 					click here
@@ -27,7 +28,11 @@ export default function IconPage() {
 			</Card>
 			<Card title="Iconify Icons">
 				<span className="mr-1">Simply beautiful open source icons. For more info</span>
-				<Typography.Link href="https://iconify.design/" style={{ color: themeVars.colors.palette.primary.default }}>
+				<Typography.Link
+					href="https://iconify.design/"
+					style={{ color: themeVars.colors.palette.primary.default }}
+					target="_blank"
+				>
 					click here
 				</Typography.Link>
 
@@ -68,6 +73,7 @@ export default function IconPage() {
 				<Typography.Link
 					href="https://github.com/vbenjs/vite-plugin-svg-icons"
 					style={{ color: themeVars.colors.palette.primary.default }}
+					target="_blank"
 				>
 					click here
 				</Typography.Link>

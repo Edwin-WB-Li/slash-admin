@@ -1,15 +1,16 @@
 import type { UploadProps } from "antd";
-import Dragger from "antd/es/upload/Dragger";
 import type { ReactElement } from "react";
-
-import { Iconify } from "../icon";
-
-import { StyledUploadBox } from "./styles";
-
 interface Props extends UploadProps {
 	placeholder?: ReactElement;
 }
+
+import { Upload } from "antd";
+
+import { Iconify } from "../icon";
+import { StyledUploadBox } from "./styles";
+
 export function UploadBox({ placeholder, ...other }: Props) {
+	const { Dragger } = Upload;
 	return (
 		<StyledUploadBox>
 			<Dragger {...other} showUploadList={false}>
