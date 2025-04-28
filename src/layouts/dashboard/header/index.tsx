@@ -8,18 +8,18 @@ import weathersService from "@/api/services/weathersService";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import LocalePicker from "@/components/locale-picker";
 import Logo from "@/components/logo";
+import AccountDropdown from "@/layouts/components/account-dropdown";
+import BreadCrumb from "@/layouts/components/bread-crumb";
+import NoticeButton from "@/layouts/components/notice";
+import SearchBar from "@/layouts/components/search-bar";
+import SettingButton from "@/layouts/components/setting-button";
+import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "@/layouts/dashboard/config";
+import NavVertical from "@/layouts/dashboard/nav/nav-vertical";
 import { useSettings } from "@/store/settingStore";
 import { themeVars } from "@/theme/theme.css";
 import { cn } from "@/utils";
 import { rgbAlpha } from "@/utils/theme";
 import { ThemeLayout } from "#/enum";
-import AccountDropdown from "../components/account-dropdown";
-import BreadCrumb from "../components/bread-crumb";
-import NoticeButton from "../components/notice";
-import SearchBar from "../components/search-bar";
-import SettingButton from "../components/setting-button";
-import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "./config";
-import NavVertical from "./nav/nav-vertical";
 
 export default function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
