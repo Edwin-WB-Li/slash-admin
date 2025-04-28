@@ -7,9 +7,9 @@ import { useSettings } from "@/store/settingStore";
 import { themeVars } from "@/theme/theme.css";
 import { cn } from "@/utils";
 import { ThemeLayout } from "#/enum";
-import { MULTI_TABS_HEIGHT } from "./config";
-import MultiTabs from "./multi-tabs";
-import { MultiTabsProvider } from "./multi-tabs/providers/multi-tabs-provider";
+import { MULTI_TABS_HEIGHT } from "../config";
+import MultiTabs from "../multi-tabs";
+import { MultiTabsProvider } from "../multi-tabs/providers/multi-tabs-provider";
 const Main = () => {
 	const { Content } = Layout;
 	const { themeStretch, themeLayout, multiTab } = useSettings();

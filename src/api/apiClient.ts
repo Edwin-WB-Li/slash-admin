@@ -1,20 +1,15 @@
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import type { ResultData } from "#/api";
+import type { ResultData } from "./types";
 
 import axios from "axios";
 import { toast } from "sonner";
 
 import { t } from "@/locales/i18n";
 import userStore from "@/store/userStore";
-
 import { isProd } from "@/utils";
 
-// import { useRouter } from '@/router/hooks';
-// import { ResultEnum } from '#/enum';
-// const router = useRouter();
 const { VITE_API_PROD_BASE_URL, VITE_API_VERSIONS, VITE_PORT, VITE_API_DEV_BASE_URL } = import.meta
 	.env as ImportMetaEnv;
-// const isProd = MODE === "production";
 const baseURL = isProd()
 	? `${VITE_API_PROD_BASE_URL}${VITE_API_VERSIONS}`
 	: `${VITE_API_DEV_BASE_URL}:${VITE_PORT}${VITE_API_VERSIONS}`;
@@ -38,9 +33,8 @@ axiosInstance.interceptors.request.use(
 	(error) => {
 		// 请求错误时做些什么
 		console.log("请求拦截器 erro:", error);
-		// return Promise.reject(error);
-		const { response } = error || {};
-		const errMsg = (response?.data as ResultData)?.message || t("sys.api.errorMessage");
+		const { response } = error ?? {};
+		const errMsg = (response?.data as ResultData)?.message ?? t("sys.api.errorMessage");
 
 		toast.error(errMsg, {
 			position: "top-center",
@@ -61,7 +55,7 @@ axiosInstance.interceptors.response.use(
 		const { code, data, message } = res.data;
 		// 错误处理
 		if (code !== 200) {
-			toast.error(message || t("sys.api.apiRequestFailed"), {
+			toast.error(message ?? t("sys.api.apiRequestFailed"), {
 				position: "top-center",
 			});
 			// token 无效 或者 过期
@@ -69,15 +63,15 @@ axiosInstance.interceptors.response.use(
 				userStore.getState().actions.clearUserInfoAndToken();
 				window.location.href = "/#/login";
 			}
-			throw new Error(message || t("sys.api.apiRequestFailed"));
+			throw new Error(message ?? t("sys.api.apiRequestFailed"));
 		}
 		return data;
 	},
 	(error: AxiosError) => {
 		console.log("响应拦截器 error:", error);
 
-		const { response } = error || {};
-		const errMsg = (response?.data as ResultData)?.message || t("sys.api.errorMessage");
+		const { response } = error ?? {};
+		const errMsg = (response?.data as ResultData)?.message ?? t("sys.api.errorMessage");
 
 		toast.error(errMsg, {
 			position: "top-center",

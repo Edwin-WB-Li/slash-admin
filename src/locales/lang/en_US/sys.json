@@ -135,7 +135,7 @@
 					}
 				}
 			},
-			"disabled": "Item Disabled",
+			"disabled": "Menu Disabled",
 			"label": "Item Label",
 			"frame": "Item External",
 			"external_link": "External Link",

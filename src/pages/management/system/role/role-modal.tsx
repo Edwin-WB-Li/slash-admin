@@ -103,7 +103,7 @@ export const RoleModal = forwardRef<RoleModalRef, RoleModalProps>(function RoleM
 	}
 
 	return (
-		<Modal title={title} open={show} onOk={handleSumbit} onCancel={onCancel} destroyOnClose>
+		<Modal title={title} open={show} onOk={handleSumbit} onCancel={onCancel} destroyOnClose forceRender>
 			<Form
 				// initialValues={formValue}
 				form={form}

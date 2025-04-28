@@ -11,20 +11,6 @@ export interface ResultData<T = any> extends Result {
 	data?: T;
 }
 
-// * 分页响应参数
-export interface ResPage<T> {
-	datalist: T[];
-	pageNum: number;
-	pageSize: number;
-	total: number;
-}
-
-// * 分页请求参数
-export interface ReqPage {
-	pageNum: number;
-	pageSize: number;
-}
-
 // 定义一个接口来描述 data 的结构
 export interface ResponseData<T> {
 	code: number;
@@ -80,10 +66,6 @@ export interface UserListResponse {
 	total: number;
 	page?: number;
 	pageSize: number;
-}
-
-export interface ResAuthButtons {
-	[propName: string]: any;
 }
 
 export interface MenuOptions {

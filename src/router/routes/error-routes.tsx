@@ -6,7 +6,7 @@ import { Outlet } from "react-router";
 import { CircleLoading } from "@/components/loading";
 import SimpleLayout from "@/layouts/simple";
 
-import ProtectedRoute from "../components/protected-route";
+import ProtectedRoute from "@/router/protected-route";
 
 const Page403 = lazy(() => import("@/pages/sys/error/Page403"));
 const Page404 = lazy(() => import("@/pages/sys/error/Page404"));
