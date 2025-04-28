@@ -1,7 +1,6 @@
 import type { LoginParams, MenuOptions, UserInfoType } from "@/api/types";
 
 import { useMutation } from "@tanstack/react-query";
-// import { useNavigate } from 'react-router';
 import { toast } from "sonner";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
@@ -10,7 +9,6 @@ import roleService from "@/api/services/roleService";
 import userService from "@/api/services/userService";
 import { t } from "@/locales/i18n";
 import { StorageEnum } from "#/enum";
-// const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 type UserStore = {
 	userInfo: Partial<UserInfoType>;
@@ -65,7 +63,6 @@ export const useUserActions = () => useUserStore((state) => state.actions);
  * @description 登录
  */
 export const useLogin = () => {
-	// const navigatge = useNavigate();
 	const { setUserToken, setUserInfo } = useUserActions();
 	const loginMutation = useMutation({
 		mutationFn: userService.login,
@@ -80,7 +77,6 @@ export const useLogin = () => {
 				position: "top-center",
 			});
 			return res;
-			// navigatge(HOMEPAGE, { replace: true });
 		} catch (err) {
 			throw new Error(err ?? t("sys.api.apiRequestFailed"));
 		}
