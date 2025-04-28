@@ -1,11 +1,11 @@
+import type { MenuProps } from "antd";
+import type { LocalEnum } from "#/enum";
+
 import { Dropdown } from "antd";
 
 import useLocale, { LANGUAGE_MAP } from "@/locales/use-locale";
 
 import { IconButton, SvgIcon } from "../icon";
-
-import type { MenuProps } from "antd";
-import type { LocalEnum } from "#/enum";
 
 type Locale = keyof typeof LocalEnum;
 

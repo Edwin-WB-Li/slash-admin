@@ -142,9 +142,9 @@ export default function RoleListPage() {
 		onSuccess: (data) => {
 			// 成功回调
 			if (data) {
-				toast.success(`${title} Success`, {
-					position: "top-center",
-				});
+				// toast.success(`${title} Success`, {
+				// 	position: "top-center",
+				// });
 				queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
 			}
 		},
@@ -177,10 +177,10 @@ export default function RoleListPage() {
 		onSuccess: (data) => {
 			// 成功回调
 			if (data) {
-				toast.success("Assign Success", {
-					position: "top-center",
-				});
-				// queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
+				// toast.success("Assign Success", {
+				// 	position: "top-center",
+				// });
+				queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
 			}
 		},
 	});
@@ -230,20 +230,29 @@ export default function RoleListPage() {
 	const handleSumbit = (value: RoleListType | number[], permissions?: number[]) => {
 		console.log("提交", value, permissions);
 		// 先保存角色
-		createOrEditRoleMutation
-			.mutateAsync(value as RoleListType)
-			.then((role) => {
-				console.log("createOrEditRole", role);
-				if (!role) return;
-				// 角色创建成功后再分配权限
-				return AssignMenusToRoleMutation.mutateAsync({
-					roleId: role?.id as number, // 创建时用新角色id，编辑时用当前角色id
-					menuIds: (permissions as number[]) ?? [],
-				});
-			})
-			.then(() => {
-				setShowPermissionModal(false);
+		const promise = createOrEditRoleMutation.mutateAsync(value as RoleListType).then((role) => {
+			console.log("createOrEditRole", role);
+			if (!role) return;
+			// 角色创建成功后再分配权限
+			return AssignMenusToRoleMutation.mutateAsync({
+				roleId: role?.id as number, // 创建时用新角色id，编辑时用当前角色id
+				menuIds: (permissions as number[]) ?? [],
 			});
+		});
+		// .then(() => {
+		// 	setShowPermissionModal(false);
+		// });
+
+		toast.promise(promise, {
+			position: "top-center",
+			loading: `${title}...`,
+			success: `${title} Success`,
+			error: `${title} Error`,
+		});
+
+		promise.then(() => {
+			setShowPermissionModal(false);
+		});
 
 		// Promise.all([
 		// 	createOrEditRoleMutation.mutateAsync(value as RoleListType),
@@ -260,12 +269,6 @@ export default function RoleListPage() {
 		// 		// 有一个失败
 		// 	});
 	};
-
-	// 关闭弹窗时调用
-	// const handleCloseModal = () => {
-	// 	// roleModalRef.current?.resetFields();
-	// 	setShowPermissionModal(false);
-	// };
 
 	return (
 		<Card

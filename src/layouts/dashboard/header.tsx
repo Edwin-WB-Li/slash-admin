@@ -1,16 +1,14 @@
-// import type { WeathersResponseType } from "@/api/types";
 import type { CSSProperties } from "react";
 
-import { Drawer } from "antd";
+import { useQuery } from "@tanstack/react-query";
+import { Drawer, Spin } from "antd";
 import { useState } from "react";
-// import { useQuery } from "@tanstack/react-query";
 
+import weathersService from "@/api/services/weathersService";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import LocalePicker from "@/components/locale-picker";
 import Logo from "@/components/logo";
 import { useSettings } from "@/store/settingStore";
-
-// import weathersService from "@/api/services/weathersService";
 import { themeVars } from "@/theme/theme.css";
 import { cn } from "@/utils";
 import { rgbAlpha } from "@/utils/theme";
@@ -22,24 +20,21 @@ import SearchBar from "../components/search-bar";
 import SettingButton from "../components/setting-button";
 import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "./config";
 import NavVertical from "./nav/nav-vertical";
+
 export default function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
-	// const [weathersData, setWeathersData] = useState<WeathersResponseType>();
 	const { themeLayout, breadCrumb } = useSettings();
 
-	// const { data } = useQuery({
-	//   queryKey: ["weathers"],
-	//   queryFn: weathersService.getWeathers,
-	//   // initialData: () => queryClient.getQueryData(["weathers"]),
-	//   staleTime: 60 * 1000, // 1分钟内使用缓存数据
-	//   gcTime: 5 * 60 * 1000, // 5分钟后清除内存缓存
-	//   // 优先使用已有缓存
-	// });
-	// console.log(data);
-	// if (data) {
-	// console.log(data[0]);
-	// setWeathersData(data[0]);
-	// }
+	const { data, isPending } = useQuery({
+		queryKey: ["weathersData"],
+		queryFn: async () => {
+			const res = await weathersService.getWeathers();
+			// 保证返回值不是 undefined
+			return res[0] ?? [];
+		},
+		staleTime: 1000 * 60 * 10, // 10分钟内不重新请求
+		refetchOnWindowFocus: false, // 窗口聚焦时不自动请求
+	});
 
 	const headerStyle: CSSProperties = {
 		borderBottom:
@@ -75,6 +70,19 @@ export default function Header() {
 					</div>
 
 					<div className="flex">
+						<Spin spinning={isPending} className="h-full">
+							{data && (
+								<div className="flex justify-center items-center gap-4 h-full mr-2">
+									<span>{data?.province}</span>
+									<span>{data?.city}</span>
+									<span>{data?.weather}</span>
+									<span>{data?.temperature}°</span>
+									<span>{data?.winddirection}风</span>
+									<span>{data?.windpower}级</span>
+									<span>湿度 {data?.humidity} %</span>
+								</div>
+							)}
+						</Spin>
 						<SearchBar />
 						<LocalePicker />
 						<IconButton onClick={() => window.open("https://github.com/d3george/slash-admin")}>
