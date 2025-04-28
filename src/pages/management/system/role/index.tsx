@@ -11,7 +11,7 @@ import { toast } from "sonner";
 
 import { menuService, roleService } from "@/api/services";
 import { IconButton, Iconify } from "@/components/icon";
-// import { t } from "i18next";
+import { useMenus, useUserInfo } from "@/store/userStore";
 import { processPermissions } from "@/utils";
 import { StatusEnum } from "#/enum";
 import { RoleModal } from "./role-modal";
@@ -94,7 +94,8 @@ export default function RoleListPage() {
 	const roleModalRef = useRef<RoleModalRef>(null);
 	const queryClient = useQueryClient();
 	const [defaultCheckedKeys, setDefaultCheckedKeys] = useState<React.Key[]>([]);
-
+	const featchMenus = useMenus();
+	const userInfo = useUserInfo();
 	/**
 	 * @description 获取角色列表
 	 */
@@ -146,6 +147,7 @@ export default function RoleListPage() {
 				// 	position: "top-center",
 				// });
 				queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
+				// 刷新菜单
 			}
 		},
 	});
@@ -174,13 +176,14 @@ export default function RoleListPage() {
 		mutationFn: async (params: AssignMenusToRoleParamsType) => {
 			return await roleService.assignMenusToRole(params);
 		},
-		onSuccess: (data) => {
+		onSuccess: async (data) => {
 			// 成功回调
 			if (data) {
 				// toast.success("Assign Success", {
 				// 	position: "top-center",
 				// });
 				queryClient.invalidateQueries({ queryKey: ["roleList"] }); // 刷新表格数据
+				await featchMenus(userInfo?.roleId as number);
 			}
 		},
 	});

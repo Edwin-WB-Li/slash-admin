@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { menuService } from "@/api/services";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import { menusOrderFilter } from "@/router/utils";
+import { useMenus, useUserInfo } from "@/store/userStore";
 import { BasicStatus, PermissionType } from "#/enum";
 import PermissionModal from "./permission-modal";
 
@@ -36,6 +37,8 @@ export default function PermissionPage() {
 	const [formValue, setFormValue] = useState<MenuOptions>(DEFAULE_PERMISSION_VALUE);
 	const [showPermissionModal, setShowPermissionModal] = useState(false);
 	const queryClient = useQueryClient();
+	const featchMenus = useMenus();
+	const userInfo = useUserInfo();
 	/**
 	 * @description Columns
 	 */
@@ -83,6 +86,11 @@ export default function PermissionPage() {
 			title: "Tab",
 			dataIndex: "hideTab",
 			render: (data) => <Tag color={data ? "error" : "success"}>{data ? "Hide" : "Show"}</Tag>,
+		},
+		{
+			title: "New Tag",
+			dataIndex: "newFeature",
+			render: (data) => <Tag color={data ? "success" : "error"}>{data ? "Show" : "Hide"}</Tag>,
 		},
 		{
 			title: "Status",
@@ -145,13 +153,14 @@ export default function PermissionPage() {
 			const server = title === "Edit" ? menuService.editMenus(params) : menuService.createMenus(params);
 			return await server;
 		},
-		onSuccess: (data) => {
+		onSuccess: async (data) => {
 			// 成功回调
 			if (data) {
 				toast.success(`${title} Success`, {
 					position: "top-center",
 				});
 				queryClient.invalidateQueries({ queryKey: ["allPermissions"] }); // 刷新表格数据
+				await featchMenus(userInfo?.roleId as number);
 				setShowPermissionModal(false);
 			}
 		},
