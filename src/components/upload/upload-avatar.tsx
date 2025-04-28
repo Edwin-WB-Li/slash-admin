@@ -1,8 +1,10 @@
+import type { UploadProps } from "antd";
+
+import { Typography, Upload } from "antd";
+import { useState } from "react";
+
 import { themeVars } from "@/theme/theme.css";
 import { fBytes } from "@/utils/format-number";
-import { Typography, Upload } from "antd";
-import type { UploadChangeParam, UploadFile, UploadProps } from "antd/es/upload";
-import { useState } from "react";
 import { Iconify } from "../icon";
 import { StyledUploadAvatar } from "./styles";
 import { beforeAvatarUpload, getBlobUrl } from "./utils";
@@ -19,7 +21,7 @@ export function UploadAvatar({ helperText, defaultAvatar = "", ...other }: Props
 		setIsHover(hover);
 	};
 
-	const handleChange: UploadProps["onChange"] = (info: UploadChangeParam<UploadFile>) => {
+	const handleChange: UploadProps["onChange"] = (info) => {
 		if (info.file.status === "uploading") {
 			return;
 		}

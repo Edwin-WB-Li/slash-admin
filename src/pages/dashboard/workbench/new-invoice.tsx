@@ -1,5 +1,5 @@
-import { Space, Tag, Typography } from "antd";
-import Table, { type ColumnsType } from "antd/es/table";
+import type { TableColumnsType } from "antd";
+import { Space, Table, Tag, Typography } from "antd";
 
 import Card from "@/components/card";
 import { IconButton, Iconify } from "@/components/icon";
@@ -14,7 +14,7 @@ interface DataType {
 }
 
 export default function NewInvoice() {
-	const columns: ColumnsType<DataType> = [
+	const columns: TableColumnsType<DataType> = [
 		{
 			title: "InvoiceId",
 			dataIndex: "id",

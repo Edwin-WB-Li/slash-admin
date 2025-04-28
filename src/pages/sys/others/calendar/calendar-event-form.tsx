@@ -1,5 +1,5 @@
 import type { EventInput } from "@fullcalendar/core";
-import type { ModalProps } from "antd/es/modal/interface";
+import type { ModalProps } from "antd";
 import type { Dayjs } from "dayjs";
 
 import { faker } from "@faker-js/faker";

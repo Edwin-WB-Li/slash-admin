@@ -1,8 +1,6 @@
-import type { MenuProps } from "antd";
-import type { DropdownProps } from "antd/es/dropdown/dropdown";
+import type { DropdownProps, MenuProps } from "antd";
 
-import { Divider } from "antd";
-import Dropdown from "antd/es/dropdown/dropdown";
+import { Divider, Dropdown } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";

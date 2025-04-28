@@ -1,16 +1,17 @@
 import type { CSSProperties } from "react";
 
+import { Layout } from "antd";
+import { Outlet } from "react-router";
+
 import { useSettings } from "@/store/settingStore";
 import { themeVars } from "@/theme/theme.css";
 import { cn } from "@/utils";
-import { Content } from "antd/es/layout/layout";
-import { Outlet } from "react-router";
 import { ThemeLayout } from "#/enum";
 import { MULTI_TABS_HEIGHT } from "./config";
 import MultiTabs from "./multi-tabs";
 import { MultiTabsProvider } from "./multi-tabs/providers/multi-tabs-provider";
-
 const Main = () => {
+	const { Content } = Layout;
 	const { themeStretch, themeLayout, multiTab } = useSettings();
 
 	const mainStyle: CSSProperties = {

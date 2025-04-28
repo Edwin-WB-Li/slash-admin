@@ -2,8 +2,7 @@ import type { MenuOptions } from "@/api/types";
 import type { TableColumnsType } from "antd";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Card, Popconfirm, Tag } from "antd";
-import Table from "antd/es/table";
+import { Button, Card, Popconfirm, Table, Tag } from "antd";
 import { isNil } from "ramda";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";

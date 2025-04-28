@@ -3,8 +3,7 @@ import type { TableColumnsType } from "antd";
 import type { RoleModalRef } from "./role-modal";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Button, Card, Popconfirm, Tag } from "antd";
-import Table from "antd/es/table";
+import { Button, Card, Popconfirm, Table, Tag } from "antd";
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";

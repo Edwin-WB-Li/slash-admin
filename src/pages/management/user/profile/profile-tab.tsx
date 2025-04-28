@@ -1,6 +1,7 @@
+import type { TableColumnsType } from "antd";
+
 import { faker } from "@faker-js/faker";
 import { Avatar, Col, Progress, Row, Space, Table, Tag, Timeline, Typography } from "antd";
-import type { ColumnsType } from "antd/es/table";
 
 import { fakeAvatars } from "@/_mock/utils";
 import Card from "@/components/card";
@@ -141,7 +142,7 @@ export default function ProfileTab() {
 		return arr;
 	};
 
-	const ProjectColumns: ColumnsType<DataType> = [
+	const ProjectColumns: TableColumnsType<DataType> = [
 		{
 			title: "NAME",
 			dataIndex: "name",

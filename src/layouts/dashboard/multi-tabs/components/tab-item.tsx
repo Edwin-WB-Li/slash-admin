@@ -1,10 +1,10 @@
 import type { MenuProps } from "antd";
 import type { TabItemProps } from "../types";
 
-import { Iconify } from "@/components/icon";
 import { Dropdown } from "antd";
 import { useTranslation } from "react-i18next";
 
+import { Iconify } from "@/components/icon";
 import { MultiTabOperation } from "#/enum";
 import { useTabLabelRender } from "../hooks/use-tab-label-render";
 import { useMultiTabsContext } from "../providers/multi-tabs-provider";

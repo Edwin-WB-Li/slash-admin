@@ -1,9 +1,10 @@
 import type { KeepAliveTab, MultiTabsContextType } from "../types";
 
-import { useCurrentRouteMeta } from "@/router/hooks";
-import { replaceDynamicParams } from "@/router/hooks/use-current-route-meta";
 import { isEmpty } from "ramda";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+
+import { useCurrentRouteMeta } from "@/router/hooks";
+import { replaceDynamicParams } from "@/router/hooks/use-current-route-meta";
 import { useTabOperations } from "../hooks/use-tab-operations";
 
 const MultiTabsContext = createContext<MultiTabsContextType>({

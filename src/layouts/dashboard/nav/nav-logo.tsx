@@ -1,7 +1,8 @@
-import Logo from "@/components/logo";
-import { useSettings } from "@/store/settingStore";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router";
+
+import Logo from "@/components/logo";
+import { useSettings } from "@/store/settingStore";
 import { ThemeLayout } from "#/enum";
 import { HEADER_HEIGHT } from "../config";
 
