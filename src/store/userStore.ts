@@ -91,27 +91,6 @@ export const useLogin = () => {
 /**
  * @description 获取菜单列表
  */
-// export const useMenus = () => {
-// 	const { setUserMenus } = useUserActions();
-// 	// const navigate = useNavigate();
-
-// 	const getMenusMutation = useMutation({
-// 		mutationFn: userService.getMenus,
-// 	});
-// 	const getMenus = async () => {
-// 		try {
-// 			const data = await getMenusMutation.mutateAsync();
-// 			if (data) {
-// 				setUserMenus(data);
-// 			}
-// 			// navigate(HOMEPAGE, { replace: true });
-// 		} catch (err) {
-// 			throw new Error(err || t("sys.api.apiRequestFailed"));
-// 		}
-// 	};
-// 	return getMenus;
-// };
-
 export const useMenus = () => {
 	const { setUserMenus } = useUserActions();
 	const getMenus = async (roleId: number) => {
