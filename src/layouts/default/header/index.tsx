@@ -1,20 +1,22 @@
 import type { CSSProperties } from "react";
 
+import { EnvironmentOutlined } from "@ant-design/icons";
 import { useQuery } from "@tanstack/react-query";
 import { Drawer, Spin } from "antd";
 import { useState } from "react";
 
-import weathersService from "@/api/services/weathersService";
+import GlobalSettings from "@/components/global-settings";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
 import LocalePicker from "@/components/locale-picker";
 import Logo from "@/components/logo";
-import AccountDropdown from "@/layouts/components/account-dropdown";
-import BreadCrumb from "@/layouts/components/bread-crumb";
-import NoticeButton from "@/layouts/components/notice";
-import SearchBar from "@/layouts/components/search-bar";
-import SettingButton from "@/layouts/components/setting-button";
-import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "@/layouts/dashboard/config";
-import NavVertical from "@/layouts/dashboard/nav/nav-vertical";
+import BreadCrumb from "@/layouts/default/bread-crumb";
+import AccountDropdown from "@/layouts/default/header/account-dropdown";
+import NoticeButton from "@/layouts/default/header/notice";
+import SearchBar from "@/layouts/default/header/search-bar";
+import NavVertical from "@/layouts/default/nav/nav-vertical";
+
+import weathersService from "@/api/services/weathersService";
+import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "@/layouts/default/config";
 import { useSettings } from "@/store/settingStore";
 import { themeVars } from "@/theme/theme.css";
 import { cn } from "@/utils";
@@ -70,6 +72,7 @@ export default function Header() {
 					</div>
 
 					<div className="flex">
+						<EnvironmentOutlined />
 						<Spin spinning={isPending} className="h-full">
 							{data && (
 								<div className="flex justify-center items-center gap-4 h-full mr-2">
@@ -89,7 +92,7 @@ export default function Header() {
 							<Iconify icon="mdi:github" size={24} />
 						</IconButton>
 						<NoticeButton />
-						<SettingButton />
+						<GlobalSettings />
 						<AccountDropdown />
 					</div>
 				</div>

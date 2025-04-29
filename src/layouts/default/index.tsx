@@ -13,7 +13,7 @@ import Header from "./header";
 import Main from "./main";
 import Nav from "./nav";
 
-function DashboardLayout() {
+function DefaultLayout() {
 	const { themeLayout } = useSettings();
 
 	const mobileOrTablet = useMediaQuery(down("md"));
@@ -47,4 +47,4 @@ function DashboardLayout() {
 		</Layout>
 	);
 }
-export default DashboardLayout;
+export default DefaultLayout;

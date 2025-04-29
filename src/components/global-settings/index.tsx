@@ -23,7 +23,7 @@ import { cn } from "@/utils";
 /**
  * App Setting
  */
-export default function SettingButton() {
+export default function GlobalSettings() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 
 	const settings = useSettings();

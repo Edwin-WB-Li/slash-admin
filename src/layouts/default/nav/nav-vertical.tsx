@@ -8,19 +8,15 @@ import Scrollbar from "@/components/scrollbar";
 import { useFlattenedRoutes, usePathname, usePermissionRoutes, useRouteToMenuFn } from "@/router/hooks";
 import { menuFilter } from "@/router/utils";
 import { useSettingActions, useSettings } from "@/store/settingStore";
-
-import { NAV_WIDTH } from "../config";
-
-import NavLogo from "./nav-logo";
-
 import { ThemeLayout, ThemeMode } from "#/enum";
-
-const { Sider } = Layout;
+import { NAV_WIDTH } from "../config";
+import NavLogo from "./nav-logo";
 
 type Props = {
 	closeSideBarDrawer?: () => void;
 };
 export default function NavVertical(props: Props) {
+	const { Sider } = Layout;
 	const navigate = useNavigate();
 	const matches = useMatches();
 	const pathname = usePathname();

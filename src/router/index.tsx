@@ -5,7 +5,7 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Navigate, createHashRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 
-import DashboardLayout from "@/layouts/dashboard";
+import DefaultLayout from "@/layouts/default";
 import PageError from "@/pages/sys/error/PageError";
 import Login from "@/pages/sys/login/Login";
 import { usePermissionRoutes } from "@/router/hooks";
@@ -38,7 +38,7 @@ export default function Router() {
 		path: "/",
 		element: (
 			<ProtectedRoute>
-				<DashboardLayout />
+				<DefaultLayout />
 			</ProtectedRoute>
 		),
 		children: [

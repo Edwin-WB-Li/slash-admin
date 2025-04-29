@@ -1,4 +1,4 @@
-export const NAV_WIDTH = 260;
+export const NAV_WIDTH = 240;
 export const NAV_COLLAPSED_WIDTH = 80;
 export const NAV_HORIZONTAL_HEIGHT = 48;
 

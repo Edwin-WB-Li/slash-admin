@@ -1,18 +1,18 @@
 import { Helmet } from "react-helmet-async";
 
-import Logo from "@/assets/images/logo.png";
+import Logo from "@/assets/icons/solar--cat-bold.png";
 import Router from "@/router";
 import { MotionLazy } from "./components/animate/motion-lazy";
 import Toast from "./components/toast";
 import { AntdAdapter } from "./theme/adapter/antd.adapter";
 import { ThemeProvider } from "./theme/theme-provider";
-
+const { VITE_TITLE } = import.meta.env;
 function App() {
 	return (
 		<ThemeProvider adapters={[AntdAdapter]}>
 			<MotionLazy>
 				<Helmet>
-					<title>Slash Admin</title>
+					<title>{VITE_TITLE ?? "Slash Admin"}</title>
 					<link rel="icon" href={Logo} />
 				</Helmet>
 				<Toast />
