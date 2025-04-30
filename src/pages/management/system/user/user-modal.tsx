@@ -44,7 +44,7 @@ export default function UserModal({ title, show, formValue, roleListData, onOk, 
 	};
 
 	return (
-		<Modal title={title} open={show} onOk={handleSumbit} onCancel={onCancel} destroyOnClose forceRender>
+		<Modal title={title} open={show} onOk={handleSumbit} onCancel={onCancel} forceRender>
 			<Form form={form} name="userListModal" labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} layout="horizontal">
 				<Form.Item<UserInfoType>
 					label="UserName"

@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 
-import Logo from "@/assets/icons/solar--cat-bold.png";
+import Logo from "@/assets/images/solar--cat-bold.png";
 import Router from "@/router";
 import { MotionLazy } from "./components/animate/motion-lazy";
 import Toast from "./components/toast";

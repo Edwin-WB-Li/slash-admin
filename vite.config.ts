@@ -1,5 +1,7 @@
+import fs from "node:fs";
 /// <reference types="vitest/config" />
 import path from "node:path";
+
 import react from "@vitejs/plugin-react";
 
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
@@ -17,6 +19,8 @@ export default defineConfig(({ mode }) => {
 	const base = VITE_APP_BASE_PATH ?? "/";
 	const isProduction = mode === "production";
 
+	// 显式读取 package.json（避免 ESM 导入问题）
+	const packageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, "package.json"), "utf-8"));
 	return {
 		// 基础路径
 		base,
@@ -35,6 +39,13 @@ export default defineConfig(({ mode }) => {
 					secure: false,
 				},
 			},
+		},
+		// 获取前段项目所需的依赖版本信息
+		define: {
+			__APP_DEPS__: JSON.stringify({
+				dependencies: packageJson.dependencies,
+				devDependencies: packageJson.devDependencies,
+			}),
 		},
 
 		// 测试用例配置

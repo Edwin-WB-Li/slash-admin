@@ -15,11 +15,20 @@ type MenuItem = GetProp<MenuProps, "items">[number];
 const renderIcon = (icon: string | React.ReactNode): React.ReactNode => {
 	if (typeof icon !== "string") return icon;
 
-	return icon.startsWith("ic") ? (
-		<SvgIcon icon={icon} size={24} className="ant-menu-item-icon" />
-	) : (
-		<Iconify icon={icon} size={24} className="ant-menu-item-icon" />
-	);
+	// 判断是否为 iconify 格式
+	if (icon.includes(":")) {
+		return <Iconify icon={icon} size={24} className="ant-menu-item-icon" />;
+	}
+
+	if (icon.includes("ic")) {
+		<SvgIcon icon={icon} size={24} className="ant-menu-item-icon" />;
+	}
+
+	// return icon.startsWith("ic") ? (
+	// 	<SvgIcon icon={icon} size={24} className="ant-menu-item-icon" />
+	// ) : (
+	// 	<Iconify icon={icon} size={24} className="ant-menu-item-icon" />
+	// );
 };
 
 /**

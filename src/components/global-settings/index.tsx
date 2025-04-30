@@ -142,7 +142,7 @@ export default function GlobalSettings() {
 					variants={varHover(1.05)}
 					onClick={() => setDrawerOpen(true)}
 				>
-					<IconButton className="h-10 w-10">
+					<IconButton className="h-10 w-10 text-2xl">
 						<SvgIcon icon="ic-setting" size="24" />
 					</IconButton>
 				</m.div>

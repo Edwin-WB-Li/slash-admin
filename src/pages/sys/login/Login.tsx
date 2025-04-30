@@ -1,7 +1,7 @@
 import { Layout } from "antd";
 import { Navigate } from "react-router";
 
-import BackgroundImage from "@/assets/icons/login_bg.svg";
+import BackgroundImage from "@/assets/icons/ic-login_bg.svg";
 import LocalePicker from "@/components/locale-picker";
 import { useUserToken } from "@/store/userStore";
 
@@ -17,7 +17,7 @@ import ResetForm from "./ResetForm";
 import { LoginStateProvider } from "./providers/LoginStateProvider";
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
-function Login() {
+export default function Login() {
 	const gradientBg = rgbAlpha(themeVars.colors.background.defaultChannel, 0.8);
 	const bg = `linear-gradient(${gradientBg}, ${gradientBg}) center center / cover no-repeat,url(${BackgroundImage})`;
 	const token = useUserToken();
@@ -52,5 +52,3 @@ function Login() {
 		</Layout>
 	);
 }
-
-export default Login;

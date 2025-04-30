@@ -1,8 +1,6 @@
 import type { CSSProperties } from "react";
 
-import { EnvironmentOutlined } from "@ant-design/icons";
-import { useQuery } from "@tanstack/react-query";
-import { Drawer, Spin } from "antd";
+import { Drawer } from "antd";
 import { useState } from "react";
 
 import GlobalSettings from "@/components/global-settings";
@@ -13,9 +11,9 @@ import BreadCrumb from "@/layouts/default/bread-crumb";
 import AccountDropdown from "@/layouts/default/header/account-dropdown";
 import NoticeButton from "@/layouts/default/header/notice";
 import SearchBar from "@/layouts/default/header/search-bar";
+import WeathersInfo from "@/layouts/default/header/weathers-info";
 import NavVertical from "@/layouts/default/nav/nav-vertical";
 
-import weathersService from "@/api/services/weathersService";
 import { HEADER_HEIGHT, NAV_COLLAPSED_WIDTH, NAV_WIDTH } from "@/layouts/default/config";
 import { useSettings } from "@/store/settingStore";
 import { themeVars } from "@/theme/theme.css";
@@ -26,17 +24,6 @@ import { ThemeLayout } from "#/enum";
 export default function Header() {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const { themeLayout, breadCrumb } = useSettings();
-
-	const { data, isPending } = useQuery({
-		queryKey: ["weathersData"],
-		queryFn: async () => {
-			const res = await weathersService.getWeathers();
-			// 保证返回值不是 undefined
-			return res[0] ?? [];
-		},
-		staleTime: 1000 * 60 * 10, // 10分钟内不重新请求
-		refetchOnWindowFocus: false, // 窗口聚焦时不自动请求
-	});
 
 	const headerStyle: CSSProperties = {
 		borderBottom:
@@ -72,21 +59,8 @@ export default function Header() {
 					</div>
 
 					<div className="flex">
-						<EnvironmentOutlined />
-						<Spin spinning={isPending} className="h-full">
-							{data && (
-								<div className="flex justify-center items-center gap-4 h-full mr-2">
-									<span>{data?.province}</span>
-									<span>{data?.city}</span>
-									<span>{data?.weather}</span>
-									<span>{data?.temperature}°</span>
-									<span>{data?.winddirection}风</span>
-									<span>{data?.windpower}级</span>
-									<span>湿度 {data?.humidity} %</span>
-								</div>
-							)}
-						</Spin>
 						<SearchBar />
+						<WeathersInfo />
 						<LocalePicker />
 						<IconButton onClick={() => window.open("https://github.com/d3george/slash-admin")}>
 							<Iconify icon="mdi:github" size={24} />

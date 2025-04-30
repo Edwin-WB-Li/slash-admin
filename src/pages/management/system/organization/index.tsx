@@ -201,7 +201,7 @@ function OrganizationModal({ title, show, formValue, onOk, onCancel }: Organizat
 		form.setFieldsValue({ ...formValue });
 	}, [formValue, form]);
 	return (
-		<Modal title={title} open={show} onOk={onOk} onCancel={onCancel}>
+		<Modal title={title} open={show} onOk={onOk} onCancel={onCancel} forceRender>
 			<Form initialValues={formValue} form={form} labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} layout="horizontal">
 				<Form.Item<Organization> label="Name" name="name" required>
 					<Input />

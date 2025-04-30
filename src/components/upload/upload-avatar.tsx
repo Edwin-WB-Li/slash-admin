@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { themeVars } from "@/theme/theme.css";
 import { fBytes } from "@/utils/format-number";
+import { toast } from "sonner";
 import { Iconify } from "../icon";
 import { StyledUploadAvatar } from "./styles";
 import { beforeAvatarUpload, getBlobUrl } from "./utils";
@@ -25,11 +26,20 @@ export function UploadAvatar({ helperText, defaultAvatar = "", ...other }: Props
 		if (info.file.status === "uploading") {
 			return;
 		}
-		if (info.file.status === "done" || info.file.status === "error") {
+		if (info.file.status === "done") {
 			// TODO: Get this url from response in real world.
+			toast.success(`${info.file.name} file uploaded successfully.`, {
+				position: "top-center",
+			});
 			if (info.file.originFileObj) {
 				setImageUrl(getBlobUrl(info.file.originFileObj));
 			}
+		}
+
+		if (info.file.status === "error") {
+			toast.success(`${info.file.name} file uploaded successfully.`, {
+				position: "top-center",
+			});
 		}
 	};
 
@@ -69,7 +79,7 @@ export function UploadAvatar({ helperText, defaultAvatar = "", ...other }: Props
 	return (
 		<StyledUploadAvatar>
 			<Upload
-				name="avatar"
+				name="file"
 				showUploadList={false}
 				listType="picture-circle"
 				className="avatar-uploader !flex items-center justify-center"
