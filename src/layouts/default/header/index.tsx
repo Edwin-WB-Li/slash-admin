@@ -62,7 +62,9 @@ export default function Header() {
 						<SearchBar />
 						<WeathersInfo />
 						<LocalePicker />
-						<IconButton onClick={() => window.open("https://github.com/d3george/slash-admin")}>
+						<IconButton
+							onClick={() => window.open("https://github.com/d3george/slash-admin", "WindowName", "noopener")}
+						>
 							<Iconify icon="mdi:github" size={24} />
 						</IconButton>
 						<NoticeButton />
