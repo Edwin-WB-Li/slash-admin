@@ -150,6 +150,7 @@
 				"500": "500"
 			}
 		},
-		"docs": "Document"
+		"docs": "Document",
+		"about": "About"
 	}
 }

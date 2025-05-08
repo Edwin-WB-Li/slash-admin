@@ -1,5 +1,6 @@
 import { Card, Col, Row, Space, Switch, Tabs, type TabsProps, Typography } from "antd";
 import { useState } from "react";
+import { toast } from "sonner";
 
 import { Iconify } from "@/components/icon";
 import { Upload, UploadAvatar, UploadBox } from "@/components/upload";
@@ -9,6 +10,23 @@ export default function UploadPage() {
 
 	const onChange = (checked: boolean) => {
 		setThumbnail(checked);
+	};
+
+	const handleOnChange = (info: { file: { name?: string; status?: string }; fileList: any }) => {
+		const { status } = info.file;
+		console.log("status", status);
+		if (status !== "uploading") {
+			console.log(info.file, info.fileList);
+		}
+		if (status === "done") {
+			toast.success(`${info.file.name} file uploaded successfully.`, {
+				position: "top-center",
+			});
+		} else if (status === "error") {
+			toast.error(`${info.file.name} file uploaded failed.`, {
+				position: "top-center",
+			});
+		}
 	};
 
 	const ThumbnailSwitch = <Switch size="small" checked={thumbnail} onChange={onChange} />;
@@ -24,10 +42,10 @@ export default function UploadPage() {
 	const UploadFileTab = (
 		<Space direction="vertical" size="middle" style={{ display: "flex" }}>
 			<Card title="Upload Multi File" className="w-full" extra={ThumbnailSwitch}>
-				<Upload thumbnail={thumbnail} name="multi" />
+				<Upload thumbnail={thumbnail} multiple name="file" action="/api/v1/file/upload" onChange={handleOnChange} />
 			</Card>
 			<Card title="Upload Single File" extra={ThumbnailSwitch}>
-				<Upload thumbnail={thumbnail} maxCount={1} name="single" />
+				<Upload thumbnail={thumbnail} maxCount={1} name="file" action="/api/v1/file/upload" onChange={handleOnChange} />
 			</Card>
 		</Space>
 	);
@@ -43,16 +61,16 @@ export default function UploadPage() {
 				},
 			}}
 		>
-			<UploadAvatar />
+			<UploadAvatar name="file" action="/api/v1/file/upload" onChange={handleOnChange} />
 		</Card>
 	);
 	const UploadBoxTab = (
 		<Row gutter={[16, 16]}>
 			<Col span={24} md={4}>
-				<UploadBox />
+				<UploadBox name="file" action="/api/v1/file/upload" onChange={handleOnChange} />
 			</Col>
 			<Col span={24} md={20}>
-				<UploadBox placeholder={boxPlaceHolder} />
+				<UploadBox placeholder={boxPlaceHolder} name="file" action="/api/v1/file/upload" onChange={handleOnChange} />
 			</Col>
 		</Row>
 	);

@@ -21,7 +21,7 @@ interface DataType {
 }
 
 export default function ProfileTab() {
-	const { nickName, email, mobile } = useUserInfo();
+	const { nickName, email, mobile, role } = useUserInfo();
 	const AboutItems = [
 		{
 			icon: <Iconify icon="fa-solid:user" size={18} />,
@@ -31,7 +31,7 @@ export default function ProfileTab() {
 		{
 			icon: <Iconify icon="eos-icons:role-binding" size={18} />,
 			label: "Role",
-			val: "Developer",
+			val: role,
 		},
 		{
 			icon: <Iconify icon="tabler:location-filled" size={18} />,

@@ -11,7 +11,7 @@ function Logo({ size = 50 }: Props) {
 
 	return (
 		<NavLink to="/">
-			<Iconify icon="solar:code-square-bold" color={themeTokens.color.palette.primary.default} size={size} />
+			<Iconify icon="solar:cat-outline" color={themeTokens.color.palette.primary.default} size={size} />
 		</NavLink>
 	);
 }

@@ -97,6 +97,7 @@ export default function CalendarEventForm({
 						console.log("Validate Failed:", info);
 					});
 			}}
+			forceRender
 		>
 			<Form form={form} size="small" labelCol={{ span: 4 }} wrapperCol={{ span: 18 }} initialValues={initValues}>
 				<Form.Item<CalendarEventFormFieldType>

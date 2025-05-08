@@ -1,11 +1,11 @@
 import { Layout } from "antd";
 import { Navigate } from "react-router";
 
-import BackguoundImage from "@/assets/images/background/login_bg.svg";
+import BackgroundImage from "@/assets/icons/ic-login_bg.svg";
 import LocalePicker from "@/components/locale-picker";
 import { useUserToken } from "@/store/userStore";
 
-import SettingButton from "@/layouts/components/setting-button";
+import GlobalSettings from "@/components/global-settings";
 import { useUserPermission } from "@/store/userStore";
 import { themeVars } from "@/theme/theme.css";
 import { rgbAlpha } from "@/utils/theme";
@@ -17,9 +17,9 @@ import ResetForm from "./ResetForm";
 import { LoginStateProvider } from "./providers/LoginStateProvider";
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
-function Login() {
+export default function Login() {
 	const gradientBg = rgbAlpha(themeVars.colors.background.defaultChannel, 0.8);
-	const bg = `linear-gradient(${gradientBg}, ${gradientBg}) center center / cover no-repeat,url(${BackguoundImage})`;
+	const bg = `linear-gradient(${gradientBg}, ${gradientBg}) center center / cover no-repeat,url(${BackgroundImage})`;
 	const token = useUserToken();
 	const permissionRoutes = useUserPermission();
 
@@ -47,10 +47,8 @@ function Login() {
 			</div>
 			<div className="absolute right-2 top-0 flex flex-row">
 				<LocalePicker />
-				<SettingButton />
+				<GlobalSettings />
 			</div>
 		</Layout>
 	);
 }
-
-export default Login;

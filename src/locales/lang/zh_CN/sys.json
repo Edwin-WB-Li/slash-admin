@@ -146,6 +146,7 @@
 			"closeRight": "关闭右侧标签页",
 			"fullscreen": "内容全屏",
 			"refresh": "刷新"
-		}
+		},
+		"about": "关于"
 	}
 }

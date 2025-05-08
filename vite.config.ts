@@ -1,5 +1,7 @@
+import fs from "node:fs";
 /// <reference types="vitest/config" />
 import path from "node:path";
+
 import react from "@vitejs/plugin-react";
 
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
@@ -10,14 +12,15 @@ import { defineConfig, loadEnv } from "vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 import tsconfigPaths from "vite-tsconfig-paths";
-// ... existing imports ...
 
 export default defineConfig(({ mode }) => {
 	// 加载环境变量
 	const { VITE_PORT, VITE_TITLE, VITE_APP_BASE_PATH, VITE_LOCAL_API_URL } = loadEnv(mode, process.cwd(), "");
-	const base = VITE_APP_BASE_PATH || "/";
+	const base = VITE_APP_BASE_PATH ?? "/";
 	const isProduction = mode === "production";
 
+	// 显式读取 package.json（避免 ESM 导入问题）
+	const packageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, "package.json"), "utf-8"));
 	return {
 		// 基础路径
 		base,
@@ -26,16 +29,23 @@ export default defineConfig(({ mode }) => {
 		server: {
 			open: true,
 			host: true,
-			port: Number(VITE_PORT) || 3001,
+			port: Number(VITE_PORT) ?? 3001,
 			proxy: {
 				"/api": {
-					// target: VITE_API_URL || 'http://localhost:3000',
+					// target: VITE_API_URL || "http://localhost:3000",
 					target: VITE_LOCAL_API_URL || "http://localhost:3000",
 					changeOrigin: true,
 					// rewrite: (path) => path.replace(/^\/api/, ''),
 					secure: false,
 				},
 			},
+		},
+		// 获取前段项目所需的依赖版本信息
+		define: {
+			__APP_DEPS__: JSON.stringify({
+				dependencies: packageJson.dependencies,
+				devDependencies: packageJson.devDependencies,
+			}),
 		},
 
 		// 测试用例配置
@@ -208,6 +218,189 @@ export default defineConfig(({ mode }) => {
 						"vendor-utils": ["axios", "dayjs", "i18next", "zustand", "@iconify/react"],
 						"vendor-charts": ["apexcharts", "react-apexcharts"],
 					},
+					// 分类配置
+					chunkFileNames: "assets/js/[name]-[hash].js",
+					entryFileNames: "assets/js/[name]-[hash].js",
+					assetFileNames: "assets/[ext]/[name]-[hash].[ext]",
+					// // 更精细的手动分块策略
+					// manualChunks: (id) => {
+					// 	// 分离核心框架代码
+					// 	if (id.includes("node_modules/react") || id.includes("node_modules/react-dom")) {
+					// 		return "vendor-react";
+					// 	}
+					// 	// 分离路由相关
+					// 	if (id.includes("react-router") || id.includes("history")) {
+					// 		return "vendor-router";
+					// 	}
+					// 	// 分离复杂组件库
+					// 	if (id.includes("antd") || id.includes("@ant-design") || id.includes("framer-motion")) {
+					// 		return "vendor-ui";
+					// 	}
+					// 	// 分离可视化相关
+					// 	if (
+					// 		id.includes("apexcharts") ||
+					// 		id.includes("react-apexcharts") ||
+					// 		id.includes("d3") ||
+					// 		id.includes("nivo")
+					// 	) {
+					// 		return "vendor-charts";
+					// 	}
+					// 	// 分离国际化相关
+					// 	if (id.includes("i18next") || id.includes("react-i18next")) {
+					// 		return "vendor-i18n";
+					// 	}
+					// 	// 分离状态管理
+					// 	if (id.includes("zustand") || id.includes("redux")) {
+					// 		return "vendor-state";
+					// 	}
+					// 	// 分离工具库
+					// 	if (id.includes("lodash") || id.includes("ramda") || id.includes("dayjs") || id.includes("axios")) {
+					// 		return "vendor-utils";
+					// 	}
+					// 	// 分离富文本编辑器
+					// 	if (id.includes("react-quill") || id.includes("quill")) {
+					// 		return "vendor-editor";
+					// 	}
+					// },
+					// // 优化文件命名策略
+					// chunkFileNames: (chunkInfo) => {
+					// 	// 对异步 chunk 使用不同的命名策略
+					// 	if (chunkInfo.isDynamicEntry) {
+					// 		return "assets/dynamic/[name]-[hash].js";
+					// 	}
+					// 	return "assets/chunks/[name]-[hash].js";
+					// },
+					// // 使用 contenthash 替代 hash 提升缓存效率
+					// entryFileNames: "assets/js/[name]-[hash].js",
+					// assetFileNames: "assets/js/[name]-[hash].js",
+
+					// manualChunks: (id) => {
+					// 	// 核心框架
+					// 	if (/[\\/]node_modules[\\/](react|react-dom|scheduler|use-sync-external-store)/.test(id)) {
+					// 		return "vendor-react";
+					// 	}
+
+					// 	// 路由系统
+					// 	if (/[\\/]node_modules[\\/](react-router|history|@remix-run)/.test(id)) {
+					// 		return "vendor-router";
+					// 	}
+
+					// 	// UI 组件库
+					// 	if (/[\\/]node_modules[\\/](antd|@ant-design|framer-motion|@dnd-kit)/.test(id)) {
+					// 		return "vendor-ui";
+					// 	}
+
+					// 	// 数据可视化
+					// 	if (/[\\/]node_modules[\\/](apexcharts|d3|nivo|victory)/.test(id)) {
+					// 		return "vendor-charts";
+					// 	}
+
+					// 	// 状态管理
+					// 	if (/[\\/]node_modules[\\/](zustand|redux|mobx|@tanstack)/.test(id)) {
+					// 		return "vendor-state";
+					// 	}
+
+					// 	// 国际化
+					// 	if (/[\\/]node_modules[\\/](i18next|react-i18next)/.test(id)) {
+					// 		return "vendor-i18n";
+					// 	}
+
+					// 	// 富文本编辑器
+					// 	if (/[\\/]node_modules[\\/](react-quill|quill|slate)/.test(id)) {
+					// 		return "vendor-editor";
+					// 	}
+
+					// 	// 工具库
+					// 	if (/[\\/]node_modules[\\/](lodash|ramda|dayjs|axios|clsx|classnames)/.test(id)) {
+					// 		return "vendor-utils";
+					// 	}
+
+					// 	// Markdown 处理
+					// 	if (/[\\/]node_modules[\\/](react-markdown|remark|rehype|unified)/.test(id)) {
+					// 		return "vendor-markdown";
+					// 	}
+
+					// 	// 日历组件
+					// 	if (/[\\/]node_modules[\\/]@fullcalendar/.test(id)) {
+					// 		return "vendor-calendar";
+					// 	}
+					// },
+
+					// // 文件输出策略
+					// entryFileNames: "assets/js/[name]-[hash:8].js",
+					// chunkFileNames: (chunkInfo) => {
+					// 	if (chunkInfo.isDynamicEntry) {
+					// 		return "assets/async/[name]-[hash:8].js";
+					// 	}
+					// 	if (chunkInfo.name.startsWith("vendor-")) {
+					// 		return "assets/vendor/[name]-[hash:8].js";
+					// 	}
+					// 	return "assets/chunks/[name]-[hash:8].js";
+					// },
+
+					// assetFileNames: ({ names }) => {
+					// 	// const ext = names?.split(".").pop()?.toLowerCase() || "misc";
+					// 	const firstName = Array.isArray(names) ? names[0] : names;
+					// 	const ext = firstName?.split(".").pop()?.toLowerCase() || "misc";
+					// 	// return `assets/${ext}/[name]-[hash][extname]`;
+					// 	const dirMap = {
+					// 		css: "css",
+					// 		svg: "images",
+					// 		png: "images",
+					// 		jpg: "images",
+					// 		jpeg: "images",
+					// 		webp: "images",
+					// 		gif: "images",
+					// 		woff2: "fonts",
+					// 		woff: "fonts",
+					// 		ttf: "fonts",
+					// 		eot: "fonts",
+					// 		otf: "fonts",
+					// 	};
+					// 	return `assets/${dirMap[ext] || "misc"}/[name]-[hash:8][extname]`;
+					// },
+
+					// // 高级优化配置
+					// compact: true,
+					// generatedCode: {
+					// 	preset: "es2015",
+					// 	arrowFunctions: true,
+					// 	constBindings: true,
+					// },
+					// minifyInternalExports: true,
+
+					// // 优化后的资源处理配置
+					// assetFileNames: (assetInfo) => {
+					// 	if (!assetInfo.fileName) return "assets/[name]-[hash][extname]";
+					// 	// 使用现代路径解析方式
+					// 	const { name: fileName, ext: fileExt } = path.parse(assetInfo.fileName);
+					// 	const extType = fileExt.toLowerCase().replace(".", "");
+					// 	// 基于类型的目录映射
+					// 	const typeDirs = {
+					// 		svg: "images",
+					// 		png: "images",
+					// 		jpg: "images",
+					// 		jpeg: "images",
+					// 		webp: "images",
+					// 		gif: "images",
+					// 		woff: "fonts",
+					// 		woff2: "fonts",
+					// 		eot: "fonts",
+					// 		ttf: "fonts",
+					// 		otf: "fonts",
+					// 		css: "css",
+					// 	};
+					// 	// 获取分类目录
+					// 	const dir = typeDirs[extType] || "misc";
+					// 	const hash = "[hash:10]"; // 缩短 hash 长度
+					// 	// 处理带路径的资源
+					// 	const baseName = path.basename(fileName, fileExt);
+					// 	// 特殊处理 CSS 文件
+					// 	if (extType === "css") {
+					// 		return `assets/${dir}/[name]-${hash}${fileExt}`;
+					// 	}
+					// 	return `assets/${dir}/${baseName}-${hash}${fileExt}`;
+					// },
 				},
 			},
 		},

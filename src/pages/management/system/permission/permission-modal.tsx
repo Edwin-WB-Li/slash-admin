@@ -210,7 +210,7 @@ export default function PermissionModal({ title, show, formValue, onOk, onCancel
 				<InputNumber style={{ width: "100%" }} />
 			</Form.Item>
 
-			<Form.Item<MenuOptions> label="Disabled" name="disabled" required>
+			<Form.Item<MenuOptions> label="Status" name="disabled" required>
 				<Radio.Group optionType="button" buttonStyle="solid">
 					<Radio value={false}> Enable </Radio>
 					<Radio value={true}> Disable </Radio>

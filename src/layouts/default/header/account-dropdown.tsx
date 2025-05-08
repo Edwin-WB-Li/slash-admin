@@ -1,6 +1,6 @@
 import type { DropdownProps, MenuProps } from "antd";
 
-import { Divider, Dropdown } from "antd";
+import { Divider, Dropdown, Space } from "antd";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router";
@@ -16,7 +16,7 @@ import { useTheme } from "@/theme/hooks";
  */
 export default function AccountDropdown() {
 	const { replace } = useRouter();
-	const { nickName, email, avatar } = useUserInfo();
+	const { nickName, email, avatar, role, roleName } = useUserInfo();
 	const { clearUserInfoAndToken } = useUserActions();
 	const { backToLogin } = useLoginStateContext();
 	const { t } = useTranslation();
@@ -47,8 +47,13 @@ export default function AccountDropdown() {
 	const dropdownRender: DropdownProps["dropdownRender"] = (menu) => (
 		<div style={contentStyle}>
 			<div className="flex flex-col items-start p-4">
-				<div>{nickName}</div>
-				<div className="text-gray">{email}</div>
+				<Space direction="vertical">
+					<div>{nickName}</div>
+					<div>
+						{role} - {roleName}
+					</div>
+					<div className="text-gray">{email}</div>
+				</Space>
 			</div>
 			<Divider style={{ margin: 0 }} />
 			{React.cloneElement(menu as React.ReactElement, { style: menuStyle })}

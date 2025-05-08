@@ -1,7 +1,7 @@
+import type { IconProps } from "@iconify/react";
+
 import { Icon, disableCache } from "@iconify/react";
 import styled from "styled-components";
-
-import type { IconProps } from "@iconify/react";
 
 interface Props extends IconProps {
 	size?: IconProps["width"];

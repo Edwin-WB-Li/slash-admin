@@ -331,8 +331,6 @@ export default function UserListPage() {
 						</Col>
 
 						<Col span={24} lg={12}>
-							{/* <div className="flex justify-end"> */}
-							{/* <Form.Item label={null}> */}
 							<Space>
 								<Button type="primary" onClick={handleReset}>
 									{t("common.resetText")}
@@ -341,8 +339,6 @@ export default function UserListPage() {
 									{t("common.queryText")}
 								</Button>
 							</Space>
-							{/* </Form.Item> */}
-							{/* </div> */}
 						</Col>
 					</Row>
 				</Form>

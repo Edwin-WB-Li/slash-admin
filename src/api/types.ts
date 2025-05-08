@@ -122,3 +122,7 @@ export interface WeathersResponseType {
 	temperature_float: string;
 	humidity_float: string;
 }
+
+export interface UploadType {
+	filePath: string | string[];
+}
