@@ -15,6 +15,7 @@ type SettingsType = {
 	fontFamily: string;
 	fontSize: number;
 	direction: "ltr" | "rtl";
+	guide: boolean;
 };
 
 type SettingStore = {
@@ -40,6 +41,7 @@ const useSettingStore = create<SettingStore>()(
 				fontFamily: FontFamilyPreset.openSans,
 				fontSize: Number(typographyTokens.fontSize.sm),
 				direction: "ltr",
+				guide: false,
 			},
 			actions: {
 				setSettings: (settings) => {

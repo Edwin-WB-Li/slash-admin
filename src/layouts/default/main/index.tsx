@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import { type CSSProperties, forwardRef } from "react";
 
 import { Layout } from "antd";
 import { Outlet } from "react-router";
@@ -10,7 +10,8 @@ import { ThemeLayout } from "#/enum";
 import { MULTI_TABS_HEIGHT } from "../config";
 import MultiTabs from "../multi-tabs";
 import { MultiTabsProvider } from "../multi-tabs/providers/multi-tabs-provider";
-const Main = () => {
+
+export default forwardRef<HTMLElement>(function Main(_props, ref) {
 	const { Content } = Layout;
 	const { themeStretch, themeLayout, multiTab } = useSettings();
 
@@ -22,7 +23,7 @@ const Main = () => {
 	};
 
 	return (
-		<Content style={mainStyle} className="flex">
+		<Content style={mainStyle} className="flex" ref={ref}>
 			<div className="flex-grow overflow-auto size-full">
 				<div
 					className={cn(
@@ -42,6 +43,4 @@ const Main = () => {
 			</div>
 		</Content>
 	);
-};
-
-export default Main;
+});

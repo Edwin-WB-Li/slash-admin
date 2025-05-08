@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 
 import { Drawer } from "antd";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 import GlobalSettings from "@/components/global-settings";
 import { IconButton, Iconify, SvgIcon } from "@/components/icon";
@@ -21,7 +21,7 @@ import { cn } from "@/utils";
 import { rgbAlpha } from "@/utils/theme";
 import { ThemeLayout } from "#/enum";
 
-export default function Header() {
+export default forwardRef<HTMLElement>(function DefaultLayout(_props, headerRef) {
 	const [drawerOpen, setDrawerOpen] = useState(false);
 	const { themeLayout, breadCrumb } = useSettings();
 
@@ -37,6 +37,7 @@ export default function Header() {
 	return (
 		<>
 			<header
+				ref={headerRef}
 				className={cn(themeLayout === ThemeLayout.Horizontal ? "relative" : "sticky top-0 right-0 left-auto")}
 				style={headerStyle}
 			>
@@ -73,6 +74,7 @@ export default function Header() {
 					</div>
 				</div>
 			</header>
+			{/* 小屏隐藏菜单栏 */}
 			<Drawer
 				placement="left"
 				onClose={() => setDrawerOpen(false)}
@@ -84,4 +86,4 @@ export default function Header() {
 			</Drawer>
 		</>
 	);
-}
+});

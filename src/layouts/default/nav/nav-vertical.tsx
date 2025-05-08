@@ -1,7 +1,7 @@
 import type { MenuProps } from "antd";
 
 import { Layout, Menu } from "antd";
-import { useEffect, useMemo, useState } from "react";
+import { forwardRef, useEffect, useMemo, useState } from "react";
 import { useMatches, useNavigate } from "react-router";
 
 import Scrollbar from "@/components/scrollbar";
@@ -15,7 +15,8 @@ import NavLogo from "./nav-logo";
 type Props = {
 	closeSideBarDrawer?: () => void;
 };
-export default function NavVertical(props: Props) {
+// export default function NavVertical(props: Props) {
+export default forwardRef<HTMLDivElement, Props>(function Nav(props, ref) {
 	const { Sider } = Layout;
 	const navigate = useNavigate();
 	const matches = useMatches();
@@ -80,6 +81,7 @@ export default function NavVertical(props: Props) {
 
 	return (
 		<Sider
+			ref={ref}
 			trigger={null}
 			collapsible
 			collapsed={collapsed}
@@ -105,4 +107,4 @@ export default function NavVertical(props: Props) {
 			</div>
 		</Sider>
 	);
-}
+});

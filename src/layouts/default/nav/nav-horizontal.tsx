@@ -1,7 +1,7 @@
 import type { MenuProps } from "antd";
 
 import { Menu } from "antd";
-import { useMemo } from "react";
+import { forwardRef, useMemo } from "react";
 import { useNavigate } from "react-router";
 
 import { useFlattenedRoutes, usePathname, usePermissionRoutes, useRouteToMenuFn } from "@/router/hooks";
@@ -9,7 +9,7 @@ import { menuFilter } from "@/router/utils";
 import { themeVars } from "@/theme/theme.css";
 import { NAV_HORIZONTAL_HEIGHT } from "../config";
 
-export default function NavHorizontal() {
+export default forwardRef<HTMLDivElement>(function NavHorizontal(_props, ref) {
 	const navigate = useNavigate();
 	const pathname = usePathname();
 
@@ -37,7 +37,7 @@ export default function NavHorizontal() {
 	};
 
 	return (
-		<div className="w-screen" style={{ height: NAV_HORIZONTAL_HEIGHT }}>
+		<div className="w-screen" style={{ height: NAV_HORIZONTAL_HEIGHT }} ref={ref}>
 			<Menu
 				mode="horizontal"
 				items={menuList}
@@ -49,4 +49,4 @@ export default function NavHorizontal() {
 			/>
 		</div>
 	);
-}
+});

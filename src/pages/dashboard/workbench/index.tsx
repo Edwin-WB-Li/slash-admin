@@ -14,17 +14,16 @@ function Workbench() {
 	return (
 		<div className="p-2">
 			<Row gutter={[16, 16]} justify="center">
-				<Col span={24} lg={16}>
+				<Col span={24} xs={24} lg={16}>
 					<BannerCard />
 				</Col>
-				<Col span={24} lg={8}>
+				<Col span={24} xs={24} lg={8}>
 					<Space direction="vertical" size="large" className="h-full w-full justify-center">
 						<Conversion />
 						<Applications />
 					</Space>
 				</Col>
 			</Row>
-
 			<Row gutter={[16, 16]} className="mt-4" justify="center">
 				<Col span={24} md={8}>
 					<TotalCard
