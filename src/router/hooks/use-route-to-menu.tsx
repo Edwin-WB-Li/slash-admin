@@ -1,6 +1,7 @@
 import type { GetProp, MenuProps } from "antd";
 import type { AppRouteObject } from "#/router";
 
+import * as Icons from "@ant-design/icons";
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -20,15 +21,17 @@ const renderIcon = (icon: string | React.ReactNode): React.ReactNode => {
 		return <Iconify icon={icon} size={24} className="ant-menu-item-icon" />;
 	}
 
-	if (icon.includes("ic")) {
-		<SvgIcon icon={icon} size={24} className="ant-menu-item-icon" />;
+	// Ant Design 图标（如 "CaretLeftOutlined"）
+	if (icon in Icons) {
+		const AntdIcon = (Icons as any)[icon];
+		return <AntdIcon className="ant-menu-item-icon" />;
 	}
 
-	// return icon.startsWith("ic") ? (
-	// 	<SvgIcon icon={icon} size={24} className="ant-menu-item-icon" />
-	// ) : (
-	// 	<Iconify icon={icon} size={24} className="ant-menu-item-icon" />
-	// );
+	// 自定义 svg
+	if (icon.includes("ic")) {
+		return <SvgIcon icon={icon} size={24} className="ant-menu-item-icon" />;
+	}
+	return null;
 };
 
 /**
